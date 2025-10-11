@@ -1,0 +1,42 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #fdfdfd;
+}
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+#currentNumber {
+    font-size: 5rem;
+    margin: 30px 0;
+    color: #222;
+}
+button {
+    font-size: 2rem;
+    padding: 15px 30px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+#numbers {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.number {
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    background-color: #e0e0e0;
+}
+.drawn {
+    background-color: #ff4c4c;
+    color: white;
+}
