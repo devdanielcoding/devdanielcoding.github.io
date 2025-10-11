@@ -1,0 +1,37 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} | Daniel S Ríos` : 'Daniel S Ríos'}</title>
+    <meta name="description" content={description ?? 'Hub de herramientas y productos de datos de Daniel S Ríos.'} />
+    <link rel="stylesheet" href={Astro.resolve('../styles/global.css')} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-content">
+        <a class="brand" href="/">Daniel S Ríos</a>
+        <nav class="nav-links" aria-label="Navegación principal">
+          <a href="/">Inicio</a>
+          <a href="/tools/">Herramientas</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-content">
+        <p>© {new Date().getFullYear()} Daniel S Ríos • Hub de herramientas</p>
+      </div>
+    </footer>
+  </body>
+</html>

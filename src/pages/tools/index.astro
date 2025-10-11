@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+const tools = [
+  {
+    category: 'Combustible',
+    title: 'Calculadora de costo por km',
+    desc: 'Ingresa km, galones y precio por galón para estimar tu costo de viaje y combustible.',
+    href: '/tools/calculadora-km-combustible/',
+  },
+  {
+    category: 'Recursos',
+    title: 'Generador de Favicon',
+    desc: 'Convierte un PNG en un favicon (.ico) directamente en el navegador.',
+    href: '/tools/favicongen/',
+  },
+  {
+    category: 'Imágenes',
+    title: 'Transformador de Imágenes',
+    desc: 'Redimensiona y convierte imágenes PNG a JPG de forma rápida para la web.',
+    href: '/tools/imgtransform/',
+  },
+];
+---
+<BaseLayout title="Herramientas" description="Colección de utilidades rápidas por Daniel S Ríos." >
+  <section class="wrap section">
+    <header>
+      <h1>Herramientas</h1>
+      <p class="muted">Colección de utilidades rápidas. Estilo consistente con la calculadora de combustible.</p>
+    </header>
+
+    <div class="card" style="margin-bottom: 12px;">
+      <label class="sr-only" for="tool-search">Buscar herramienta</label>
+      <input
+        id="tool-search"
+        class="search-input"
+        type="search"
+        placeholder="Buscar herramienta (ej. 'combustible', 'favicon', 'imagen')"
+        aria-label="Buscar herramienta"
+      />
+    </div>
+
+    <div class="grid" id="tool-grid">
+      {tools.map((tool) => (
+        <ToolCard {...tool} />
+      ))}
+    </div>
+
+    <div class="hr" role="presentation"></div>
+    <p class="footer-note">Hub de herramientas.</p>
+  </section>
+
+  <script src={Astro.resolve('../../scripts/tools-search.js')} defer></script>
+</BaseLayout>

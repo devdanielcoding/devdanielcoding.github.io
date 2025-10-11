@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Convertir PNG a Favicon" description="Genera favicons .ico a partir de imágenes PNG directamente en el navegador." >
+  <section class="wrap section">
+    <div class="card tool-detail">
+      <h1>🔄 Convertir PNG a Favicon (.ico)</h1>
+      <p class="sub">Selecciona tu imagen PNG y conviértela a un favicon descargable.</p>
+
+      <label for="fileInput">Selecciona un archivo PNG</label>
+      <input type="file" id="fileInput" accept="image/png" />
+
+      <button id="convertButton" type="button">Convertir y descargar</button>
+
+      <div id="output" aria-live="polite"></div>
+      <canvas id="canvas" width="32" height="32" hidden></canvas>
+
+      <p class="footer-note">Tu imagen no se sube a ningún servidor. Todo el proceso ocurre en tu navegador.</p>
+    </div>
+  </section>
+
+  <script src={Astro.resolve('../../scripts/favicongen.js')} defer></script>
+</BaseLayout>
