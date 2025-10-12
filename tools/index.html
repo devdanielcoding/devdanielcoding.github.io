@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Herramientas</title>
+  <style>
+    :root { --bg: #0f172a; --card:#111827; --muted:#9ca3af; --accent:#22c55e; --text:#e5e7eb; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:var(--bg); color:var(--text)}
+    .wrap{max-width:1100px;margin:40px auto;padding:24px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:8px}
+    h1{font-size:clamp(22px,3vw,28px);margin:0}
+    p.sub{color:var(--muted);margin:2px 0 0}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px;box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-top:14px}
+    .tool{display:flex;flex-direction:column;gap:10px;transition:transform .1s ease, border-color .15s ease}
+    .tool:hover{transform:translateY(-2px);border-color:#334155}
+    .badge{display:inline-block;font-size:12px;color:#cbd5e1}
+    .tool h3{margin:0;font-size:18px}
+    .tool p{margin:0;color:var(--muted)}
+    .tool a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);font-weight:600;padding:10px 12px;border:1px solid #334155;border-radius:12px}
+    .tool a:hover{border-color:#475569}
+    .emoji{font-size:22px;line-height:1}
+    .hr{height:1px;background:#1f2937;margin:18px 0}
+    .footer{margin-top:6px;font-size:12px;color:#93a2b8}
+    input.search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #374151;background:#0b1220;color:var(--text);outline:none}
+    input.search:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.15)}
+    .hide{display:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Herramientas</h1>
+        <p class="sub">Colección de utilidades rápidas. Estilo consistente con la calculadora de combustible.</p>
+      </div>
+    </header>
+
+    <div class="card" style="margin-bottom:12px">
+      <input class="search" id="q" type="search" placeholder="Buscar herramienta (ej. 'combustible', 'favicon', 'imagen')" />
+    </div>
+
+    <div class="grid" id="tools">
+      <div class="card tool" data-tags="combustible gasolina km costo viaje calculadora">
+        <span class="badge">Combustible</span>
+        <h3>Calculadora de costo por km</h3>
+        <p>Ingresa km, galones y precio por galón. Estima el costo de un viaje.</p>
+        <a href="calculadora-km-combustible/calculadora-km-combustible.html" aria-label="Abrir calculadora de costo por km">
+          <span class="emoji">⛽</span>
+          <span>Abrir</span>
+        </a>
+      </div>
+
+      <div class="card tool" data-tags="favicon icono generador recursos web">
+        <span class="badge">Recursos</span>
+        <h3>Generador de Favicon</h3>
+        <p>Crea íconos favicon para tu sitio web a partir de una imagen.</p>
+        <a href="favicongen/favicongen.html" aria-label="Abrir generador de favicon">
+          <span class="emoji">🧩</span>
+          <span>Abrir</span>
+        </a>
+      </div>
+
+      <div class="card tool" data-tags="imagen transformar redimensionar compresion editor">
+        <span class="badge">Imágenes</span>
+        <h3>Transformador de Imágenes</h3>
+        <p>Redimensiona/convierte imágenes para la web de forma simple.</p>
+        <a href="imgtransform/imgtransform.html" aria-label="Abrir transformador de imágenes">
+          <span class="emoji">🖼️</span>
+          <span>Abrir</span>
+        </a>
+      </div>
+
+      <!-- Ejemplo de slot futuro
+      <div class="card tool" data-tags="utilidad ejemplo">
+        <span class="badge">Ejemplo</span>
+        <h3>Nombre de herramienta</h3>
+        <p>Descripción breve de lo que hace.</p>
+        <a href="ruta-de-la-herramienta/" aria-label="Abrir herramienta">
+          <span class="emoji">🛠️</span>
+          <span>Abrir</span>
+        </a>
+      </div>-->
+    </div>
+
+    <div class="hr"></div>
+    <div class="footer">Hub de herramientas.</div>
+  </div>
+
+  <script>
+    const input = document.getElementById('q');
+    const grid = document.getElementById('tools');
+    const cards = Array.from(grid.querySelectorAll('.tool'));
+
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      for (const c of cards) {
+        const text = (c.innerText + ' ' + (c.dataset.tags||'')).toLowerCase();
+        c.classList.toggle('hide', q && !text.includes(q));
+      }
+    });
+  </script>
+</body>
+</html>

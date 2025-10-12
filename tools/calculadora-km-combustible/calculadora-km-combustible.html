@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de costo por kilómetro</title>
+  <style>
+    :root { --bg: #0f172a; --card:#111827; --muted:#9ca3af; --accent:#22c55e; --text:#e5e7eb; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:var(--bg); color:var(--text)}
+    .wrap{max-width:900px;margin:40px auto;padding:24px}
+    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px;box-shadow:0 10px 20px rgba(0,0,0,.25)}
+    h1{font-size:clamp(22px,3vw,28px);margin:0 0 10px}
+    p.desc{color:var(--muted);margin-top:0}
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr)}
+    .col-6{grid-column:span 6}
+    .col-4{grid-column:span 4}
+    .col-12{grid-column:span 12}
+    @media (max-width:720px){.col-6,.col-4{grid-column:span 12}}
+    label{display:block;font-size:14px;color:#cbd5e1;margin:6px 0}
+    input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #374151;background:#0b1220;color:var(--text);outline:none}
+    input:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.15)}
+    .row{display:flex;gap:10px;align-items:center}
+    .btn{appearance:none;border:1px solid #334155;background:#0b1220;color:#d1d5db;border-radius:12px;padding:10px 14px;cursor:pointer}
+    .btn:hover{border-color:#475569}
+    .btn.primary{background:var(--accent);color:#052e16;border-color:#16a34a}
+    .muted{color:var(--muted)}
+    .results{display:grid;gap:10px;grid-template-columns:repeat(12,1fr)}
+    .stat{grid-column:span 3;background:#0b1220;border:1px solid #1f2937;padding:14px;border-radius:14px}
+    .stat h3{margin:0 0 6px;font-size:12px;letter-spacing:.04em;color:#9ca3af;text-transform:uppercase}
+    .stat .val{font-size:20px;font-weight:700}
+    @media (max-width:900px){.stat{grid-column:span 6}}
+    @media (max-width:520px){.stat{grid-column:span 12}}
+    .hr{height:1px;background:#1f2937;margin:14px 0}
+    .footer{margin-top:14px;font-size:12px;color:#93a2b8}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Calculadora de costo por kilómetro</h1>
+      <p class="desc">Ingresa tus datos reales (galón ≈ 3.785 L). Los resultados se actualizan al instante.</p>
+
+      <div class="grid">
+        <div class="col-4">
+          <label for="km">Kilómetros recorridos</label>
+          <input id="km" type="number" inputmode="decimal" placeholder="e.g. 250" min="0" step="0.01" />
+        </div>
+        <div class="col-4">
+          <label for="gal">Galones consumidos</label>
+          <input id="gal" type="number" inputmode="decimal" placeholder="e.g. 6" min="0" step="0.001" />
+        </div>
+        <div class="col-4">
+          <label for="ppg">Precio por galón (S/)</label>
+          <input id="ppg" type="number" inputmode="decimal" placeholder="e.g. 15" min="0" step="0.01" />
+        </div>
+
+        <div class="col-12 row" style="margin-top:6px">
+          <button class="btn" id="demo">Cargar ejemplo</button>
+          <button class="btn" id="clear">Limpiar</button>
+        </div>
+
+        <div class="col-12">
+          <div class="hr"></div>
+        </div>
+
+        <div class="col-12">
+          <h2 style="margin:0 0 8px;font-size:18px">Resultados (fase 1)</h2>
+          <div class="results" id="phase1">
+            <div class="stat">
+              <h3>km por galón</h3>
+              <div class="val" id="kmPerGal">–</div>
+            </div>
+            <div class="stat">
+              <h3>km por litro</h3>
+              <div class="val" id="kmPerL">–</div>
+            </div>
+            <div class="stat">
+              <h3>Consumo L/100 km</h3>
+              <div class="val" id="lPer100">–</div>
+            </div>
+            <div class="stat">
+              <h3>Costo por km</h3>
+              <div class="val" id="costPerKm">–</div>
+            </div>
+          </div>
+          <p class="muted" id="note1" style="margin-top:6px"></p>
+        </div>
+
+        <div class="col-12">
+          <div class="hr"></div>
+        </div>
+
+        <div class="col-6">
+          <h2 style="margin:0 0 8px;font-size:18px">Calculadora de recorridos (fase 2)</h2>
+          <label for="planKm">Kilómetros a recorrer</label>
+          <input id="planKm" type="number" inputmode="decimal" placeholder="e.g. 25" min="0" step="0.01" />
+          <div class="row" style="margin-top:10px">
+            <button class="btn primary" id="calcTrip">Calcular costo estimado</button>
+            <span class="muted" id="tripHint">Primero completa la fase 1.</span>
+          </div>
+          <div class="stat" style="margin-top:10px">
+            <h3>Costo estimado del viaje</h3>
+            <div class="val" id="tripCost">–</div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <h2 style="margin:0 0 8px;font-size:18px">Resumen</h2>
+          <div class="stat" style="margin-bottom:10px">
+            <h3>Precio por galón</h3>
+            <div class="val" id="ppgOut">–</div>
+          </div>
+          <div class="stat">
+            <h3>Rendimiento base</h3>
+            <div class="val" id="rendBase">–</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">Web tools</div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id)=>document.getElementById(id);
+    const LITERS_PER_GAL = 3.785;
+    const PEN = new Intl.NumberFormat('es-PE',{style:'currency',currency:'PEN',maximumFractionDigits:2});
+    const NUM = new Intl.NumberFormat('es-PE',{maximumFractionDigits:2});
+
+    const fields = ['km','gal','ppg','planKm'];
+
+    function load() {
+      try {
+        fields.forEach(f=>{ const v=localStorage.getItem('fuel_'+f); if(v!==null) $(f).value = v; });
+      } catch {}
+      compute();
+    }
+    function save() {
+      try { fields.forEach(f=> localStorage.setItem('fuel_'+f, $(f).value)); } catch {}
+    }
+
+    function validNumber(x){ return Number.isFinite(x) && x>0; }
+
+    function compute(){
+      const km = parseFloat($("km").value);
+      const gal = parseFloat($("gal").value);
+      const ppg = parseFloat($("ppg").value);
+
+      let kmPerGal = NaN, kmPerL = NaN, lPer100 = NaN, costPerKm = NaN;
+
+      if(validNumber(km) && validNumber(gal)){
+        kmPerGal = km/gal;
+        kmPerL = kmPerGal / LITERS_PER_GAL;
+        lPer100 = 100 / kmPerL;
+      }
+      if(validNumber(ppg) && validNumber(kmPerGal)){
+        costPerKm = ppg / kmPerGal;
+      }
+
+      $("kmPerGal").textContent = validNumber(kmPerGal)? NUM.format(kmPerGal) + ' km/gal' : '–';
+      $("kmPerL").textContent   = validNumber(kmPerL)?   NUM.format(kmPerL)   + ' km/L'   : '–';
+      $("lPer100").textContent  = validNumber(lPer100)?  NUM.format(lPer100)  + ' L/100 km': '–';
+      $("costPerKm").textContent= validNumber(costPerKm)? PEN.format(costPerKm) + ' / km' : '–';
+
+      $("ppgOut").textContent = validNumber(ppg)? PEN.format(ppg) + ' por galón' : '–';
+      $("rendBase").textContent = validNumber(kmPerGal)? `${NUM.format(kmPerGal)} km/gal · ${NUM.format(kmPerL)} km/L` : '–';
+
+      const okPhase1 = validNumber(costPerKm);
+      $("tripHint").textContent = okPhase1? 'Listo, ahora ingresa los km del viaje.' : 'Primero completa la fase 1.';
+      return {okPhase1, costPerKm};
+    }
+
+    function estimateTrip(){
+      const {okPhase1, costPerKm} = compute();
+      const planKm = parseFloat($("planKm").value);
+      if(!okPhase1 || !validNumber(planKm)){
+        $("tripCost").textContent = '–';
+        return;
+      }
+      const cost = planKm * costPerKm;
+      $("tripCost").textContent = PEN.format(cost);
+    }
+
+    // Events
+    ["km","gal","ppg"].forEach(id=> $(id).addEventListener('input', ()=>{ save(); compute(); }));
+    $("planKm").addEventListener('input', ()=>{ save(); estimateTrip(); });
+    $("calcTrip").addEventListener('click', estimateTrip);
+
+    $("demo").addEventListener('click', ()=>{
+      $("km").value = 250;
+      $("gal").value = 6;
+      $("ppg").value = 15;
+      $("planKm").value = 25;
+      save();
+      compute();
+      estimateTrip();
+    });
+    $("clear").addEventListener('click', ()=>{
+      fields.forEach(f=> $(f).value = '');
+      save();
+      compute();
+      $("tripCost").textContent = '–';
+    });
+
+    // Nota dinámica
+    const note = $("note1");
+    note.textContent = `Se usa 1 galón ≈ ${LITERS_PER_GAL} L. Cambios en precio o consumo afectan el costo por km.`;
+
+    load();
+  </script>
+</body>
+</html>
