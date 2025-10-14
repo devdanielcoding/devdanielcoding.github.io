@@ -35,5 +35,14 @@ export const PROJECTS = [
     emoji: '🎲',
     tags: ['Canvas', 'JS'],
     category: 'games'
+  },
+  {
+    id: 'DS1',
+    title: 'Churn Base',
+    desc: 'Analisis base de churn.',
+    path: '/data-science/churn-base/',
+    emoji: '📈',
+    tags: ['Python', 'churn'],
+    category: 'data-science'
   }
 ];

@@ -3,67 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>devdanielcoding — Proyectos</title>
+  <title>Juegos — devdanielcoding</title>
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
   <div class="wrap">
-    <!-- Header -->
     <header>
       <div>
-        <h1>Proyectos</h1>
-        <p class="sub">Colección compacta de <strong>herramientas</strong> y <strong>juegos</strong>.</p>
+        <h1>Juegos</h1>
+        <p class="sub">Pequeños juegos web para pasar el rato.</p>
       </div>
       <nav class="nav-actions">
-        <a class="btn" href="/tools/">Ver Herramientas</a>
-        <a class="btn btn-outline" href="/games/">Ver Juegos</a>
+        <a class="btn btn-outline" href="/">← Volver</a>
+        <a class="btn btn-outline" href="/tools/">Herramientas</a>
+        <a class="btn" href="/data-science/">Data Science</a>
       </nav>
     </header>
 
-    <!-- Hero -->
     <section class="hero card">
       <div class="hero-content">
-        <h2 class="hero-title">Proyectos varios</h2>
-        <p class="hero-text">Mini proyectos útiles, código claro y foco en aprendizaje práctico.</p>
+        <h2 class="hero-title">Juegos en el navegador</h2>
+        <p class="hero-text">Experimentos ligeros con JS, Canvas y animaciones.</p>
         <div class="hero-cta">
-          <input class="search" id="search" placeholder="Buscar proyectos (ej. calculadora, bingo)"/>
+          <input class="search" id="search" placeholder="Buscar juegos…" />
         </div>
       </div>
-      <div class="hero-aside">
-        <div class="note">Tip: todo es open-source</div>
-      </div>
+      <div class="hero-aside"><div class="note">Tip: comparte y juega</div></div>
     </section>
 
-    <!-- Herramientas -->
     <section class="section-block">
-      <div class="section-head">
-        <h2>Herramientas</h2>
-        <a class="btn-link" href="/tools/">Ver todo →</a>
-      </div>
-      <div class="grid auto" id="tools-grid"></div>
-    </section>
-
-    <div class="hr"></div>
-
-    <!-- Juegos -->
-    <section class="section-block">
-      <div class="section-head">
-        <h2>Juegos</h2>
-        <a class="btn-link" href="/games/">Ver todo →</a>
-      </div>
+      <div class="section-head"><h2>Todos</h2></div>
       <div class="grid auto" id="games-grid"></div>
     </section>
 
-    <footer class="footer">
-      Hecho para hacer de mi día a día más productivo. © <span id="year"></span> devdanielcoding
-    </footer>
+    <footer class="footer">© <span id="year"></span> devdanielcoding</footer>
   </div>
 
-  <!-- Scripts -->
-  <script>
-    // Año dinámico
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script type="module" src="../scripts.js"></script>
 </body>
 </html>

@@ -1,11 +1,14 @@
-import { PROJECTS } from '../data/projects.js';
+// Ajusta la ruta según dónde esté este archivo:
+// - Si scripts.js está en la raíz (junto a index.html), usa "./data/projects.js"
+import { PROJECTS } from "./data/projects.js";
 
-const toolsGrid = document.getElementById('tools-grid');
-const gamesGrid = document.getElementById('games-grid');
-const searchInput = document.getElementById('search');
+const toolsGrid = document.getElementById("tools-grid");
+const gamesGrid = document.getElementById("games-grid");
+const dataGrid  = document.getElementById("data-grid");   // nuevo contenedor
+const searchInput = document.getElementById("search");
 
 function cardHTML({ id, title, desc, path, emoji, tags }) {
-  const tagsHTML = (tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+  const tagsHTML = (tags || []).map(t => `<span class="tag">${t}</span>`).join("");
   return `
     <article class="card tool">
       <span class="badge">#${id}</span>
@@ -18,31 +21,41 @@ function cardHTML({ id, title, desc, path, emoji, tags }) {
 }
 
 function render(list) {
-  // Limpia contenedores
-  toolsGrid.innerHTML = '';
-  gamesGrid.innerHTML = '';
+  // Limpieza segura (cada grid puede no existir en algunas páginas)
+  if (toolsGrid) toolsGrid.innerHTML = "";
+  if (gamesGrid) gamesGrid.innerHTML = "";
+  if (dataGrid)  dataGrid.innerHTML  = "";
 
-  // Pinta por categoría
-  list.filter(p => p.category === 'tools')
-      .forEach(p => toolsGrid.insertAdjacentHTML('beforeend', cardHTML(p)));
+  // Herramientas
+  if (toolsGrid) {
+    list.filter(p => p.category === "tools")
+        .forEach(p => toolsGrid.insertAdjacentHTML("beforeend", cardHTML(p)));
+  }
 
-  list.filter(p => p.category === 'games')
-      .forEach(p => gamesGrid.insertAdjacentHTML('beforeend', cardHTML(p)));
+  // Juegos
+  if (gamesGrid) {
+    list.filter(p => p.category === "games")
+        .forEach(p => gamesGrid.insertAdjacentHTML("beforeend", cardHTML(p)));
+  }
+
+  // Data Science (usa su propio grid)
+  if (dataGrid) {
+    list.filter(p => p.category === "data-science")
+        .forEach(p => dataGrid.insertAdjacentHTML("beforeend", cardHTML(p)));
+  }
 }
 
-// Render inicial (orden opcional por id)
+// Render inicial (orden por id)
 const sorted = [...PROJECTS].sort((a, b) => a.id.localeCompare(b.id));
 render(sorted);
 
-// Búsqueda en vivo sobre título, desc y tags
-searchInput?.addEventListener('input', (e) => {
+// Búsqueda en vivo (título, descripción y tags)
+searchInput?.addEventListener("input", (e) => {
   const q = e.target.value.trim().toLowerCase();
   if (!q) return render(sorted);
 
   const filtered = sorted.filter(p => {
-    const haystack = [
-      p.id, p.title, p.desc, (p.tags || []).join(' ')
-    ].join(' ').toLowerCase();
+    const haystack = [p.id, p.title, p.desc, (p.tags || []).join(" ")].join(" ").toLowerCase();
     return haystack.includes(q);
   });
 
