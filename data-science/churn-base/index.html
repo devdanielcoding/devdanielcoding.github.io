@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:7346/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Telco Customer Churn — End-to-End (IBM/Kaggle)</title>
+<style class="anchorjs"></style><style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="./index_files/jquery.min.js.descarga" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="./index_files/clipboard.min.js.descarga"></script>
+<script src="./index_files/quarto.js.descarga" type="module"></script>
+<script src="./index_files/tabsets.js.descarga" type="module"></script>
+<script src="./index_files/popper.min.js.descarga"></script>
+<script src="./index_files/tippy.umd.min.js.descarga"></script>
+<script src="./index_files/anchor.min.js.descarga"></script>
+<link href="./index_files/tippy.css" rel="stylesheet">
+<link href="./index_files/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="./index_files/bootstrap.min.js.descarga"></script>
+<link href="./index_files/bootstrap-icons.css" rel="stylesheet">
+<link href="./index_files/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="./index_files/require.min.js.descarga" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<style>.ansi-display{font-family:monospace;white-space:pre-wrap;--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #00BC00;--ansiYellow: #949800;--ansiBlue: #0451a5;--ansiMagenta: #bc05bc;--ansiCyan: #0598bc;--ansiWhite: #555555;--ansiBrightBlack: #666666;--ansiBrightRed: #cd3131;--ansiBrightGreen: #14CE14;--ansiBrightYellow: #b5ba00;--ansiBrightBlue: #0451a5;--ansiBrightMagenta: #bc05bc;--ansiBrightCyan: #0598bc;--ansiBrightWhite: #a5a5a5}.dark-mode .ansi-display{--ansiBlack: #000000;--ansiRed: #cd3131;--ansiGreen: #0DBC79;--ansiYellow: #e5e510;--ansiBlue: #2472c8;--ansiMagenta: #bc3fbc;--ansiCyan: #11a8cd;--ansiWhite: #e5e5e5;--ansiBrightBlack: #666666;--ansiBrightRed: #f14c4c;--ansiBrightGreen: #23d18b;--ansiBrightYellow: #f5f543;--ansiBrightBlue: #3b8eea;--ansiBrightMagenta: #d670d6;--ansiBrightCyan: #29b8db;--ansiBrightWhite: #e5e5e5}@keyframes ansi-displaly-run-blink{50%{opacity:0}}.fui-FluentProvider h2{border-bottom:none;padding-bottom:0}</style><style data-make-styles-bucket="d" data-priority="0"></style><style id="fui-FluentProviderr0"></style><style></style></head>
+
+<body class="fullcontent quarto-light" data-tabster="{&quot;root&quot;:{}}">
+
+<i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Telco Customer Churn — End-to-End (IBM/Kaggle)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Autor:</strong> devdanielcoding · <strong>Fecha:</strong> 2025-10-14 (UTC)</p>
+<p>Este notebook implementa un pipeline <em>end-to-end</em> de churn aplicado al dataset <strong>Telco Customer Churn</strong> (IBM/Kaggle).</p>
+<p>Objetivos: 1. Cargar y limpiar los datos (tratamiento de <code>TotalCharges</code>, categorías, nulos). 2. EDA y KPIs de negocio (churn rate, MRR at risk, cohorts por <code>tenure</code>). 3. Entrenamiento de modelos (Dummy, Regresión Logística, RandomForest; XGBoost opcional). 4. Métricas técnicas (ROC-AUC, PR-AUC, calibración) y métricas de negocio (costo/beneficio). 5. Interpretabilidad (importancias, SHAP opcional). 6. Selección de umbral y generación de un <strong>top-N</strong> para campañas de retención.</p>
+<blockquote class="blockquote">
+<p><strong>Nota:</strong> El dataset se descarga desde un espejo público de GitHub. Si falla, ajusta la URL o coloca el CSV en la raíz del notebook.</p>
+</blockquote>
+<section id="setup-e-instalación-opcional-de-librerías" class="level2">
+<h2 class="anchored" data-anchor-id="setup-e-instalación-opcional-de-librerías">0. Setup e instalación opcional de librerías<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#setup-e-instalaci%C3%B3n-opcional-de-librer%C3%ADas" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="92d6076c" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="http://localhost:7346/#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Si corres en un entorno limpio, descomenta para instalar dependencias adicionales</span></span>
+<span id="cb1-2"><a href="http://localhost:7346/#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install scikit-learn pandas numpy matplotlib seaborn xgboost shap lifelines plotly</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="imports-y-configuración" class="level2">
+<h2 class="anchored" data-anchor-id="imports-y-configuración">1. Imports y configuración<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#imports-y-configuraci%C3%B3n" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="32863a9f" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="http://localhost:7346/#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, io, sys, json, textwrap</span>
+<span id="cb2-2"><a href="http://localhost:7346/#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="http://localhost:7346/#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-4"><a href="http://localhost:7346/#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-5"><a href="http://localhost:7346/#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-6"><a href="http://localhost:7346/#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="http://localhost:7346/#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, StratifiedKFold, cross_val_score</span>
+<span id="cb2-8"><a href="http://localhost:7346/#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder, StandardScaler</span>
+<span id="cb2-9"><a href="http://localhost:7346/#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb2-10"><a href="http://localhost:7346/#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb2-11"><a href="http://localhost:7346/#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (roc_auc_score, average_precision_score, roc_curve, precision_recall_curve,</span>
+<span id="cb2-12"><a href="http://localhost:7346/#cb2-12" aria-hidden="true" tabindex="-1"></a>                             confusion_matrix, classification_report, brier_score_loss)</span>
+<span id="cb2-13"><a href="http://localhost:7346/#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
+<span id="cb2-14"><a href="http://localhost:7346/#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb2-15"><a href="http://localhost:7346/#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb2-16"><a href="http://localhost:7346/#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> permutation_importance</span>
+<span id="cb2-17"><a href="http://localhost:7346/#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="http://localhost:7346/#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">5</span>)</span>
+<span id="cb2-19"><a href="http://localhost:7346/#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.grid'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb2-20"><a href="http://localhost:7346/#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="http://localhost:7346/#cb2-21" aria-hidden="true" tabindex="-1"></a>RANDOM_STATE <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb2-22"><a href="http://localhost:7346/#cb2-22" aria-hidden="true" tabindex="-1"></a>np.random.seed(RANDOM_STATE)</span>
+<span id="cb2-23"><a href="http://localhost:7346/#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="http://localhost:7346/#cb2-24" aria-hidden="true" tabindex="-1"></a>DATA_URL <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"</span></span>
+<span id="cb2-25"><a href="http://localhost:7346/#cb2-25" aria-hidden="true" tabindex="-1"></a>CSV_LOCAL <span class="op">=</span> Path(<span class="st">'Telco-Customer-Churn.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="carga-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="carga-de-datos">2. Carga de datos<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#carga-de-datos" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="b43769df" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="http://localhost:7346/#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Descarga si no existe localmente</span></span>
+<span id="cb3-2"><a href="http://localhost:7346/#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> CSV_LOCAL.exists():</span>
+<span id="cb3-3"><a href="http://localhost:7346/#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb3-4"><a href="http://localhost:7346/#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="im">import</span> urllib.request</span>
+<span id="cb3-5"><a href="http://localhost:7346/#cb3-5" aria-hidden="true" tabindex="-1"></a>        urllib.request.urlretrieve(DATA_URL, CSV_LOCAL.as_posix())</span>
+<span id="cb3-6"><a href="http://localhost:7346/#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Descargado:"</span>, CSV_LOCAL)</span>
+<span id="cb3-7"><a href="http://localhost:7346/#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb3-8"><a href="http://localhost:7346/#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"⚠️ No se pudo descargar automáticamente. Coloca el CSV en la misma carpeta y reintenta."</span>)</span>
+<span id="cb3-9"><a href="http://localhost:7346/#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Error:"</span>, e)</span>
+<span id="cb3-10"><a href="http://localhost:7346/#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="http://localhost:7346/#cb3-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(CSV_LOCAL)</span>
+<span id="cb3-12"><a href="http://localhost:7346/#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb3-13"><a href="http://localhost:7346/#cb3-13" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Descargado: Telco-Customer-Churn.csv
+(7043, 21)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customerID</th>
+<th data-quarto-table-cell-role="th">gender</th>
+<th data-quarto-table-cell-role="th">SeniorCitizen</th>
+<th data-quarto-table-cell-role="th">Partner</th>
+<th data-quarto-table-cell-role="th">Dependents</th>
+<th data-quarto-table-cell-role="th">tenure</th>
+<th data-quarto-table-cell-role="th">PhoneService</th>
+<th data-quarto-table-cell-role="th">MultipleLines</th>
+<th data-quarto-table-cell-role="th">InternetService</th>
+<th data-quarto-table-cell-role="th">OnlineSecurity</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">DeviceProtection</th>
+<th data-quarto-table-cell-role="th">TechSupport</th>
+<th data-quarto-table-cell-role="th">StreamingTV</th>
+<th data-quarto-table-cell-role="th">StreamingMovies</th>
+<th data-quarto-table-cell-role="th">Contract</th>
+<th data-quarto-table-cell-role="th">PaperlessBilling</th>
+<th data-quarto-table-cell-role="th">PaymentMethod</th>
+<th data-quarto-table-cell-role="th">MonthlyCharges</th>
+<th data-quarto-table-cell-role="th">TotalCharges</th>
+<th data-quarto-table-cell-role="th">Churn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>7590-VHVEG</td>
+<td>Female</td>
+<td>0</td>
+<td>Yes</td>
+<td>No</td>
+<td>1</td>
+<td>No</td>
+<td>No phone service</td>
+<td>DSL</td>
+<td>No</td>
+<td>...</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Electronic check</td>
+<td>29.85</td>
+<td>29.85</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>5575-GNVDE</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>34</td>
+<td>Yes</td>
+<td>No</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>...</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>One year</td>
+<td>No</td>
+<td>Mailed check</td>
+<td>56.95</td>
+<td>1889.5</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3668-QPYBK</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>2</td>
+<td>Yes</td>
+<td>No</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>...</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Mailed check</td>
+<td>53.85</td>
+<td>108.15</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>7795-CFOCW</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>45</td>
+<td>No</td>
+<td>No phone service</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>...</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>One year</td>
+<td>No</td>
+<td>Bank transfer (automatic)</td>
+<td>42.30</td>
+<td>1840.75</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>9237-HQITU</td>
+<td>Female</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>2</td>
+<td>Yes</td>
+<td>No</td>
+<td>Fiber optic</td>
+<td>No</td>
+<td>...</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Electronic check</td>
+<td>70.70</td>
+<td>151.65</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 21 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="limpieza-básica-y-entendimiento-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="limpieza-básica-y-entendimiento-de-variables">3. Limpieza básica y entendimiento de variables<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#limpieza-b%C3%A1sica-y-entendimiento-de-variables" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="0c7d9ebb" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="http://localhost:7346/#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Target binario: 'Churn' Yes/No -&gt; 1/0</span></span>
+<span id="cb5-2"><a href="http://localhost:7346/#cb5-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'ChurnFlag'</span>] <span class="op">=</span> (df[<span class="st">'Churn'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.strip().<span class="bu">str</span>.lower() <span class="op">==</span> <span class="st">'yes'</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb5-3"><a href="http://localhost:7346/#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="http://localhost:7346/#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># TotalCharges viene como str y puede contener espacios vacíos -&gt; coaccionar a numérico</span></span>
+<span id="cb5-5"><a href="http://localhost:7346/#cb5-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'TotalCharges'</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">'TotalCharges'</span>].replace(<span class="st">' '</span>, np.nan), errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb5-6"><a href="http://localhost:7346/#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="http://localhost:7346/#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen de nulos</span></span>
+<span id="cb5-8"><a href="http://localhost:7346/#cb5-8" aria-hidden="true" tabindex="-1"></a>nulls <span class="op">=</span> df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-9"><a href="http://localhost:7346/#cb5-9" aria-hidden="true" tabindex="-1"></a>display(nulls.head(<span class="dv">10</span>))</span>
+<span id="cb5-10"><a href="http://localhost:7346/#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="http://localhost:7346/#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Imputación simple: TotalCharges con mediana</span></span>
+<span id="cb5-12"><a href="http://localhost:7346/#cb5-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'TotalCharges'</span>] <span class="op">=</span> df[<span class="st">'TotalCharges'</span>].fillna(df[<span class="st">'TotalCharges'</span>].median())</span>
+<span id="cb5-13"><a href="http://localhost:7346/#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="http://localhost:7346/#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Chequeo de valores de categorías</span></span>
+<span id="cb5-15"><a href="http://localhost:7346/#cb5-15" aria-hidden="true" tabindex="-1"></a>categoricas <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>]).columns.tolist()</span>
+<span id="cb5-16"><a href="http://localhost:7346/#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columnas categóricas:"</span>, categoricas)</span>
+<span id="cb5-17"><a href="http://localhost:7346/#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Valores únicos por variable categórica (muestra):"</span>)</span>
+<span id="cb5-18"><a href="http://localhost:7346/#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> categoricas[:<span class="dv">8</span>]:</span>
+<span id="cb5-19"><a href="http://localhost:7346/#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c, <span class="st">"-&gt;"</span>, df[c].nunique())</span>
+<span id="cb5-20"><a href="http://localhost:7346/#cb5-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-21"><a href="http://localhost:7346/#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversión de 'SeniorCitizen' a categoría (0/1 ya es numérica, pero la dejamos como int)</span></span>
+<span id="cb5-22"><a href="http://localhost:7346/#cb5-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'SeniorCitizen'</span>] <span class="op">=</span> df[<span class="st">'SeniorCitizen'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb5-23"><a href="http://localhost:7346/#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="http://localhost:7346/#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Selección de features básicas</span></span>
+<span id="cb5-25"><a href="http://localhost:7346/#cb5-25" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> <span class="st">'ChurnFlag'</span></span>
+<span id="cb5-26"><a href="http://localhost:7346/#cb5-26" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [<span class="st">'customerID'</span>, <span class="st">'Churn'</span>]  <span class="co"># ID y texto original del target</span></span>
+<span id="cb5-27"><a href="http://localhost:7346/#cb5-27" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>drop_cols <span class="op">+</span> [target], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb5-28"><a href="http://localhost:7346/#cb5-28" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[target].copy()</span>
+<span id="cb5-29"><a href="http://localhost:7346/#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="http://localhost:7346/#cb5-30" aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>TotalCharges       11
+customerID          0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+gender              0
+tenure              0
+PhoneService        0
+InternetService     0
+MultipleLines       0
+dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Columnas categóricas: ['customerID', 'gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'Churn']
+
+Valores únicos por variable categórica (muestra):
+customerID -&gt; 7043
+gender -&gt; 2
+Partner -&gt; 2
+Dependents -&gt; 2
+PhoneService -&gt; 2
+MultipleLines -&gt; 3
+InternetService -&gt; 3
+OnlineSecurity -&gt; 3</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">gender</th>
+<th data-quarto-table-cell-role="th">SeniorCitizen</th>
+<th data-quarto-table-cell-role="th">Partner</th>
+<th data-quarto-table-cell-role="th">Dependents</th>
+<th data-quarto-table-cell-role="th">tenure</th>
+<th data-quarto-table-cell-role="th">PhoneService</th>
+<th data-quarto-table-cell-role="th">MultipleLines</th>
+<th data-quarto-table-cell-role="th">InternetService</th>
+<th data-quarto-table-cell-role="th">OnlineSecurity</th>
+<th data-quarto-table-cell-role="th">OnlineBackup</th>
+<th data-quarto-table-cell-role="th">DeviceProtection</th>
+<th data-quarto-table-cell-role="th">TechSupport</th>
+<th data-quarto-table-cell-role="th">StreamingTV</th>
+<th data-quarto-table-cell-role="th">StreamingMovies</th>
+<th data-quarto-table-cell-role="th">Contract</th>
+<th data-quarto-table-cell-role="th">PaperlessBilling</th>
+<th data-quarto-table-cell-role="th">PaymentMethod</th>
+<th data-quarto-table-cell-role="th">MonthlyCharges</th>
+<th data-quarto-table-cell-role="th">TotalCharges</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Female</td>
+<td>0</td>
+<td>Yes</td>
+<td>No</td>
+<td>1</td>
+<td>No</td>
+<td>No phone service</td>
+<td>DSL</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Electronic check</td>
+<td>29.85</td>
+<td>29.85</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>34</td>
+<td>Yes</td>
+<td>No</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>One year</td>
+<td>No</td>
+<td>Mailed check</td>
+<td>56.95</td>
+<td>1889.50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>2</td>
+<td>Yes</td>
+<td>No</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Mailed check</td>
+<td>53.85</td>
+<td>108.15</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Male</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>45</td>
+<td>No</td>
+<td>No phone service</td>
+<td>DSL</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>One year</td>
+<td>No</td>
+<td>Bank transfer (automatic)</td>
+<td>42.30</td>
+<td>1840.75</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Female</td>
+<td>0</td>
+<td>No</td>
+<td>No</td>
+<td>2</td>
+<td>Yes</td>
+<td>No</td>
+<td>Fiber optic</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Month-to-month</td>
+<td>Yes</td>
+<td>Electronic check</td>
+<td>70.70</td>
+<td>151.65</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="kpis-de-negocio-churn-rate-mrr-at-risk-cohorts-por-tenure" class="level2">
+<h2 class="anchored" data-anchor-id="kpis-de-negocio-churn-rate-mrr-at-risk-cohorts-por-tenure">4. KPIs de negocio (Churn rate, MRR at risk, cohorts por tenure)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#kpis-de-negocio-churn-rate-mrr-at-risk-cohorts-por-tenure" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="eb0b34f6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="http://localhost:7346/#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Churn rate global</span></span>
+<span id="cb8-2"><a href="http://localhost:7346/#cb8-2" aria-hidden="true" tabindex="-1"></a>churn_rate <span class="op">=</span> y.mean()</span>
+<span id="cb8-3"><a href="http://localhost:7346/#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Churn rate global: </span><span class="sc">{</span>churn_rate<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb8-4"><a href="http://localhost:7346/#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="http://localhost:7346/#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># MRR at risk (asumiendo MonthlyCharges como MRR)</span></span>
+<span id="cb8-6"><a href="http://localhost:7346/#cb8-6" aria-hidden="true" tabindex="-1"></a>mrr_total <span class="op">=</span> df[<span class="st">'MonthlyCharges'</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-7"><a href="http://localhost:7346/#cb8-7" aria-hidden="true" tabindex="-1"></a>mrr_churned <span class="op">=</span> df.loc[df[<span class="st">'ChurnFlag'</span>]<span class="op">==</span><span class="dv">1</span>, <span class="st">'MonthlyCharges'</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-8"><a href="http://localhost:7346/#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MRR total: </span><span class="sc">{</span>mrr_total<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-9"><a href="http://localhost:7346/#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"MRR at risk (observado en dataset): </span><span class="sc">{</span>mrr_churned<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-10"><a href="http://localhost:7346/#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="http://localhost:7346/#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohorts por tenure (agrupamos por bandas)</span></span>
+<span id="cb8-12"><a href="http://localhost:7346/#cb8-12" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">24</span>, <span class="dv">36</span>, <span class="dv">48</span>, <span class="dv">60</span>, <span class="dv">72</span>]</span>
+<span id="cb8-13"><a href="http://localhost:7346/#cb8-13" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'0-6'</span>, <span class="st">'7-12'</span>, <span class="st">'13-24'</span>, <span class="st">'25-36'</span>, <span class="st">'37-48'</span>, <span class="st">'49-60'</span>, <span class="st">'61-72'</span>]</span>
+<span id="cb8-14"><a href="http://localhost:7346/#cb8-14" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'tenure_band'</span>] <span class="op">=</span> pd.cut(df[<span class="st">'tenure'</span>], bins<span class="op">=</span>bins, labels<span class="op">=</span>labels, right<span class="op">=</span><span class="va">True</span>, include_lowest<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-15"><a href="http://localhost:7346/#cb8-15" aria-hidden="true" tabindex="-1"></a>cohort <span class="op">=</span> df.groupby(<span class="st">'tenure_band'</span>)[<span class="st">'ChurnFlag'</span>].mean().rename(<span class="st">'churn_rate'</span>)</span>
+<span id="cb8-16"><a href="http://localhost:7346/#cb8-16" aria-hidden="true" tabindex="-1"></a>display(cohort)</span>
+<span id="cb8-17"><a href="http://localhost:7346/#cb8-17" aria-hidden="true" tabindex="-1"></a>cohort.plot(kind<span class="op">=</span><span class="st">'bar'</span>, title<span class="op">=</span><span class="st">'Churn rate por banda de tenure'</span>)<span class="op">;</span> plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Churn rate global: 26.54%
+MRR total: 456,116.60
+MRR at risk (observado en dataset): 139,130.85</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\devda\AppData\Local\Temp\ipykernel_18096\4237540233.py:15: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  cohort = df.groupby('tenure_band')['ChurnFlag'].mean().rename('churn_rate')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>tenure_band
+0-6      0.529372
+7-12     0.358865
+13-24    0.287109
+25-36    0.216346
+37-48    0.190289
+49-60    0.144231
+61-72    0.066098
+Name: churn_rate, dtype: float64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-6-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="split-de-entrenamientovalidación-estratificado" class="level2">
+<h2 class="anchored" data-anchor-id="split-de-entrenamientovalidación-estratificado">5. Split de entrenamiento/validación (estratificado)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#split-de-entrenamientovalidaci%C3%B3n-estratificado" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="747a4e93" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="http://localhost:7346/#cb12-1" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb12-2"><a href="http://localhost:7346/#cb12-2" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span>RANDOM_STATE, stratify<span class="op">=</span>y</span>
+<span id="cb12-3"><a href="http://localhost:7346/#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="http://localhost:7346/#cb12-4" aria-hidden="true" tabindex="-1"></a>X_train.shape, X_test.shape, y_train.mean(), y_test.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>((5634, 19),
+ (1409, 19),
+ np.float64(0.2653532126375577),
+ np.float64(0.2654364797728886))</code></pre>
+</div>
+</div>
+</section>
+<section id="preprocesamiento-onehot-para-categorías-escala-para-numéricas" class="level2">
+<h2 class="anchored" data-anchor-id="preprocesamiento-onehot-para-categorías-escala-para-numéricas">6. Preprocesamiento (OneHot para categorías, escala para numéricas)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#preprocesamiento-onehot-para-categor%C3%ADas-escala-para-num%C3%A9ricas" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="f58cd9d9" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="http://localhost:7346/#cb14-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> X_train.select_dtypes(include<span class="op">=</span>np.number).columns.tolist()</span>
+<span id="cb14-2"><a href="http://localhost:7346/#cb14-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> X_train.select_dtypes(exclude<span class="op">=</span>np.number).columns.tolist()</span>
+<span id="cb14-3"><a href="http://localhost:7346/#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="http://localhost:7346/#cb14-4" aria-hidden="true" tabindex="-1"></a>numeric_transformer <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb14-5"><a href="http://localhost:7346/#cb14-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler(with_mean<span class="op">=</span><span class="va">False</span>))  <span class="co"># with_mean=False por seguridad con sparse matrices</span></span>
+<span id="cb14-6"><a href="http://localhost:7346/#cb14-6" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb14-7"><a href="http://localhost:7346/#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="http://localhost:7346/#cb14-8" aria-hidden="true" tabindex="-1"></a>categorical_transformer <span class="op">=</span> OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">'ignore'</span>, sparse_output<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-9"><a href="http://localhost:7346/#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="http://localhost:7346/#cb14-10" aria-hidden="true" tabindex="-1"></a>preprocess <span class="op">=</span> ColumnTransformer(</span>
+<span id="cb14-11"><a href="http://localhost:7346/#cb14-11" aria-hidden="true" tabindex="-1"></a>    transformers<span class="op">=</span>[</span>
+<span id="cb14-12"><a href="http://localhost:7346/#cb14-12" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'num'</span>, numeric_transformer, num_cols),</span>
+<span id="cb14-13"><a href="http://localhost:7346/#cb14-13" aria-hidden="true" tabindex="-1"></a>        (<span class="st">'cat'</span>, categorical_transformer, cat_cols)</span>
+<span id="cb14-14"><a href="http://localhost:7346/#cb14-14" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb14-15"><a href="http://localhost:7346/#cb14-15" aria-hidden="true" tabindex="-1"></a>    remainder<span class="op">=</span><span class="st">'drop'</span></span>
+<span id="cb14-16"><a href="http://localhost:7346/#cb14-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-17"><a href="http://localhost:7346/#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="http://localhost:7346/#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Numéricas:"</span>, <span class="bu">len</span>(num_cols), <span class="st">"| Categóricas:"</span>, <span class="bu">len</span>(cat_cols))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Numéricas: 4 | Categóricas: 15</code></pre>
+</div>
+</div>
+</section>
+<section id="modelos-base-y-comparación" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-base-y-comparación">7. Modelos base y comparación<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#modelos-base-y-comparaci%C3%B3n" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="53a981d8" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="http://localhost:7346/#cb16-1" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
+<span id="cb16-2"><a href="http://localhost:7346/#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'dummy'</span>: DummyClassifier(strategy<span class="op">=</span><span class="st">'most_frequent'</span>, random_state<span class="op">=</span>RANDOM_STATE),</span>
+<span id="cb16-3"><a href="http://localhost:7346/#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'logreg'</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, n_jobs<span class="op">=</span><span class="va">None</span>, random_state<span class="op">=</span>RANDOM_STATE),</span>
+<span id="cb16-4"><a href="http://localhost:7346/#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'rf'</span>: RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">400</span>, random_state<span class="op">=</span>RANDOM_STATE, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="http://localhost:7346/#cb16-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-6"><a href="http://localhost:7346/#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="http://localhost:7346/#cb16-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {}</span>
+<span id="cb16-8"><a href="http://localhost:7346/#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, clf <span class="kw">in</span> models.items():</span>
+<span id="cb16-9"><a href="http://localhost:7346/#cb16-9" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline(steps<span class="op">=</span>[(<span class="st">'pre'</span>, preprocess), (<span class="st">'clf'</span>, clf)])</span>
+<span id="cb16-10"><a href="http://localhost:7346/#cb16-10" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train, y_train)</span>
+<span id="cb16-11"><a href="http://localhost:7346/#cb16-11" aria-hidden="true" tabindex="-1"></a>    proba <span class="op">=</span> pipe.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb16-12"><a href="http://localhost:7346/#cb16-12" aria-hidden="true" tabindex="-1"></a>    roc <span class="op">=</span> roc_auc_score(y_test, proba)</span>
+<span id="cb16-13"><a href="http://localhost:7346/#cb16-13" aria-hidden="true" tabindex="-1"></a>    pr <span class="op">=</span> average_precision_score(y_test, proba)  <span class="co"># PR-AUC</span></span>
+<span id="cb16-14"><a href="http://localhost:7346/#cb16-14" aria-hidden="true" tabindex="-1"></a>    results[name] <span class="op">=</span> {<span class="st">'roc_auc'</span>: roc, <span class="st">'pr_auc'</span>: pr, <span class="st">'model'</span>: pipe}</span>
+<span id="cb16-15"><a href="http://localhost:7346/#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&gt;6}</span><span class="ss"> | ROC-AUC: </span><span class="sc">{</span>roc<span class="sc">:.3f}</span><span class="ss"> | PR-AUC: </span><span class="sc">{</span>pr<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb16-16"><a href="http://localhost:7346/#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="http://localhost:7346/#cb16-17" aria-hidden="true" tabindex="-1"></a>best_name <span class="op">=</span> <span class="bu">max</span>(results, key<span class="op">=</span><span class="kw">lambda</span> k: results[k][<span class="st">'pr_auc'</span>])</span>
+<span id="cb16-18"><a href="http://localhost:7346/#cb16-18" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> results[best_name][<span class="st">'model'</span>]</span>
+<span id="cb16-19"><a href="http://localhost:7346/#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Mejor por PR-AUC:"</span>, best_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> dummy | ROC-AUC: 0.500 | PR-AUC: 0.265
+logreg | ROC-AUC: 0.842 | PR-AUC: 0.634
+    rf | ROC-AUC: 0.819 | PR-AUC: 0.609
+
+Mejor por PR-AUC: logreg</code></pre>
+</div>
+</div>
+</section>
+<section id="curvas-roc-precision-recall" class="level2">
+<h2 class="anchored" data-anchor-id="curvas-roc-precision-recall">8. Curvas ROC &amp; Precision-Recall<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#curvas-roc-precision-recall" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="622919b6" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="http://localhost:7346/#cb18-1" aria-hidden="true" tabindex="-1"></a>proba <span class="op">=</span> best.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb18-2"><a href="http://localhost:7346/#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="http://localhost:7346/#cb18-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, _ <span class="op">=</span> roc_curve(y_test, proba)</span>
+<span id="cb18-4"><a href="http://localhost:7346/#cb18-4" aria-hidden="true" tabindex="-1"></a>prec, rec, thr <span class="op">=</span> precision_recall_curve(y_test, proba)</span>
+<span id="cb18-5"><a href="http://localhost:7346/#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="http://localhost:7346/#cb18-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-7"><a href="http://localhost:7346/#cb18-7" aria-hidden="true" tabindex="-1"></a>ax.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f'ROC (AUC=</span><span class="sc">{</span>roc_auc_score(y_test, proba)<span class="sc">:.3f}</span><span class="ss">)'</span>)</span>
+<span id="cb18-8"><a href="http://localhost:7346/#cb18-8" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">0</span>,<span class="dv">1</span>],<span class="st">'--'</span>,color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb18-9"><a href="http://localhost:7346/#cb18-9" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'FPR'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'TPR'</span>)<span class="op">;</span> ax.set_title(<span class="st">'ROC'</span>)<span class="op">;</span> ax.legend()</span>
+<span id="cb18-10"><a href="http://localhost:7346/#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb18-11"><a href="http://localhost:7346/#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="http://localhost:7346/#cb18-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-13"><a href="http://localhost:7346/#cb18-13" aria-hidden="true" tabindex="-1"></a>ax.plot(rec, prec, label<span class="op">=</span><span class="ss">f'PR (AUC=</span><span class="sc">{</span>average_precision_score(y_test, proba)<span class="sc">:.3f}</span><span class="ss">)'</span>)</span>
+<span id="cb18-14"><a href="http://localhost:7346/#cb18-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Recall'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'Precision'</span>)<span class="op">;</span> ax.set_title(<span class="st">'Precision-Recall'</span>)<span class="op">;</span> ax.legend()</span>
+<span id="cb18-15"><a href="http://localhost:7346/#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-10-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="umbral-óptimo-por-métrica-y-por-costobeneficio" class="level2">
+<h2 class="anchored" data-anchor-id="umbral-óptimo-por-métrica-y-por-costobeneficio">9. Umbral óptimo por métrica y por costo/beneficio<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#umbral-%C3%B3ptimo-por-m%C3%A9trica-y-por-costobeneficio" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="b72eb2bc" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="http://localhost:7346/#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> f1_score</span>
+<span id="cb19-2"><a href="http://localhost:7346/#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="http://localhost:7346/#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Umbral por F1</span></span>
+<span id="cb19-4"><a href="http://localhost:7346/#cb19-4" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> np.linspace(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dv">181</span>)</span>
+<span id="cb19-5"><a href="http://localhost:7346/#cb19-5" aria-hidden="true" tabindex="-1"></a>f1_scores <span class="op">=</span> []</span>
+<span id="cb19-6"><a href="http://localhost:7346/#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> thresholds:</span>
+<span id="cb19-7"><a href="http://localhost:7346/#cb19-7" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> (proba <span class="op">&gt;=</span> t).astype(<span class="bu">int</span>)</span>
+<span id="cb19-8"><a href="http://localhost:7346/#cb19-8" aria-hidden="true" tabindex="-1"></a>    f1_scores.append(f1_score(y_test, preds))</span>
+<span id="cb19-9"><a href="http://localhost:7346/#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="http://localhost:7346/#cb19-10" aria-hidden="true" tabindex="-1"></a>best_t_f1 <span class="op">=</span> thresholds[<span class="bu">int</span>(np.argmax(f1_scores))]</span>
+<span id="cb19-11"><a href="http://localhost:7346/#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mejor umbral por F1: </span><span class="sc">{</span>best_t_f1<span class="sc">:.2f}</span><span class="ss">, F1=</span><span class="sc">{</span><span class="bu">max</span>(f1_scores)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb19-12"><a href="http://localhost:7346/#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="http://localhost:7346/#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, f1_scores)</span>
+<span id="cb19-14"><a href="http://localhost:7346/#cb19-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'F1 vs Threshold'</span>)<span class="op">;</span> plt.xlabel(<span class="st">'Threshold'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'F1'</span>)<span class="op">;</span> plt.show()</span>
+<span id="cb19-15"><a href="http://localhost:7346/#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="http://localhost:7346/#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Costo/beneficio (ejemplo):</span></span>
+<span id="cb19-17"><a href="http://localhost:7346/#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Supón que retener a un cliente cuesta 10 unidades (contacto/oferta)</span></span>
+<span id="cb19-18"><a href="http://localhost:7346/#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># y salvarlo genera un beneficio esperado de 100 * prob_churn.</span></span>
+<span id="cb19-19"><a href="http://localhost:7346/#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Solo actuamos en clientes marcados como churn (predicción positiva).</span></span>
+<span id="cb19-20"><a href="http://localhost:7346/#cb19-20" aria-hidden="true" tabindex="-1"></a>COST_CONTACT <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb19-21"><a href="http://localhost:7346/#cb19-21" aria-hidden="true" tabindex="-1"></a>BENEFIT_SAVED <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb19-22"><a href="http://localhost:7346/#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="http://localhost:7346/#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> expected_profit(t):</span>
+<span id="cb19-24"><a href="http://localhost:7346/#cb19-24" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> (proba <span class="op">&gt;=</span> t).astype(<span class="bu">int</span>)</span>
+<span id="cb19-25"><a href="http://localhost:7346/#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verdaderos positivos: clientes con churn que marcamos y contactamos</span></span>
+<span id="cb19-26"><a href="http://localhost:7346/#cb19-26" aria-hidden="true" tabindex="-1"></a>    tp_profit <span class="op">=</span> ( (y_test.values <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (preds <span class="op">==</span> <span class="dv">1</span>) ) <span class="op">*</span> (BENEFIT_SAVED <span class="op">-</span> COST_CONTACT)</span>
+<span id="cb19-27"><a href="http://localhost:7346/#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Falsos positivos: contactamos pero no churn -&gt; solo costo</span></span>
+<span id="cb19-28"><a href="http://localhost:7346/#cb19-28" aria-hidden="true" tabindex="-1"></a>    fp_cost <span class="op">=</span> ( (y_test.values <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (preds <span class="op">==</span> <span class="dv">1</span>) ) <span class="op">*</span> (<span class="op">-</span>COST_CONTACT)</span>
+<span id="cb19-29"><a href="http://localhost:7346/#cb19-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (tp_profit <span class="op">+</span> fp_cost).<span class="bu">sum</span>()</span>
+<span id="cb19-30"><a href="http://localhost:7346/#cb19-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-31"><a href="http://localhost:7346/#cb19-31" aria-hidden="true" tabindex="-1"></a>profits <span class="op">=</span> [expected_profit(t) <span class="cf">for</span> t <span class="kw">in</span> thresholds]</span>
+<span id="cb19-32"><a href="http://localhost:7346/#cb19-32" aria-hidden="true" tabindex="-1"></a>best_t_profit <span class="op">=</span> thresholds[<span class="bu">int</span>(np.argmax(profits))]</span>
+<span id="cb19-33"><a href="http://localhost:7346/#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mejor umbral por beneficio esperado: </span><span class="sc">{</span>best_t_profit<span class="sc">:.2f}</span><span class="ss">, Profit=</span><span class="sc">{</span><span class="bu">max</span>(profits)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb19-34"><a href="http://localhost:7346/#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-35"><a href="http://localhost:7346/#cb19-35" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, profits)</span>
+<span id="cb19-36"><a href="http://localhost:7346/#cb19-36" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Beneficio esperado vs Threshold'</span>)<span class="op">;</span> plt.xlabel(<span class="st">'Threshold'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'Profit (unidades)'</span>)<span class="op">;</span> plt.show()</span>
+<span id="cb19-37"><a href="http://localhost:7346/#cb19-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="http://localhost:7346/#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Reporte con umbral elegido</span></span>
+<span id="cb19-39"><a href="http://localhost:7346/#cb19-39" aria-hidden="true" tabindex="-1"></a>thr_selected <span class="op">=</span> best_t_profit</span>
+<span id="cb19-40"><a href="http://localhost:7346/#cb19-40" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> (proba <span class="op">&gt;=</span> thr_selected).astype(<span class="bu">int</span>)</span>
+<span id="cb19-41"><a href="http://localhost:7346/#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion_matrix(y_test, preds))</span>
+<span id="cb19-42"><a href="http://localhost:7346/#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, preds, digits<span class="op">=</span><span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mejor umbral por F1: 0.27, F1=0.621</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mejor umbral por beneficio esperado: 0.08, Profit=26890.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-11-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[475 560]
+ [ 13 361]]
+              precision    recall  f1-score   support
+
+           0      0.973     0.459     0.624      1035
+           1      0.392     0.965     0.558       374
+
+    accuracy                          0.593      1409
+   macro avg      0.683     0.712     0.591      1409
+weighted avg      0.819     0.593     0.606      1409
+</code></pre>
+</div>
+</div>
+</section>
+<section id="calibración-de-probabilidades-brier-score" class="level2">
+<h2 class="anchored" data-anchor-id="calibración-de-probabilidades-brier-score">10. Calibración de probabilidades (Brier score)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#calibraci%C3%B3n-de-probabilidades-brier-score" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="f0fc9839" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="http://localhost:7346/#cb23-1" aria-hidden="true" tabindex="-1"></a>bs <span class="op">=</span> brier_score_loss(y_test, proba)</span>
+<span id="cb23-2"><a href="http://localhost:7346/#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Brier score: </span><span class="sc">{</span>bs<span class="sc">:.4f}</span><span class="ss"> (más bajo es mejor)"</span>)</span>
+<span id="cb23-3"><a href="http://localhost:7346/#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (Opcional) CalibratedClassifierCV si necesitas mejor calibración</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Brier score: 0.1381 (más bajo es mejor)</code></pre>
+</div>
+</div>
+</section>
+<section id="importancia-de-características" class="level2">
+<h2 class="anchored" data-anchor-id="importancia-de-características">11. Importancia de características<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#importancia-de-caracter%C3%ADsticas" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="3874a116" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="http://localhost:7346/#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Importancia de características (versión simplificada y robusta) ===</span></span>
+<span id="cb25-2"><a href="http://localhost:7346/#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> permutation_importance</span>
+<span id="cb25-3"><a href="http://localhost:7346/#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="http://localhost:7346/#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula importancias permutadas</span></span>
+<span id="cb25-5"><a href="http://localhost:7346/#cb25-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> permutation_importance(best, X_test, y_test, n_repeats<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb25-6"><a href="http://localhost:7346/#cb25-6" aria-hidden="true" tabindex="-1"></a>                           random_state<span class="op">=</span>RANDOM_STATE, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb25-7"><a href="http://localhost:7346/#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="http://localhost:7346/#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Recupera nombres de variables después del OneHot</span></span>
+<span id="cb25-9"><a href="http://localhost:7346/#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb25-10"><a href="http://localhost:7346/#cb25-10" aria-hidden="true" tabindex="-1"></a>    pre <span class="op">=</span> best.named_steps[<span class="st">'pre'</span>]</span>
+<span id="cb25-11"><a href="http://localhost:7346/#cb25-11" aria-hidden="true" tabindex="-1"></a>    num_cols <span class="op">=</span> pre.transformers_[<span class="dv">0</span>][<span class="dv">2</span>]</span>
+<span id="cb25-12"><a href="http://localhost:7346/#cb25-12" aria-hidden="true" tabindex="-1"></a>    cat_cols <span class="op">=</span> pre.transformers_[<span class="dv">1</span>][<span class="dv">2</span>]</span>
+<span id="cb25-13"><a href="http://localhost:7346/#cb25-13" aria-hidden="true" tabindex="-1"></a>    ohe <span class="op">=</span> pre.named_transformers_[<span class="st">'cat'</span>]</span>
+<span id="cb25-14"><a href="http://localhost:7346/#cb25-14" aria-hidden="true" tabindex="-1"></a>    cat_names <span class="op">=</span> ohe.get_feature_names_out(cat_cols)</span>
+<span id="cb25-15"><a href="http://localhost:7346/#cb25-15" aria-hidden="true" tabindex="-1"></a>    feature_names <span class="op">=</span> np.concatenate([num_cols, cat_names])</span>
+<span id="cb25-16"><a href="http://localhost:7346/#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb25-17"><a href="http://localhost:7346/#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"⚠️ No se pudieron recuperar nombres expandidos, usando columnas base."</span>)</span>
+<span id="cb25-18"><a href="http://localhost:7346/#cb25-18" aria-hidden="true" tabindex="-1"></a>    feature_names <span class="op">=</span> X_test.columns</span>
+<span id="cb25-19"><a href="http://localhost:7346/#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="http://localhost:7346/#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Asegura longitudes iguales</span></span>
+<span id="cb25-21"><a href="http://localhost:7346/#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(feature_names) <span class="op">!=</span> <span class="bu">len</span>(r.importances_mean):</span>
+<span id="cb25-22"><a href="http://localhost:7346/#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"⚠️ Ajustando: features=</span><span class="sc">{</span><span class="bu">len</span>(feature_names)<span class="sc">}</span><span class="ss"> | importances=</span><span class="sc">{</span><span class="bu">len</span>(r.importances_mean)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-23"><a href="http://localhost:7346/#cb25-23" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">min</span>(<span class="bu">len</span>(feature_names), <span class="bu">len</span>(r.importances_mean))</span>
+<span id="cb25-24"><a href="http://localhost:7346/#cb25-24" aria-hidden="true" tabindex="-1"></a>    feature_names <span class="op">=</span> feature_names[:n]</span>
+<span id="cb25-25"><a href="http://localhost:7346/#cb25-25" aria-hidden="true" tabindex="-1"></a>    importances <span class="op">=</span> r.importances_mean[:n]</span>
+<span id="cb25-26"><a href="http://localhost:7346/#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb25-27"><a href="http://localhost:7346/#cb25-27" aria-hidden="true" tabindex="-1"></a>    importances <span class="op">=</span> r.importances_mean</span>
+<span id="cb25-28"><a href="http://localhost:7346/#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="http://localhost:7346/#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrame final</span></span>
+<span id="cb25-30"><a href="http://localhost:7346/#cb25-30" aria-hidden="true" tabindex="-1"></a>imp <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb25-31"><a href="http://localhost:7346/#cb25-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">'feature'</span>: feature_names,</span>
+<span id="cb25-32"><a href="http://localhost:7346/#cb25-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">'importance'</span>: importances</span>
+<span id="cb25-33"><a href="http://localhost:7346/#cb25-33" aria-hidden="true" tabindex="-1"></a>}).sort_values(<span class="st">'importance'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">25</span>)</span>
+<span id="cb25-34"><a href="http://localhost:7346/#cb25-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="http://localhost:7346/#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización</span></span>
+<span id="cb25-36"><a href="http://localhost:7346/#cb25-36" aria-hidden="true" tabindex="-1"></a>imp.plot(kind<span class="op">=</span><span class="st">'barh'</span>, x<span class="op">=</span><span class="st">'feature'</span>, y<span class="op">=</span><span class="st">'importance'</span>, figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>),</span>
+<span id="cb25-37"><a href="http://localhost:7346/#cb25-37" aria-hidden="true" tabindex="-1"></a>         title<span class="op">=</span><span class="st">'Permutation Importance (Top 25)'</span>, color<span class="op">=</span><span class="st">'#22c55e'</span>)</span>
+<span id="cb25-38"><a href="http://localhost:7346/#cb25-38" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb25-39"><a href="http://localhost:7346/#cb25-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb25-40"><a href="http://localhost:7346/#cb25-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-41"><a href="http://localhost:7346/#cb25-41" aria-hidden="true" tabindex="-1"></a>imp.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>⚠️ Ajustando: features=45 | importances=19</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">feature</th>
+<th data-quarto-table-cell-role="th">importance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>gender_Female</td>
+<td>0.101490</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Partner_Yes</td>
+<td>0.045848</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>InternetService_No</td>
+<td>0.033499</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>MultipleLines_Yes</td>
+<td>0.020298</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>OnlineSecurity_No</td>
+<td>0.017317</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Partner_No</td>
+<td>0.009794</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>MultipleLines_No phone service</td>
+<td>0.008801</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Dependents_No</td>
+<td>0.007239</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>PhoneService_Yes</td>
+<td>0.007239</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>PhoneService_No</td>
+<td>0.006529</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="interpretabilidad-con-shap-opcional" class="level2">
+<h2 class="anchored" data-anchor-id="interpretabilidad-con-shap-opcional">12. Interpretabilidad con SHAP (opcional)<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#interpretabilidad-con-shap-opcional" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="438c2fdf" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="http://localhost:7346/#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === 12. Interpretabilidad con SHAP (robusto por tipo de modelo) ===</span></span>
+<span id="cb27-2"><a href="http://localhost:7346/#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># %pip install -U shap  # si no lo tienes</span></span>
+<span id="cb27-3"><a href="http://localhost:7346/#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap</span>
+<span id="cb27-4"><a href="http://localhost:7346/#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb27-5"><a href="http://localhost:7346/#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb27-6"><a href="http://localhost:7346/#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="http://localhost:7346/#cb27-7" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> best.named_steps[<span class="st">'clf'</span>]</span>
+<span id="cb27-8"><a href="http://localhost:7346/#cb27-8" aria-hidden="true" tabindex="-1"></a>pre <span class="op">=</span> best.named_steps[<span class="st">'pre'</span>]</span>
+<span id="cb27-9"><a href="http://localhost:7346/#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="http://localhost:7346/#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Datos transformados (post OneHot/escala) + nombres de columnas</span></span>
+<span id="cb27-11"><a href="http://localhost:7346/#cb27-11" aria-hidden="true" tabindex="-1"></a>X_test_trans <span class="op">=</span> pre.transform(X_test)</span>
+<span id="cb27-12"><a href="http://localhost:7346/#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="http://localhost:7346/#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Recuperar nombres de features después del OneHot</span></span>
+<span id="cb27-14"><a href="http://localhost:7346/#cb27-14" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> pre.transformers_[<span class="dv">0</span>][<span class="dv">2</span>]</span>
+<span id="cb27-15"><a href="http://localhost:7346/#cb27-15" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> pre.transformers_[<span class="dv">1</span>][<span class="dv">2</span>]</span>
+<span id="cb27-16"><a href="http://localhost:7346/#cb27-16" aria-hidden="true" tabindex="-1"></a>ohe <span class="op">=</span> pre.named_transformers_[<span class="st">'cat'</span>]</span>
+<span id="cb27-17"><a href="http://localhost:7346/#cb27-17" aria-hidden="true" tabindex="-1"></a>cat_names <span class="op">=</span> ohe.get_feature_names_out(cat_cols)</span>
+<span id="cb27-18"><a href="http://localhost:7346/#cb27-18" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> np.concatenate([num_cols, cat_names])</span>
+<span id="cb27-19"><a href="http://localhost:7346/#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="http://localhost:7346/#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Sparse -&gt; dense si hace falta (LR lo agradece)</span></span>
+<span id="cb27-21"><a href="http://localhost:7346/#cb27-21" aria-hidden="true" tabindex="-1"></a>X_dense <span class="op">=</span> X_test_trans.toarray() <span class="cf">if</span> <span class="bu">hasattr</span>(X_test_trans, <span class="st">"toarray"</span>) <span class="cf">else</span> X_test_trans</span>
+<span id="cb27-22"><a href="http://localhost:7346/#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="http://localhost:7346/#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Elegir explainer según el modelo</span></span>
+<span id="cb27-24"><a href="http://localhost:7346/#cb27-24" aria-hidden="true" tabindex="-1"></a>model_name <span class="op">=</span> <span class="bu">type</span>(clf).<span class="va">__name__</span></span>
+<span id="cb27-25"><a href="http://localhost:7346/#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Modelo para SHAP:"</span>, model_name)</span>
+<span id="cb27-26"><a href="http://localhost:7346/#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-27"><a href="http://localhost:7346/#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(clf, RandomForestClassifier):</span>
+<span id="cb27-28"><a href="http://localhost:7346/#cb27-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Árboles: TreeExplainer (rápido)</span></span>
+<span id="cb27-29"><a href="http://localhost:7346/#cb27-29" aria-hidden="true" tabindex="-1"></a>    explainer <span class="op">=</span> shap.TreeExplainer(clf)</span>
+<span id="cb27-30"><a href="http://localhost:7346/#cb27-30" aria-hidden="true" tabindex="-1"></a>    shap_values <span class="op">=</span> explainer(X_dense, check_additivity<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-31"><a href="http://localhost:7346/#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="bu">isinstance</span>(clf, LogisticRegression):</span>
+<span id="cb27-32"><a href="http://localhost:7346/#cb27-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Lineales: LinearExplainer (usa link logit)</span></span>
+<span id="cb27-33"><a href="http://localhost:7346/#cb27-33" aria-hidden="true" tabindex="-1"></a>    explainer <span class="op">=</span> shap.LinearExplainer(clf, X_dense, feature_names<span class="op">=</span>feature_names)</span>
+<span id="cb27-34"><a href="http://localhost:7346/#cb27-34" aria-hidden="true" tabindex="-1"></a>    shap_values <span class="op">=</span> explainer(X_dense)</span>
+<span id="cb27-35"><a href="http://localhost:7346/#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb27-36"><a href="http://localhost:7346/#cb27-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fallback genérico: KernelExplainer (más lento). Muestra una muestra para demo.</span></span>
+<span id="cb27-37"><a href="http://localhost:7346/#cb27-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Si tu modelo tiene predict_proba, pásalo; si no, usa predict.</span></span>
+<span id="cb27-38"><a href="http://localhost:7346/#cb27-38" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> clf.predict_proba <span class="cf">if</span> <span class="bu">hasattr</span>(clf, <span class="st">"predict_proba"</span>) <span class="cf">else</span> clf.predict</span>
+<span id="cb27-39"><a href="http://localhost:7346/#cb27-39" aria-hidden="true" tabindex="-1"></a>    background <span class="op">=</span> shap.sample(X_dense, <span class="dv">200</span>, random_state<span class="op">=</span>RANDOM_STATE)</span>
+<span id="cb27-40"><a href="http://localhost:7346/#cb27-40" aria-hidden="true" tabindex="-1"></a>    explainer <span class="op">=</span> shap.KernelExplainer(f, background)</span>
+<span id="cb27-41"><a href="http://localhost:7346/#cb27-41" aria-hidden="true" tabindex="-1"></a>    shap_values <span class="op">=</span> explainer.shap_values(X_dense[:<span class="dv">300</span>])  <span class="co"># limitar por performance</span></span>
+<span id="cb27-42"><a href="http://localhost:7346/#cb27-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-43"><a href="http://localhost:7346/#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Plots (elige uno)</span></span>
+<span id="cb27-44"><a href="http://localhost:7346/#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb27-45"><a href="http://localhost:7346/#cb27-45" aria-hidden="true" tabindex="-1"></a>    shap.summary_plot(shap_values, feature_names<span class="op">=</span>feature_names, show<span class="op">=</span><span class="va">True</span>, max_display<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb27-46"><a href="http://localhost:7346/#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb27-47"><a href="http://localhost:7346/#cb27-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Para algunos return types (e.g., list por clases) tomamos la clase positiva</span></span>
+<span id="cb27-48"><a href="http://localhost:7346/#cb27-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(shap_values, <span class="bu">list</span>) <span class="kw">and</span> <span class="bu">len</span>(shap_values) <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb27-49"><a href="http://localhost:7346/#cb27-49" aria-hidden="true" tabindex="-1"></a>        shap.summary_plot(shap_values[<span class="dv">1</span>], feature_names<span class="op">=</span>feature_names, show<span class="op">=</span><span class="va">True</span>, max_display<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb27-50"><a href="http://localhost:7346/#cb27-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb27-51"><a href="http://localhost:7346/#cb27-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Modelo para SHAP: LogisticRegression</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\devda\AppData\Local\Temp\ipykernel_18096\3913157811.py:45: FutureWarning: The NumPy global RNG was seeded by calling `np.random.seed`. In a future version this function will no longer use the global RNG. Pass `rng` explicitly to opt-in to the new behaviour and silence this warning.
+  shap.summary_plot(shap_values, feature_names=feature_names, show=True, max_display=20)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="./index_files/cell-14-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exportar-top-n-clientes-en-riesgo-para-campaña" class="level2">
+<h2 class="anchored" data-anchor-id="exportar-top-n-clientes-en-riesgo-para-campaña">13. Exportar top-N clientes en riesgo para campaña<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#exportar-top-n-clientes-en-riesgo-para-campa%C3%B1a" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<div id="7f14d4c6" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="http://localhost:7346/#cb30-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">300</span>  <span class="co"># tamaño de campaña</span></span>
+<span id="cb30-2"><a href="http://localhost:7346/#cb30-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> pd.Series(proba, index<span class="op">=</span>X_test.index, name<span class="op">=</span><span class="st">'score_churn'</span>)</span>
+<span id="cb30-3"><a href="http://localhost:7346/#cb30-3" aria-hidden="true" tabindex="-1"></a>topN <span class="op">=</span> df.loc[scores.sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(N).index, [<span class="st">'customerID'</span>,<span class="st">'MonthlyCharges'</span>,<span class="st">'tenure'</span>,<span class="st">'ChurnFlag'</span>]].copy()</span>
+<span id="cb30-4"><a href="http://localhost:7346/#cb30-4" aria-hidden="true" tabindex="-1"></a>topN[<span class="st">'score_churn'</span>] <span class="op">=</span> scores.loc[topN.index].values</span>
+<span id="cb30-5"><a href="http://localhost:7346/#cb30-5" aria-hidden="true" tabindex="-1"></a>topN <span class="op">=</span> topN.sort_values(<span class="st">'score_churn'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb30-6"><a href="http://localhost:7346/#cb30-6" aria-hidden="true" tabindex="-1"></a>topN.head()</span>
+<span id="cb30-7"><a href="http://localhost:7346/#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="http://localhost:7346/#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar CSV</span></span>
+<span id="cb30-9"><a href="http://localhost:7346/#cb30-9" aria-hidden="true" tabindex="-1"></a>topN.to_csv(<span class="st">'topN_churn_campaign.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb30-10"><a href="http://localhost:7346/#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Guardado: topN_churn_campaign.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Guardado: topN_churn_campaign.csv</code></pre>
+</div>
+</div>
+</section>
+<section id="siguientes-pasos-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="siguientes-pasos-checklist">14. Siguientes pasos / Checklist<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="" href="http://localhost:7346/#siguientes-pasos-checklist" style="font: 1em / 1 anchorjs-icons; margin-left: 0.1875em; padding-right: 0.1875em; padding-left: 0.1875em;"></a></h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Ajustar hiperparámetros (Grid/Random Search).</label></li>
+<li><label><input type="checkbox">Validación temporal si cuentas con fechas (evitar fuga de información).</label></li>
+<li><label><input type="checkbox">Calibración (Platt/Isotonic) y evaluación con <strong>PR-AUC</strong> como métrica principal.</label></li>
+<li><label><input type="checkbox">Simulación de presupuesto (top-N por periodo) y priorización por <strong>Expected Revenue at Risk</strong> (<code>MonthlyCharges * prob_churn</code>).</label></li>
+<li><label><input type="checkbox">Uplift modeling si dispones de histórico de campañas de retención.</label></li>
+<li><label><input type="checkbox">Automatizar con GitHub Actions: render a HTML (nbconvert/quarto) y publicar en tu portafolio.</label></li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+
+<script>
+  window.backupDefine = window.define;
+  window.define = undefined;
+</script>
+<script type="text/javascript" src="./index_files/quarto-preview.js.descarga"></script>
+<script>
+  window.define = window.backupDefine;
+  window.backupDefine = undefined;
+</script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    window.QuartoPreview.init({
+      origin: "http://localhost:7346",
+      search: "?quartoPreviewReqId=1760422714910&amp;quartoPreviewThemeCategory=dark",
+      inputFile: "C:\Users\devda\Downloads\devdanielcoding.github.io\data-science\churn-base\churn-base.ipynb",
+      isPresentation: false
+    });
+  })
+</script>
+<div><div dir="ltr" class="fui-FluentProvider fui-FluentProviderr0 ___jdtuxv0 f19n0e5 fxugw4r f1o700av fk6fouc fkhj508 figsok6 f1i3iumi"></div></div><i tabindex="0" role="none" data-tabster-dummy="" aria-hidden="true" style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"></i></body></html>
