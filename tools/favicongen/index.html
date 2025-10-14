@@ -4,22 +4,7 @@
   <meta charset="UTF-8" />
   <title>Convertir PNG a Favicon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root { --bg: #0f172a; --card:#111827; --muted:#9ca3af; --accent:#22c55e; --text:#e5e7eb; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;background:var(--bg);color:var(--text)}
-    .wrap{max-width:800px;margin:40px auto;padding:24px}
-    .card{background:var(--card);border:1px solid #1f2937;border-radius:16px;padding:20px;box-shadow:0 10px 20px rgba(0,0,0,.25);text-align:center}
-    h1{font-size:clamp(22px,3vw,28px);margin:0 0 10px}
-    p.sub{color:var(--muted);margin:0 0 20px}
-    input[type="file"]{margin:20px auto;display:block;padding:12px 14px;border-radius:12px;border:1px solid #374151;background:#0b1220;color:var(--text);outline:none}
-    input[type="file"]:focus{border-color:#3b82f6;box-shadow:0 0 0 4px rgba(59,130,246,.15)}
-    button{appearance:none;border:1px solid #334155;background:var(--accent);color:#052e16;border-radius:12px;padding:10px 16px;cursor:pointer;font-weight:600;margin-top:10px}
-    button:hover{border-color:#16a34a;filter:brightness(1.05)}
-    #preview{margin-top:20px;max-width:100px;border:1px solid #1f2937;border-radius:8px}
-    .footer{margin-top:20px;font-size:12px;color:#93a2b8}
-    canvas{display:none}
-  </style>
+  <link rel="stylesheet" href="../../styles.css" />
 </head>
 <body>
   <div class="wrap">
@@ -27,8 +12,12 @@
       <h1>🔄 Convertir PNG a Favicon (.ico)</h1>
       <p class="sub">Selecciona tu imagen PNG y conviértela a un favicon descargable.</p>
 
-      <input type="file" id="fileInput" accept="image/png" />
-      <button onclick="convertToFavicon()">Convertir y Descargar</button>
+      <div class="row">
+        <input type="file" id="fileInput" accept="image/png" class="btn" />
+        <button class="btn primary" onclick="convertToFavicon()">Convertir y Descargar</button>
+      </div>
+
+
 
       <div id="output"></div>
       <canvas id="canvas" width="32" height="32"></canvas>
