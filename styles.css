@@ -1,86 +1,192 @@
+/* =========================
+   🎨 Variables Globales
+   ========================= */
+:root {
+  /* Base Colors */
+  --bg: #0f172a;
+  --bg-card: #111827;
+  --bg-hover: #1e293b;
+
+  /* Text Colors */
+  --text-primary: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-accent: #22c55e;
+
+  /* Borders & Lines */
+  --border-default: #1f2937;
+  --border-hover: #334155;
+
+  /* Accents / States */
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --focus-ring: rgba(59, 130, 246, 0.15);
+
+  /* Shadows */
+  --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.25);
+
+  /* Sizing */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --spacing: 24px;
+}
+
+/* =========================
+   🧩 Reset & Base
+   ========================= */
+* {
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f7f7f7;
-    color: #333;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
 }
+
+/* =========================
+   🧱 Layout
+   ========================= */
+.wrap {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: var(--spacing);
+}
+
 header {
-    background-color: #222;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
-nav a {
-    margin: 0 15px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-.hero {
-    padding: 80px 20px;
-    background: url('https://images.unsplash.com/photo-1691435828932-911a7801adfb?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
-    color: white;
-    text-align: center;
-}
-.hero h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-.hero p {
-    font-size: 20px;
-}
-.section {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: auto;
-    background: white;
-}
-.section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-.project-card {
-    background: #fafafa;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #222;
-    color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
 }
 
-/* Nueva sintaxis responsive */
-@media (width < 1000px) {
-    .hero h1 {
-        font-size: 32px;
-    }
-    .hero p {
-        font-size: 18px;
-    }
+h1 {
+  font-size: clamp(22px, 3vw, 28px);
+  margin: 0;
 }
 
-@media (width < 768px) {
-    header h1 {
-        font-size: 20px;
-    }
-    nav a {
-        display: block;
-        margin: 10px 0;
-    }
-    .projects {
-        grid-template-columns: 1fr;
-    }
-    .section {
-        padding: 30px 15px;
-    }
+p.sub {
+  color: var(--text-muted);
+  margin: 2px 0 0;
+}
+
+/* =========================
+   📦 Cards & Grids
+   ========================= */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  margin-top: 14px;
+}
+
+/* =========================
+   🧰 Tools
+   ========================= */
+.tool {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.tool:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.tool h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.tool p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* =========================
+   🔗 Links
+   ========================= */
+.tool a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.tool a:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.emoji {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* =========================
+   🧭 UI Elements
+   ========================= */
+.hr {
+  height: 1px;
+  background: var(--border-default);
+  margin: 18px 0;
+}
+
+.footer {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #93a2b8;
+}
+
+/* =========================
+   🔍 Inputs & Forms
+   ========================= */
+input.search {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #374151;
+  background: #0b1220;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input.search:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+/* =========================
+   🫥 Utilities
+   ========================= */
+.hide {
+  display: none;
 }
