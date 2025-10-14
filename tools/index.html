@@ -12,7 +12,7 @@
     <header>
       <div>
         <h1>Proyectos</h1>
-        <p class="sub">Colección compacta de <strong>herramientas</strong> y <strong>juegos</strong> hechos por mí.</p>
+        <p class="sub">Colección compacta de <strong>herramientas</strong> y <strong>juegos</strong>.</p>
       </div>
       <nav class="nav-actions">
         <a class="btn" href="/tools/">Ver Herramientas</a>
@@ -23,7 +23,7 @@
     <!-- Hero -->
     <section class="hero card">
       <div class="hero-content">
-        <h2 class="hero-title">Más de 100 ideas, pocas excusas</h2>
+        <h2 class="hero-title">Proyectos varios</h2>
         <p class="hero-text">Mini proyectos útiles, código claro y foco en aprendizaje práctico.</p>
         <div class="hero-cta">
           <input class="search" id="search" placeholder="Buscar proyectos (ej. calculadora, bingo)"/>
@@ -40,47 +40,7 @@
         <h2>Herramientas</h2>
         <a class="btn-link" href="/tools/">Ver todo →</a>
       </div>
-
-      <div class="grid" id="tools-grid">
-        <!-- Tarjeta 1 -->
-        <article class="card tool">
-          <span class="badge">#T1</span>
-          <h3>Calculadora Km/Combustible</h3>
-          <p>Convierte consumo de tu auto a km/L, galones y costo por km.</p>
-          <div class="tags">
-            <span class="tag">Utilidad</span><span class="tag">Autos</span>
-          </div>
-          <a href="/tools/calculadora-km-combustible/">
-            <span class="emoji">⛽</span> Abrir
-          </a>
-        </article>
-
-        <!-- Tarjeta 2 -->
-        <article class="card tool">
-          <span class="badge">#T2</span>
-          <h3>FavicoGen</h3>
-          <p>Genera favicons a partir de imágenes o emojis en segundos.</p>
-          <div class="tags">
-            <span class="tag">Frontend</span><span class="tag">Assets</span>
-          </div>
-          <a href="/tools/favicongen/">
-            <span class="emoji">🧩</span> Abrir
-          </a>
-        </article>
-
-        <!-- Tarjeta 3 -->
-        <article class="card tool">
-          <span class="badge">#T3</span>
-          <h3>ImgTransform</h3>
-          <p>Resize/convertir imágenes sin subir nada al servidor.</p>
-          <div class="tags">
-            <span class="tag">Imágenes</span><span class="tag">PWA</span>
-          </div>
-          <a href="/tools/imgtransform/">
-            <span class="emoji">🖼️</span> Abrir
-          </a>
-        </article>
-      </div>
+      <div class="grid auto" id="tools-grid"></div>
     </section>
 
     <div class="hr"></div>
@@ -91,53 +51,19 @@
         <h2>Juegos</h2>
         <a class="btn-link" href="/games/">Ver todo →</a>
       </div>
-
-      <div class="grid" id="games-grid">
-        <!-- Ejemplo: Bingo -->
-        <article class="card tool">
-          <span class="badge">#J1</span>
-          <h3>Bingo</h3>
-          <p>Bingo clásico para el navegador. Ideal para jugar con amigos.</p>
-          <div class="tags">
-            <span class="tag">Canvas</span><span class="tag">JS</span>
-          </div>
-          <a href="/games/bingo/">
-            <span class="emoji">🎲</span> Jugar
-          </a>
-        </article>
-
-        <!-- Placeholder para futuros juegos -->
-        <article class="card tool">
-          <span class="badge">#J2</span>
-          <h3>Próximamente…</h3>
-          <p>Un experimento de física simple con animaciones suaves.</p>
-          <div class="tags">
-            <span class="tag">Animaciones</span>
-          </div>
-          <a href="/games/">
-            <span class="emoji">⏳</span> Explorar
-          </a>
-        </article>
-      </div>
+      <div class="grid auto" id="games-grid"></div>
     </section>
 
     <footer class="footer">
-      Hecho con café y ganas. © <span id="year"></span> devdanielcoding
+      Hecho para hacer de mi día a día más productivo. © <span id="year"></span> devdanielcoding
     </footer>
   </div>
 
+  <!-- Scripts -->
   <script>
-    // Año dinámico + filtro simple de búsqueda
+    // Año dinámico
     document.getElementById('year').textContent = new Date().getFullYear();
-    const input = document.getElementById('search');
-    const cards = Array.from(document.querySelectorAll('.tool'));
-    input?.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      cards.forEach(c => {
-        const txt = c.innerText.toLowerCase();
-        c.style.display = txt.includes(q) ? '' : 'none';
-      });
-    });
   </script>
+  <script type="module" src="../scripts/renderProjects.js"></script>
 </body>
 </html>
