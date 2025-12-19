@@ -27,6 +27,15 @@ export const PROJECTS = [
     tags: ['Imágenes', 'PWA'],
     category: 'tools'
   },
+    {
+    id: 'T4',
+    title: 'PDFunify',
+    desc: 'Une pdfs online',
+    path: '/tools/unir-pdfs-offline/',
+    emoji: '📄',
+    tags: ['PDF', 'PWA'],
+    category: 'tools'
+  },
   {
     id: 'J1',
     title: 'Bingo',

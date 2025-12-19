@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unificador de PDFs (Offline)</title>
+  <style>
+    body { font-family: system-ui, Arial; max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    h1 { margin-bottom: 4px; }
+    .small { color: #666; font-size: 13px; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 14px 0; }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
+    button.primary { background: #111; color: #fff; border-color: #111; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    ul { list-style: none; padding: 0; margin-top: 12px; }
+    li { display: flex; justify-content: space-between; gap: 10px; padding: 10px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 8px; }
+    .name { max-width: 520px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .actions { display: flex; gap: 6px; }
+    input[type="text"] { padding: 10px; border-radius: 10px; border: 1px solid #bbb; }
+  </style>
+</head>
+<body>
+
+<h1>Unificador de PDFs</h1>
+<div class="small">Funciona 100% offline · Todo se procesa en tu PC</div>
+
+<div class="card">
+  <div class="row">
+    <input id="files" type="file" accept="application/pdf" multiple />
+    <input id="outName" type="text" value="pdf_unido.pdf" />
+    <button id="mergeBtn" class="primary" disabled>Unir y descargar</button>
+    <button id="clearBtn" disabled>Limpiar</button>
+  </div>
+  <div id="status" class="small"></div>
+</div>
+
+<div class="card">
+  <strong>Orden de los PDFs</strong>
+  <ul id="list"></ul>
+</div>
+
+<!-- LIBRERÍA OFFLINE -->
+<script src="pdf-lib.min.js"></script>
+
+<script>
+const filesInput = document.getElementById('files');
+const listEl = document.getElementById('list');
+const mergeBtn = document.getElementById('mergeBtn');
+const clearBtn = document.getElementById('clearBtn');
+const statusEl = document.getElementById('status');
+const outNameEl = document.getElementById('outName');
+
+let files = [];
+
+function refresh() {
+  listEl.innerHTML = '';
+  files.forEach((f, i) => {
+    const li = document.createElement('li');
+
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = `${i + 1}. ${f.name}`;
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const up = document.createElement('button');
+    up.textContent = '↑';
+    up.disabled = i === 0;
+    up.onclick = () => swap(i, i - 1);
+
+    const down = document.createElement('button');
+    down.textContent = '↓';
+    down.disabled = i === files.length - 1;
+    down.onclick = () => swap(i, i + 1);
+
+    const del = document.createElement('button');
+    del.textContent = 'Quitar';
+    del.onclick = () => { files.splice(i, 1); refresh(); };
+
+    actions.append(up, down, del);
+    li.append(name, actions);
+    listEl.appendChild(li);
+  });
+
+  mergeBtn.disabled = files.length < 2;
+  clearBtn.disabled = files.length === 0;
+  statusEl.textContent = files.length < 2
+    ? 'Selecciona al menos 2 PDFs'
+    : 'Listo para unir';
+}
+
+function swap(a, b) {
+  [files[a], files[b]] = [files[b], files[a]];
+  refresh();
+}
+
+filesInput.onchange = () => {
+  files.push(...Array.from(filesInput.files));
+  filesInput.value = '';
+  refresh();
+};
+
+clearBtn.onclick = () => {
+  files = [];
+  refresh();
+};
+
+mergeBtn.onclick = async () => {
+  mergeBtn.disabled = true;
+  statusEl.textContent = 'Uniendo PDFs...';
+
+  const { PDFDocument } = PDFLib;
+  const merged = await PDFDocument.create();
+
+  for (const f of files) {
+    const bytes = await f.arrayBuffer();
+    const pdf = await PDFDocument.load(bytes);
+    const pages = await merged.copyPages(pdf, pdf.getPageIndices());
+    pages.forEach(p => merged.addPage(p));
+  }
+
+  const outBytes = await merged.save();
+  const blob = new Blob([outBytes], { type: 'application/pdf' });
+
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = outNameEl.value.endsWith('.pdf') ? outNameEl.value : outNameEl.value + '.pdf';
+  a.click();
+
+  URL.revokeObjectURL(a.href);
+  statusEl.textContent = 'PDF unido descargado ✅';
+  refresh();
+};
+
+refresh();
+</script>
+</body>
+</html>
