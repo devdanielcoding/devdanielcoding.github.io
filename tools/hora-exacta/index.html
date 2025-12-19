@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hora Exacta</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="top-bar">
+      <div class="controls" aria-label="Controles de visualización">
+        <button class="icon-button" id="shareButton" type="button" title="Compartir" aria-label="Compartir">
+          <span aria-hidden="true">&#128279;</span>
+        </button>
+        <button class="icon-button" id="textDown" type="button" title="Reducir texto" aria-label="Reducir texto">
+          <span aria-hidden="true">A-</span>
+        </button>
+        <button class="icon-button" id="textUp" type="button" title="Aumentar texto" aria-label="Aumentar texto">
+          <span aria-hidden="true">A+</span>
+        </button>
+        <button class="icon-button" id="fullscreenButton" type="button" title="Pantalla completa" aria-label="Pantalla completa">
+          <span aria-hidden="true" id="fullscreenIcon">&#9974;</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" aria-live="polite">
+      <div class="clock" id="clock" aria-label="Hora exacta">00:00:00</div>
+      <div class="date" id="date">Viernes, 01 de enero de 2021</div>
+      <div class="timezone" id="timezone">Zona horaria del dispositivo</div>
+      <div class="hint" id="fullscreenHint" role="status" aria-live="assertive" hidden>
+        Para salir de pantalla completa, pulsa ESC
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div>
+    </main>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
