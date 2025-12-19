@@ -35,6 +35,15 @@ export const PROJECTS = [
     emoji: '📄',
     tags: ['PDF', 'PWA'],
     category: 'tools'
+  },    
+    {
+    id: 'T5',
+    title: 'ExactHour',
+    desc: 'Reloj sin publicidad',
+    path: '/tools/hora-exacta/',
+    emoji: '📄',
+    tags: ['Hour', 'PWA'],
+    category: 'tools'
   },
   {
     id: 'J1',
