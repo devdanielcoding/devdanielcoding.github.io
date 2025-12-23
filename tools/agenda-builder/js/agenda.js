@@ -10,6 +10,7 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   startWrapper.className = 'time';
   const startLabel = document.createElement('label');
   startLabel.textContent = 'Inicio';
+  startLabel.className = 'sr-only';
   const startInput = document.createElement('input');
   startInput.type = 'time';
   startInput.value = activity.start;
@@ -19,6 +20,7 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   endWrapper.className = 'time';
   const endLabel = document.createElement('label');
   endLabel.textContent = 'Fin';
+  endLabel.className = 'sr-only';
   const endInput = document.createElement('input');
   endInput.type = 'time';
   endInput.value = activity.end;
@@ -28,6 +30,7 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   descWrapper.className = 'description';
   const descLabel = document.createElement('label');
   descLabel.textContent = 'Descripción';
+  descLabel.className = 'sr-only';
   const descInput = document.createElement('input');
   descInput.type = 'text';
   descInput.value = activity.description;
