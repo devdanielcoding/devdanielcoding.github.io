@@ -343,8 +343,29 @@ body {
 @media print {
   body {
     background: #fff;
+    color: #111827;
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0;
   }
 
+  @page {
+    margin: 18mm 16mm;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .app-shell {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Elimina elementos de interfaz y adornos innecesarios */
   .hero,
   .meta,
   .agenda-footer .export,
@@ -355,7 +376,11 @@ body {
   .preset-hint,
   #exportJson,
   #exportPdf,
-  #importJson {
+  #importJson,
+  .tag,
+  .actions,
+  .status,
+  .agenda-footer {
     display: none !important;
   }
 
@@ -363,5 +388,88 @@ body {
     box-shadow: none;
     border: none;
     padding: 0;
+  }
+
+  .agenda-header {
+    display: block;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #d1d5db;
+  }
+
+  .agenda-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+
+  #eventDateDisplay {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #4b5563;
+  }
+
+  .activities {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .activity-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 4px 0;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+    box-shadow: none;
+    grid-template-columns: none;
+  }
+
+  .activity-row:last-of-type {
+    border-bottom: none;
+  }
+
+  .activity-row label,
+  .activity-row .error,
+  .activity-row button {
+    display: none !important;
+  }
+
+  .activity-row .time,
+  .activity-row .description {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .activity-row .time + .time::before {
+    content: "–";
+    color: #4b5563;
+    margin-right: 2px;
+  }
+
+  .activity-row .description {
+    flex: 1;
+  }
+
+  .activity-row .description::before {
+    content: "|";
+    color: #9ca3af;
+    margin-right: 6px;
+  }
+
+  .activity-row input {
+    border: none;
+    padding: 0;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 600;
+    width: auto;
+    min-width: 40px;
+    color: #111827;
+    pointer-events: none;
   }
 }
