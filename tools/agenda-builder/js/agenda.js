@@ -1,7 +1,7 @@
 import { addActivity, removeActivity, updateActivity, sortActivities, ensureMinimumActivities, getState } from './state.js';
 import { validateAgenda } from './validation.js';
 
-export const createActivityRow = (activity, { onChange, onDelete, spansNextDay = false }) => {
+export const createActivityRow = (activity, { onChange, onDelete, showDayIndicator = false }) => {
   const row = document.createElement('div');
   row.className = 'activity-row';
   row.dataset.id = activity.id;
@@ -26,7 +26,7 @@ export const createActivityRow = (activity, { onChange, onDelete, spansNextDay =
   endInput.value = activity.end;
   endInput.className = 'time-end';
 
-  if (spansNextDay) {
+  if (showDayIndicator) {
     const dayBadge = document.createElement('span');
     dayBadge.className = 'day-indicator';
     dayBadge.textContent = '(+1 día)';
@@ -66,7 +66,8 @@ export const createActivityRow = (activity, { onChange, onDelete, spansNextDay =
   const emitTimeChange = () => {
     emitChange({
       start: startInput.value,
-      end: endInput.value
+      end: endInput.value,
+      dayOffset: activity.dayOffset
     });
   };
 
