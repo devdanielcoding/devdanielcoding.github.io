@@ -189,7 +189,7 @@ body {
 
 .activity-row {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 8px;
   padding: 6px 0;
@@ -197,6 +197,7 @@ body {
   border-radius: 0;
   box-shadow: none;
   background: transparent;
+  white-space: normal;
 }
 
 .activity-row:last-of-type {
@@ -211,12 +212,15 @@ body {
 .activity-row .day,
 .activity-row .description {
   display: inline-flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 6px;
 }
 
 .activity-row .description {
   flex: 1;
+  min-width: 220px;
+  white-space: normal;
+  overflow: visible;
 }
 
 .activity-row .time + .time::before {
@@ -249,6 +253,22 @@ body {
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
+.activity-row textarea {
+  width: 100%;
+  min-height: 32px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.4;
+  resize: none;
+  white-space: pre-wrap;
+  overflow: auto;
+  word-break: break-word;
+}
+
 .activity-row input.as-text {
   cursor: text;
 }
@@ -258,20 +278,23 @@ body {
   opacity: 0.7;
 }
 
-.activity-row input:not(.as-text) {
+.activity-row input:not(.as-text),
+.activity-row textarea:not(.as-text) {
   border-bottom: 1px solid var(--border);
   padding: 2px 4px;
   background: #f9fafb;
 }
 
-input.as-text {
+input.as-text,
+textarea.as-text {
   border: none !important;
   background: transparent !important;
   padding: 0 !important;
   box-shadow: none !important;
 }
 
-.activity-row input:focus {
+.activity-row input:focus,
+.activity-row textarea:focus {
   outline: none;
   border-bottom: 1px solid var(--primary);
   box-shadow: none;
@@ -470,7 +493,7 @@ input.as-text {
 
   .activity-row {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 6px;
     padding: 4px 0;
     border: none;
@@ -494,7 +517,7 @@ input.as-text {
   .activity-row .day,
   .activity-row .description {
     display: inline-flex;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 6px;
   }
 
@@ -506,6 +529,8 @@ input.as-text {
 
   .activity-row .description {
     flex: 1;
+    min-width: 200px;
+    white-space: normal;
   }
 
   .activity-row .description::before {
@@ -514,7 +539,8 @@ input.as-text {
     margin-right: 6px;
   }
 
-  .activity-row input {
+  .activity-row input,
+  .activity-row textarea {
     border: none;
     padding: 0;
     background: transparent;
@@ -524,5 +550,6 @@ input.as-text {
     min-width: 40px;
     color: #111827;
     pointer-events: none;
+    white-space: pre-wrap;
   }
 }

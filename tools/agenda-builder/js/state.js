@@ -68,7 +68,8 @@ const createActivity = (payload = {}) => {
     start: payload.start || slot.start,
     end: payload.end || slot.end,
     description: payload.description || 'Actividad',
-    activityDate: payload.activityDate || slot.activityDate
+    activityDate: payload.activityDate || slot.activityDate,
+    isDateManual: Boolean(payload.isDateManual)
   };
 };
 
@@ -94,9 +95,13 @@ export const addActivity = (payload = {}) => {
 export const updateActivity = (id, payload) => {
   const target = state.activities.find((item) => item.id === id);
   if (!target) return;
-  Object.assign(target, payload, {
-    activityDate: payload.activityDate || target.activityDate || inheritActivityDate()
-  });
+  const next = {
+    ...target,
+    ...payload,
+    activityDate: payload.activityDate ?? target.activityDate ?? inheritActivityDate(),
+    isDateManual: payload.isDateManual ?? target.isDateManual ?? false
+  };
+  Object.assign(target, next);
 };
 
 export const removeActivity = (id) => {
@@ -121,7 +126,8 @@ export const replaceActivities = (list) => {
     start: item.start,
     end: item.end,
     description: item.description || 'Actividad',
-    activityDate: deriveActivityDate(item, state.eventDate)
+    activityDate: deriveActivityDate(item, state.eventDate),
+    isDateManual: Boolean(item.isDateManual)
   }));
 };
 
@@ -142,6 +148,25 @@ export const ensureMinimumActivities = () => {
 
 export const sortActivities = () => {
   state.activities.sort((a, b) => buildTimestamp(a) - buildTimestamp(b));
+};
+
+export const syncActivitiesWithEventDate = (newDate, previousDate) => {
+  if (!newDate) return;
+  const anyManualDate = state.activities.some((item) => item.isDateManual);
+  const allMatchPrevious =
+    Boolean(previousDate) && state.activities.every((item) => item.activityDate === previousDate);
+  const shouldUpdateAll = !anyManualDate || allMatchPrevious;
+
+  state.activities.forEach((activity) => {
+    const shouldUpdate = shouldUpdateAll
+      ? !activity.isDateManual
+      : !activity.isDateManual && activity.activityDate === previousDate;
+    if (shouldUpdate) {
+      activity.activityDate = newDate;
+    }
+  });
+
+  sortActivities();
 };
 
 export const utils = { toMinutes, formatTime, toDateTime, formatFromDate, normalizeDate, todayISO };

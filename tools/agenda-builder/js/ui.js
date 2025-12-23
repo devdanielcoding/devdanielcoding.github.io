@@ -1,4 +1,11 @@
-import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName } from './state.js';
+import {
+  ensureMinimumActivities,
+  getState,
+  resetState,
+  setEventDate,
+  setEventName,
+  syncActivitiesWithEventDate
+} from './state.js';
 import { addNewActivity, changeActivity, deleteActivity, createActivityRow, getValidatedState } from './agenda.js';
 import { applyPreset } from './presets.js';
 import { exportJson, importJson, exportPdf } from './export.js';
@@ -63,7 +70,20 @@ const updateSummary = (validation) => {
 
 const updateMeta = (eventName, eventDate) => {
   eventNameDisplay.textContent = eventName || 'Evento sin nombre';
-  eventDateDisplay.textContent = eventDate ? new Date(eventDate).toLocaleDateString() : 'Sin fecha';
+  eventDateDisplay.textContent = formatEventDate(eventDate);
+};
+
+const formatEventDate = (eventDate) => {
+  if (!eventDate) return 'Sin fecha';
+  const [year, month, day] = eventDate.split('-').map(Number);
+  const parsed = new Date(year, (month || 1) - 1, day || 1);
+  if (Number.isNaN(parsed.getTime())) return 'Fecha inválida';
+  return parsed.toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 };
 
 const handleActivityChange = (payload) => {
@@ -130,8 +150,11 @@ const bindMeta = () => {
   nameInput.addEventListener('focus', () => expandInput(nameInput));
 
   dateInput.addEventListener('change', (e) => {
-    setEventDate(e.target.value);
-    enablePresets(Boolean(e.target.value));
+    const previousDate = getState().eventDate;
+    const selectedDate = e.target.value;
+    setEventDate(selectedDate);
+    syncActivitiesWithEventDate(selectedDate, previousDate);
+    enablePresets(Boolean(selectedDate));
     renderAgenda();
   });
   dateInput.addEventListener('blur', () => collapseInput(dateInput));
