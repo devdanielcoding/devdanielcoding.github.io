@@ -34,7 +34,7 @@ export const applyPreset = (key) => {
   }
 
   const slots = generateSlots(preset.start);
-  const conflicts = slots.some((slot) => !isSlotAvailable(activities, slot.start, slot.end));
+  const conflicts = slots.some((slot) => !isSlotAvailable(activities, slot.start, slot.end, eventDate));
   if (conflicts) {
     return { success: false, message: 'El preset se superpone con las actividades actuales.' };
   }
