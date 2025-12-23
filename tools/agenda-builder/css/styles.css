@@ -50,22 +50,6 @@ body {
   color: var(--muted);
 }
 
-.view-toggle button {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.view-toggle button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(30, 136, 229, 0.25);
-}
-
 .meta {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -183,10 +167,6 @@ body {
   gap: 12px;
 }
 
-.activities.two-columns {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
 .activity-row {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -279,6 +259,40 @@ body {
   font-weight: 700;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+.actions button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.actions button.primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 20px rgba(30, 136, 229, 0.2);
+}
+
+.actions button.primary:hover {
+  box-shadow: 0 10px 24px rgba(30, 136, 229, 0.28);
+  transform: translateY(-1px);
+}
+
 .agenda-footer {
   flex-wrap: wrap;
   padding-top: 8px;
@@ -334,13 +348,13 @@ body {
   .hero,
   .meta,
   .agenda-footer .export,
-  #toggleView,
   #addActivity,
+  #resetAgenda,
   .delete,
   .preset-actions,
   .preset-hint,
-  .view-toggle,
   #exportJson,
+  #exportPdf,
   #importJson {
     display: none !important;
   }
