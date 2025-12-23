@@ -41,10 +41,10 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   const descLabel = document.createElement('label');
   descLabel.textContent = 'Descripción';
   descLabel.className = 'sr-only';
-  const descInput = document.createElement('input');
-  descInput.type = 'text';
+  const descInput = document.createElement('textarea');
   descInput.value = activity.description;
   descInput.placeholder = 'Describe la actividad';
+  descInput.rows = 1;
 
   const deleteBtn = document.createElement('button');
   deleteBtn.type = 'button';
@@ -76,8 +76,14 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   };
 
   const emitDayChange = () => {
-    emitChange({ activityDate: dayInput.value });
+    emitChange({ activityDate: dayInput.value, isDateManual: true });
   };
+
+  const resizeDescription = () => {
+    descInput.style.height = 'auto';
+    descInput.style.height = `${descInput.scrollHeight}px`;
+  };
+  resizeDescription();
 
   let descTimeout;
   const scheduleDescriptionSave = () => {
@@ -95,7 +101,10 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   startInput.addEventListener('input', emitTimeChange);
   endInput.addEventListener('input', emitTimeChange);
   dayInput.addEventListener('change', emitDayChange);
-  descInput.addEventListener('input', scheduleDescriptionSave);
+  descInput.addEventListener('input', () => {
+    scheduleDescriptionSave();
+    resizeDescription();
+  });
   descInput.addEventListener('blur', flushDescription);
 
   deleteBtn.addEventListener('click', () => onDelete(activity.id));
