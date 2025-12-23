@@ -72,25 +72,35 @@ const handleActivityChange = (payload) => {
 
   const cleanPayload = {
     ...current,
-    ...payload,
-    description: (payload.description || '').trim()
+    ...payload
   };
 
-  if (!isOrderValid(cleanPayload.start, cleanPayload.end)) {
-    changeActivity(cleanPayload);
-    renderAgenda();
-    return;
+  if (payload.description !== undefined) {
+    cleanPayload.description = payload.description;
   }
 
-  const others = activities.filter((item) => item.id !== payload.id);
-  if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end)) {
+  const hasTimeChange = payload.start !== undefined || payload.end !== undefined;
+
+  if (hasTimeChange) {
+    if (!isOrderValid(cleanPayload.start, cleanPayload.end)) {
+      changeActivity(cleanPayload);
+      renderAgenda();
+      return;
+    }
+
+    const others = activities.filter((item) => item.id !== payload.id);
+    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end)) {
+      changeActivity(cleanPayload);
+      renderAgenda();
+      return;
+    }
+
     changeActivity(cleanPayload);
     renderAgenda();
     return;
   }
 
   changeActivity(cleanPayload);
-  renderAgenda();
 };
 
 const handleDelete = (id) => {
