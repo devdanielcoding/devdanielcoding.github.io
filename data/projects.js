@@ -45,6 +45,15 @@ export const PROJECTS = [
     tags: ['Hour', 'PWA'],
     category: 'tools'
   },
+    {
+    id: 'T6',
+    title: 'Agend-builder',
+    desc: 'Constructor de agendas',
+    path: '/tools/agenda-builder/',
+    emoji: '📖',
+    tags: ['Hour', 'PWA'],
+    category: 'tools'
+  },
   {
     id: 'J1',
     title: 'Bingo',
