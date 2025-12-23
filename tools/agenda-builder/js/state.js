@@ -80,6 +80,15 @@ export const replaceActivities = (list) => {
   }));
 };
 
+export const resetState = () => {
+  state.eventName = '';
+  state.eventDate = '';
+  state.activities = [];
+  idCounter = 0;
+  ensureMinimumActivities();
+  sortActivities();
+};
+
 export const ensureMinimumActivities = () => {
   while (state.activities.length < 2) {
     addActivity();

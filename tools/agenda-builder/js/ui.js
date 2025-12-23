@@ -1,4 +1,4 @@
-import { ensureMinimumActivities, getState, setEventDate, setEventName } from './state.js';
+import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName } from './state.js';
 import { addNewActivity, changeActivity, deleteActivity, createActivityRow, getValidatedState } from './agenda.js';
 import { applyPreset } from './presets.js';
 import { exportJson, importJson, exportPdf } from './export.js';
@@ -10,8 +10,10 @@ const nameInput = document.getElementById('eventName');
 const dateInput = document.getElementById('eventDate');
 const eventNameDisplay = document.getElementById('eventNameDisplay');
 const eventDateDisplay = document.getElementById('eventDateDisplay');
-const viewToggle = document.getElementById('toggleView');
 const printableAgenda = document.getElementById('printableAgenda');
+const resetButton = document.getElementById('resetAgenda');
+const addButton = document.getElementById('addActivity');
+const pdfButton = document.getElementById('exportPdf');
 
 const presetButtons = {
   morning: document.getElementById('presetMorning'),
@@ -125,14 +127,15 @@ const bindMeta = () => {
 };
 
 const bindControls = () => {
-  document.getElementById('addActivity').addEventListener('click', handleAddActivity);
-  viewToggle.addEventListener('click', toggleView);
+  addButton.addEventListener('click', handleAddActivity);
+  resetButton.addEventListener('click', handleReset);
   presetButtons.morning.addEventListener('click', () => handlePreset('morning'));
   presetButtons.afternoon.addEventListener('click', () => handlePreset('afternoon'));
   presetButtons.night.addEventListener('click', () => handlePreset('night'));
   document.getElementById('exportJson').addEventListener('click', exportJson);
   document.getElementById('importJson').addEventListener('click', () => document.getElementById('importInput').click());
   document.getElementById('importInput').addEventListener('change', handleImport);
+  pdfButton.addEventListener('click', exportPdf);
   printableAgenda.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     exportPdf();
@@ -161,11 +164,16 @@ const handleImport = async (event) => {
   }
 };
 
-const toggleView = () => {
-  agendaContainer.classList.toggle('two-columns');
-  viewToggle.textContent = agendaContainer.classList.contains('two-columns')
-    ? 'Vista 1 columna'
-    : 'Vista 2 columnas';
+const handleReset = () => {
+  resetState();
+  nameInput.value = '';
+  dateInput.value = '';
+  enablePresets(false);
+  summaryEl.textContent = 'Sin conflictos detectados.';
+  summaryEl.classList.remove('warning');
+  collapseInput(nameInput);
+  collapseInput(dateInput);
+  renderAgenda();
 };
 
 const collapseInput = (input) => {
