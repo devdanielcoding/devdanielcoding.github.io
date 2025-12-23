@@ -1,12 +1,19 @@
 import { utils } from './state.js';
 
+const resolveRange = (start, end, activityDate, fallbackDate) => {
+  const baseDate = activityDate || fallbackDate;
+  const startDate = utils.toDateTime(baseDate, start);
+  const endDate = utils.toDateTime(baseDate, end);
+  return { startDate, endDate };
+};
+
 export const validateAgenda = (activities, eventDate) => {
   const errors = {};
   const overlaps = findOverlaps(activities, eventDate);
 
   activities.forEach((activity) => {
     const list = [];
-    if (!isOrderValid(activity.start, activity.end, eventDate, activity.dayOffset)) {
+    if (!isOrderValid(activity.start, activity.end, activity.activityDate, eventDate)) {
       list.push('La hora de inicio debe ser anterior a la hora de fin.');
     }
     if (overlaps.has(activity.id)) {
@@ -18,24 +25,24 @@ export const validateAgenda = (activities, eventDate) => {
   return errors;
 };
 
-export const isOrderValid = (start, end, eventDate, dayOffset = 0) => {
-  const range = utils.resolveRange(start, end, eventDate, dayOffset);
+export const isOrderValid = (start, end, activityDate, fallbackDate) => {
+  const range = resolveRange(start, end, activityDate, fallbackDate);
   return range.startDate < range.endDate;
 };
 
-export const isSlotAvailable = (activities, start, end, eventDate, dayOffset = 0, ignoreId) => {
+export const isSlotAvailable = (activities, start, end, activityDate, fallbackDate = '', ignoreId) => {
   return !activities.some((item) => {
     if (ignoreId && item.id === ignoreId) return false;
-    return rangesOverlap(start, end, dayOffset, item.start, item.end, item.dayOffset, eventDate);
+    return rangesOverlap(start, end, activityDate, item.start, item.end, item.activityDate, fallbackDate);
   });
 };
 
-const findOverlaps = (activities, eventDate) => {
+const findOverlaps = (activities, fallbackDate) => {
   const overlapping = new Set();
   activities.forEach((current, idx) => {
     for (let i = idx + 1; i < activities.length; i += 1) {
       const other = activities[i];
-      if (rangesOverlap(current.start, current.end, current.dayOffset, other.start, other.end, other.dayOffset, eventDate)) {
+      if (rangesOverlap(current.start, current.end, current.activityDate, other.start, other.end, other.activityDate, fallbackDate)) {
         overlapping.add(current.id);
         overlapping.add(other.id);
       }
@@ -44,8 +51,8 @@ const findOverlaps = (activities, eventDate) => {
   return overlapping;
 };
 
-const rangesOverlap = (aStart, aEnd, aDayOffset, bStart, bEnd, bDayOffset, eventDate) => {
-  const rangeA = utils.resolveRange(aStart, aEnd, eventDate, utils.clampDayOffset(aDayOffset));
-  const rangeB = utils.resolveRange(bStart, bEnd, eventDate, utils.clampDayOffset(bDayOffset));
+const rangesOverlap = (aStart, aEnd, aDate, bStart, bEnd, bDate, fallbackDate) => {
+  const rangeA = resolveRange(aStart, aEnd, aDate, fallbackDate);
+  const rangeB = resolveRange(bStart, bEnd, bDate, fallbackDate);
   return rangeA.startDate < rangeB.endDate && rangeB.startDate < rangeA.endDate;
 };

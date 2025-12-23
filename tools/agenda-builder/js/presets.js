@@ -34,12 +34,12 @@ export const applyPreset = (key) => {
   }
 
   const slots = generateSlots(preset.start);
-  const conflicts = slots.some((slot) => !isSlotAvailable(activities, slot.start, slot.end, eventDate, 0));
+  const conflicts = slots.some((slot) => !isSlotAvailable(activities, slot.start, slot.end, eventDate, eventDate));
   if (conflicts) {
     return { success: false, message: 'El preset se superpone con las actividades actuales.' };
   }
 
-  slots.forEach((slot) => addActivity(slot));
+  slots.forEach((slot) => addActivity({ ...slot, activityDate: eventDate }));
   sortActivities();
   return { success: true, message: `${preset.label} añadido correctamente.` };
 };
