@@ -1,4 +1,4 @@
-import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName, utils } from './state.js';
+import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName } from './state.js';
 import { addNewActivity, changeActivity, deleteActivity, createActivityRow, getValidatedState } from './agenda.js';
 import { applyPreset } from './presets.js';
 import { exportJson, importJson, exportPdf } from './export.js';
@@ -21,22 +21,6 @@ const presetButtons = {
   night: document.getElementById('presetNight')
 };
 
-const buildSortKey = (activity) => utils.clampDayOffset(activity.dayOffset) * 1440 + utils.toMinutes(activity.start);
-
-const inferOffsetFromContext = (activities, candidate) => {
-  const baseOffset = utils.clampDayOffset(candidate.dayOffset);
-  const maxOffset = activities.reduce((max, item) => Math.max(max, utils.clampDayOffset(item.dayOffset)), 0);
-  if (baseOffset === 1 || maxOffset === 0) {
-    return baseOffset;
-  }
-
-  const combined = activities.map((item) => (item.id === candidate.id ? candidate : item));
-  combined.sort((a, b) => buildSortKey(a) - buildSortKey(b));
-  const currentIndex = combined.findIndex((item) => item.id === candidate.id);
-  const hasPreviousNextDay = combined.slice(0, currentIndex).some((item) => utils.clampDayOffset(item.dayOffset) === 1);
-  return hasPreviousNextDay ? 1 : baseOffset;
-};
-
 const renderAgenda = () => {
   const { activities, validation, eventName, eventDate } = getValidatedState();
   agendaContainer.innerHTML = '';
@@ -44,10 +28,10 @@ const renderAgenda = () => {
   activities.forEach((activity) => {
     const { row, inputs, errorEl, deleteBtn } = createActivityRow(activity, {
       onChange: handleActivityChange,
-      onDelete: handleDelete,
-      showDayIndicator: activity.dayOffset === 1
+      onDelete: handleDelete
     });
 
+    decorateInput(inputs.dayInput);
     decorateInput(inputs.startInput);
     decorateInput(inputs.endInput);
     decorateInput(inputs.descInput);
@@ -89,39 +73,33 @@ const handleActivityChange = (payload) => {
 
   const cleanPayload = {
     ...current,
-    ...payload,
-    dayOffset: utils.clampDayOffset(payload.dayOffset ?? current.dayOffset)
+    ...payload
   };
 
   if (payload.description !== undefined) {
     cleanPayload.description = payload.description;
   }
 
-  const hasTimeChange = payload.start !== undefined || payload.end !== undefined;
-
-  if (hasTimeChange) {
-    const inferredOffset = inferOffsetFromContext(activities, cleanPayload);
-    cleanPayload.dayOffset = inferredOffset;
-
-    if (!isOrderValid(cleanPayload.start, cleanPayload.end, eventDate, cleanPayload.dayOffset)) {
-      changeActivity(cleanPayload);
-      renderAgenda();
-      return;
-    }
-
-    const others = activities.filter((item) => item.id !== payload.id);
-    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end, eventDate, cleanPayload.dayOffset)) {
-      changeActivity(cleanPayload);
-      renderAgenda();
-      return;
-    }
-
-    changeActivity(cleanPayload);
-    renderAgenda();
-    return;
-  }
+  const requiresValidation =
+    payload.start !== undefined || payload.end !== undefined || payload.activityDate !== undefined;
 
   changeActivity(cleanPayload);
+
+  if (requiresValidation) {
+    const activityDate = cleanPayload.activityDate || eventDate;
+    const others = activities.filter((item) => item.id !== payload.id);
+    if (!isOrderValid(cleanPayload.start, cleanPayload.end, activityDate, eventDate)) {
+      renderAgenda();
+      return;
+    }
+
+    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end, activityDate, eventDate, payload.id)) {
+      renderAgenda();
+      return;
+    }
+
+    renderAgenda();
+  }
 };
 
 const handleDelete = (id) => {

@@ -1,10 +1,20 @@
 import { addActivity, removeActivity, updateActivity, sortActivities, ensureMinimumActivities, getState } from './state.js';
 import { validateAgenda } from './validation.js';
 
-export const createActivityRow = (activity, { onChange, onDelete, showDayIndicator = false }) => {
+export const createActivityRow = (activity, { onChange, onDelete }) => {
   const row = document.createElement('div');
   row.className = 'activity-row';
   row.dataset.id = activity.id;
+
+  const dayWrapper = document.createElement('div');
+  dayWrapper.className = 'day';
+  const dayLabel = document.createElement('label');
+  dayLabel.textContent = 'Día';
+  dayLabel.className = 'sr-only';
+  const dayInput = document.createElement('input');
+  dayInput.type = 'date';
+  dayInput.value = activity.activityDate;
+  dayInput.className = 'day-input';
 
   const startWrapper = document.createElement('div');
   startWrapper.className = 'time';
@@ -26,13 +36,6 @@ export const createActivityRow = (activity, { onChange, onDelete, showDayIndicat
   endInput.value = activity.end;
   endInput.className = 'time-end';
 
-  if (showDayIndicator) {
-    const dayBadge = document.createElement('span');
-    dayBadge.className = 'day-indicator';
-    dayBadge.textContent = '(+1 día)';
-    endWrapper.appendChild(dayBadge);
-  }
-
   const descWrapper = document.createElement('div');
   descWrapper.className = 'description';
   const descLabel = document.createElement('label');
@@ -51,10 +54,11 @@ export const createActivityRow = (activity, { onChange, onDelete, showDayIndicat
   const error = document.createElement('div');
   error.className = 'error';
 
+  dayWrapper.append(dayLabel, dayInput);
   startWrapper.append(startLabel, startInput);
   endWrapper.append(endLabel, endInput);
   descWrapper.append(descLabel, descInput);
-  row.append(startWrapper, endWrapper, descWrapper, deleteBtn, error);
+  row.append(dayWrapper, startWrapper, endWrapper, descWrapper, deleteBtn, error);
 
   const emitChange = (payload = {}) => {
     onChange({
@@ -67,8 +71,12 @@ export const createActivityRow = (activity, { onChange, onDelete, showDayIndicat
     emitChange({
       start: startInput.value,
       end: endInput.value,
-      dayOffset: activity.dayOffset
+      activityDate: dayInput.value
     });
+  };
+
+  const emitDayChange = () => {
+    emitChange({ activityDate: dayInput.value });
   };
 
   let descTimeout;
@@ -86,12 +94,13 @@ export const createActivityRow = (activity, { onChange, onDelete, showDayIndicat
 
   startInput.addEventListener('input', emitTimeChange);
   endInput.addEventListener('input', emitTimeChange);
+  dayInput.addEventListener('change', emitDayChange);
   descInput.addEventListener('input', scheduleDescriptionSave);
   descInput.addEventListener('blur', flushDescription);
 
   deleteBtn.addEventListener('click', () => onDelete(activity.id));
 
-  return { row, inputs: { startInput, endInput, descInput }, errorEl: error, deleteBtn };
+  return { row, inputs: { startInput, endInput, descInput, dayInput }, errorEl: error, deleteBtn };
 };
 
 export const addNewActivity = () => {
