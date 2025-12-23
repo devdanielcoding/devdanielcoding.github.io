@@ -121,10 +121,13 @@ const enablePresets = (enabled) => {
 
 const bindMeta = () => {
   nameInput.addEventListener('input', (e) => {
-    setEventName(e.target.value);
-    renderAgenda();
+    eventNameDisplay.textContent = e.target.value || 'Evento sin nombre';
   });
-  nameInput.addEventListener('blur', () => collapseInput(nameInput));
+  nameInput.addEventListener('blur', () => {
+    setEventName(nameInput.value);
+    renderAgenda();
+    collapseInput(nameInput);
+  });
   nameInput.addEventListener('focus', () => expandInput(nameInput));
 
   dateInput.addEventListener('change', (e) => {

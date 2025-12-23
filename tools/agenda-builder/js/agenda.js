@@ -46,18 +46,37 @@ export const createActivityRow = (activity, { onChange, onDelete }) => {
   descWrapper.append(descLabel, descInput);
   row.append(startWrapper, endWrapper, descWrapper, deleteBtn, error);
 
-  const emitChange = () => {
+  const emitChange = (payload = {}) => {
     onChange({
       id: activity.id,
-      start: startInput.value,
-      end: endInput.value,
-      description: descInput.value
+      ...payload
     });
   };
 
-  startInput.addEventListener('input', emitChange);
-  endInput.addEventListener('input', emitChange);
-  descInput.addEventListener('input', emitChange);
+  const emitTimeChange = () => {
+    emitChange({
+      start: startInput.value,
+      end: endInput.value
+    });
+  };
+
+  let descTimeout;
+  const scheduleDescriptionSave = () => {
+    clearTimeout(descTimeout);
+    descTimeout = setTimeout(() => {
+      emitChange({ description: descInput.value });
+    }, 400);
+  };
+
+  const flushDescription = () => {
+    clearTimeout(descTimeout);
+    emitChange({ description: descInput.value });
+  };
+
+  startInput.addEventListener('input', emitTimeChange);
+  endInput.addEventListener('input', emitTimeChange);
+  descInput.addEventListener('input', scheduleDescriptionSave);
+  descInput.addEventListener('blur', flushDescription);
 
   deleteBtn.addEventListener('click', () => onDelete(activity.id));
 
