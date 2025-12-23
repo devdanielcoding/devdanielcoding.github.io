@@ -1,4 +1,4 @@
-import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName } from './state.js';
+import { ensureMinimumActivities, getState, resetState, setEventDate, setEventName, utils } from './state.js';
 import { addNewActivity, changeActivity, deleteActivity, createActivityRow, getValidatedState } from './agenda.js';
 import { applyPreset } from './presets.js';
 import { exportJson, importJson, exportPdf } from './export.js';
@@ -26,9 +26,11 @@ const renderAgenda = () => {
   agendaContainer.innerHTML = '';
 
   activities.forEach((activity) => {
+    const { spansNextDay } = utils.resolveRange(activity.start, activity.end, eventDate);
     const { row, inputs, errorEl, deleteBtn } = createActivityRow(activity, {
       onChange: handleActivityChange,
-      onDelete: handleDelete
+      onDelete: handleDelete,
+      spansNextDay
     });
 
     decorateInput(inputs.startInput);
@@ -66,7 +68,7 @@ const updateMeta = (eventName, eventDate) => {
 };
 
 const handleActivityChange = (payload) => {
-  const { activities } = getState();
+  const { activities, eventDate } = getState();
   const current = activities.find((item) => item.id === payload.id);
   if (!current) return;
 
@@ -82,14 +84,14 @@ const handleActivityChange = (payload) => {
   const hasTimeChange = payload.start !== undefined || payload.end !== undefined;
 
   if (hasTimeChange) {
-    if (!isOrderValid(cleanPayload.start, cleanPayload.end)) {
+    if (!isOrderValid(cleanPayload.start, cleanPayload.end, eventDate)) {
       changeActivity(cleanPayload);
       renderAgenda();
       return;
     }
 
     const others = activities.filter((item) => item.id !== payload.id);
-    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end)) {
+    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end, eventDate)) {
       changeActivity(cleanPayload);
       renderAgenda();
       return;

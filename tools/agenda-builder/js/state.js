@@ -11,6 +11,22 @@ const toMinutes = (time) => {
   return h * 60 + m;
 };
 
+const normalizeDate = (eventDate) => eventDate || '1970-01-01';
+
+const toDateTime = (eventDate, time) => {
+  return new Date(`${normalizeDate(eventDate)}T${time}:00`);
+};
+
+const resolveRange = (start, end, eventDate) => {
+  const startDate = toDateTime(eventDate, start);
+  const endDate = toDateTime(eventDate, end);
+  const spansNextDay = endDate <= startDate;
+  if (spansNextDay) {
+    endDate.setDate(endDate.getDate() + 1);
+  }
+  return { startDate, endDate, spansNextDay };
+};
+
 const formatTime = (minutes) => {
   const h = Math.floor(minutes / 60) % 24;
   const m = minutes % 60;
@@ -99,4 +115,4 @@ export const sortActivities = () => {
   state.activities.sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
 };
 
-export const utils = { toMinutes, formatTime };
+export const utils = { toMinutes, formatTime, toDateTime, resolveRange, normalizeDate };

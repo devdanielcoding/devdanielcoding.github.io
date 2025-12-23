@@ -218,6 +218,17 @@ body {
   flex: 1;
 }
 
+.day-indicator {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  align-self: center;
+}
+
 .activity-row .time + .time::before {
   content: "–";
   color: var(--muted);
