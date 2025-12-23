@@ -33,7 +33,6 @@ const renderAgenda = () => {
 
     decorateInput(inputs.startInput);
     decorateInput(inputs.endInput);
-    decorateInput(inputs.descInput);
 
     const errors = validation[activity.id] || [];
     if (errors.length) {
