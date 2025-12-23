@@ -1,0 +1,353 @@
+:root {
+  --bg: #f8f9fb;
+  --panel: #ffffff;
+  --primary: #1e88e5;
+  --accent: #f57c00;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --danger: #e53935;
+  --success: #2e7d32;
+  --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 10% 20%, rgba(30, 136, 229, 0.08), transparent 25%),
+    radial-gradient(circle at 80% 0%, rgba(245, 124, 0, 0.07), transparent 20%),
+    var(--bg);
+  color: #111827;
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 32px auto 64px;
+  padding: 0 16px 32px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: var(--panel);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.hero h1 {
+  margin: 0;
+}
+
+.hero p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.view-toggle button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.view-toggle button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(30, 136, 229, 0.25);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 22px 0;
+}
+
+.field {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label,
+.field span {
+  font-weight: 600;
+}
+
+.field input,
+.field button,
+.preset-actions button,
+.actions button,
+.export button {
+  font: inherit;
+}
+
+.field input[type="text"],
+.field input[type="date"] {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.18);
+}
+
+.presets .preset-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.presets button {
+  flex: 1 1 30%;
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.presets button:enabled:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.presets button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.preset-hint {
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.agenda {
+  background: var(--panel);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.agenda-header,
+.agenda-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.agenda-header h2 {
+  margin: 4px 0 0;
+}
+
+.tag {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 10px;
+  background: rgba(30, 136, 229, 0.08);
+  color: var(--primary);
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.activities {
+  margin: 18px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.activities.two-columns {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.activity-row {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 0.8fr 0.8fr 1.6fr auto;
+  gap: 10px;
+  align-items: center;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activity-row:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+}
+
+.activity-row.invalid {
+  border-color: var(--danger);
+}
+
+.activity-row .time {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.activity-row label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.activity-row input[type="time"],
+.activity-row input[type="text"] {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activity-row input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.18);
+}
+
+.activity-row input.as-text {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.activity-row input.as-text:focus {
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.18);
+  cursor: text;
+}
+
+.activity-row .error {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: var(--danger);
+  min-height: 16px;
+}
+
+.activity-row button.delete {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: color 0.1s ease, border-color 0.1s ease;
+}
+
+.activity-row button.delete:hover:not(:disabled) {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.activity-row button.delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actions button,
+.export button,
+.agenda-header button,
+.presets button {
+  font-weight: 700;
+}
+
+.agenda-footer {
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.status {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.status.warning {
+  color: var(--danger);
+}
+
+.export {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.export button {
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.export button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media (max-width: 720px) {
+  .hero,
+  .agenda-header,
+  .agenda-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .activity-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .hero,
+  .meta,
+  .agenda-footer .export,
+  #toggleView,
+  #addActivity,
+  .delete,
+  .preset-actions,
+  .preset-hint,
+  .view-toggle,
+  #exportJson,
+  #importJson {
+    display: none !important;
+  }
+
+  .agenda {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+}

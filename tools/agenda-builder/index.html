@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda Builder</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="brand">
+        <h1>Agenda Builder</h1>
+        <p>Crea y exporta la agenda de tu evento sin dependencias externas.</p>
+      </div>
+      <div class="view-toggle">
+        <button id="toggleView" aria-label="Cambiar distribución de columnas">Vista 2 columnas</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="meta">
+        <div class="field">
+          <label for="eventName">Nombre del evento</label>
+          <input id="eventName" type="text" placeholder="Ingresa el nombre" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="eventDate">Día del evento</label>
+          <input id="eventDate" type="date">
+        </div>
+        <div class="field presets">
+          <span>Presets rápidos</span>
+          <div class="preset-actions">
+            <button id="presetMorning" disabled>Mañana</button>
+            <button id="presetAfternoon" disabled>Tarde</button>
+            <button id="presetNight" disabled>Noche</button>
+          </div>
+          <small class="preset-hint">Selecciona el día para habilitar los presets.</small>
+        </div>
+      </section>
+
+      <section class="agenda" id="printableAgenda">
+        <header class="agenda-header">
+          <div>
+            <p class="tag">Agenda</p>
+            <h2 id="eventNameDisplay">Evento sin nombre</h2>
+            <p id="eventDateDisplay" class="muted">Sin fecha</p>
+          </div>
+          <div class="actions">
+            <button id="addActivity">Añadir actividad</button>
+          </div>
+        </header>
+
+        <div class="activities" id="activities"></div>
+
+        <footer class="agenda-footer">
+          <div class="status" id="validationSummary">Sin conflictos detectados.</div>
+          <div class="export">
+            <button id="exportJson">Exportar JSON</button>
+            <button id="importJson">Cargar JSON</button>
+            <input type="file" id="importInput" accept="application/json" hidden>
+          </div>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/ui.js"></script>
+</body>
+</html>
