@@ -45,13 +45,22 @@ export const PROJECTS = [
     tags: ['Hour', 'PWA'],
     category: 'tools'
   },
-    {
+  {
     id: 'T6',
     title: 'Agend-builder',
     desc: 'Constructor de agendas',
     path: '/tools/agenda-builder/',
     emoji: '📖',
     tags: ['Hour', 'PWA'],
+    category: 'tools'
+  },
+  {
+    id: 'T7',
+    title: 'AI Prompts',
+    desc: 'Biblioteca de prompts con búsqueda, filtros y copia rápida.',
+    path: '/tools/ai-prompts/',
+    emoji: '✨',
+    tags: ['IA', 'Prompts', 'UI'],
     category: 'tools'
   },
   {

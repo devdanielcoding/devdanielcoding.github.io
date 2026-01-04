@@ -1,0 +1,141 @@
+:root {
+  color-scheme: light;
+}
+
+.controls {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+}
+
+.select {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tag-chip {
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-chip:hover,
+.tag-chip:focus-visible {
+  border-color: #111;
+}
+
+.tag-chip.active {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.prompts-grid {
+  margin-top: 1.5rem;
+}
+
+.prompt-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.prompt-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.prompt-card.expanded .prompt-text {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #6a6a6a;
+  gap: 1rem;
+}
+
+.status {
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  background: #f4f4f4;
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+.status[data-type="error"] {
+  background: #feecec;
+  color: #8a2b2b;
+}
+
+.status[data-type="empty"] {
+  background: #f5f5f5;
+  color: #5b5b5b;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #111;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toast {
+    right: 1rem;
+    left: 1rem;
+    text-align: center;
+  }
+}

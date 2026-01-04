@@ -1,0 +1,26 @@
+[
+  {
+    "id": "img-001",
+    "title": "Retrato cinematográfico neón",
+    "prompt": "Retrato ultra-detalado de una persona en calle lluviosa de noche, iluminación neón magenta y cian, estilo cinematográfico, profundidad de campo, grano sutil, 85mm, bokeh, alta resolución, composición centrada, atmósfera cyberpunk realista.",
+    "tags": ["imagen", "retrato", "neón", "cinematográfico", "cyberpunk"],
+    "source": "internet",
+    "createdAt": "2026-01-04T00:00:00.000Z"
+  },
+  {
+    "id": "img-002",
+    "title": "Paisaje surrealista minimal",
+    "prompt": "Paisaje surrealista minimalista: dunas blancas infinitas, un monolito negro flotando, cielo pastel con dos lunas, sombras largas, estética limpia, texturas suaves, niebla ligera, composición regla de tercios, sensación onírica, 4k.",
+    "tags": ["imagen", "paisaje", "surreal", "minimalista", "4k"],
+    "source": "internet",
+    "createdAt": "2026-01-04T00:00:00.000Z"
+  },
+  {
+    "id": "img-003",
+    "title": "Producto en estudio premium",
+    "prompt": "Fotografía de producto premium en estudio: una botella de vidrio esmerilado sobre pedestal de piedra, iluminación softbox lateral, reflejos controlados, fondo degradado oscuro, gotas de condensación realistas, enfoque nítido, estilo editorial, 8k.",
+    "tags": ["imagen", "producto", "fotografía", "estudio", "editorial"],
+    "source": "internet",
+    "createdAt": "2026-01-04T00:00:00.000Z"
+  }
+]

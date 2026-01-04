@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Prompts — devdanielcoding</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>AI Prompts</h1>
+        <p class="sub">Biblioteca minimalista de prompts listos para copiar.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="/tools/">← Volver</a>
+        <a class="btn" href="/">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="hero card">
+      <div class="hero-content">
+        <h2 class="hero-title">Explora prompts de IA</h2>
+        <p class="hero-text">Filtra por tags, busca y copia en segundos.</p>
+        <div class="hero-cta controls">
+          <label class="control">
+            <span>Buscar</span>
+            <input class="search" id="search-input" placeholder="Buscar por título, prompt o tag…" />
+          </label>
+          <label class="control">
+            <span>Orden</span>
+            <select id="sort-select" class="select">
+              <option value="recent">Más recientes</option>
+              <option value="az">A-Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <div class="note">Total: <span id="results-count">0</span> resultados</div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <h2>Tags</h2>
+        <span class="sub" id="active-tag">Todos</span>
+      </div>
+      <div class="tag-filter" id="tag-filter"></div>
+    </section>
+
+    <section class="section-block">
+      <div id="status" class="status">Cargando prompts…</div>
+      <div class="grid prompts-grid" id="prompts-grid"></div>
+    </section>
+
+    <footer class="footer">© <span id="year"></span> devdanielcoding</footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const state = {
+      prompts: [],
+      query: '',
+      activeTag: 'Todos',
+      sort: 'recent'
+    };
+
+    const elements = {
+      grid: document.getElementById('prompts-grid'),
+      status: document.getElementById('status'),
+      tagFilter: document.getElementById('tag-filter'),
+      resultsCount: document.getElementById('results-count'),
+      searchInput: document.getElementById('search-input'),
+      sortSelect: document.getElementById('sort-select'),
+      activeTag: document.getElementById('active-tag'),
+      toast: document.getElementById('toast')
+    };
+
+    const showStatus = (message, type = 'info') => {
+      elements.status.textContent = message;
+      elements.status.dataset.type = type;
+      elements.status.style.display = 'block';
+    };
+
+    const hideStatus = () => {
+      elements.status.style.display = 'none';
+    };
+
+    const normalize = (value) => value.toLowerCase();
+
+    const buildTags = (prompts) => {
+      const tags = new Set();
+      prompts.forEach((prompt) => {
+        (prompt.tags || []).forEach((tag) => tags.add(tag));
+      });
+      return ['Todos', ...Array.from(tags).sort((a, b) => a.localeCompare(b))];
+    };
+
+    const renderTagFilter = (tags) => {
+      elements.tagFilter.innerHTML = '';
+      tags.forEach((tag) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `tag-chip ${tag === state.activeTag ? 'active' : ''}`;
+        button.textContent = tag;
+        button.setAttribute('aria-pressed', tag === state.activeTag ? 'true' : 'false');
+        button.addEventListener('click', () => {
+          state.activeTag = tag;
+          elements.activeTag.textContent = tag;
+          render();
+        });
+        elements.tagFilter.appendChild(button);
+      });
+    };
+
+    const sortPrompts = (list) => {
+      if (state.sort === 'az') {
+        return [...list].sort((a, b) => a.title.localeCompare(b.title));
+      }
+      return [...list].sort((a, b) => {
+        const dateA = a.createdAt ? Date.parse(a.createdAt) : 0;
+        const dateB = b.createdAt ? Date.parse(b.createdAt) : 0;
+        return dateB - dateA;
+      });
+    };
+
+    const filterPrompts = () => {
+      const query = normalize(state.query);
+      return state.prompts.filter((prompt) => {
+        const matchesTag = state.activeTag === 'Todos' || (prompt.tags || []).includes(state.activeTag);
+        const haystack = normalize([
+          prompt.title,
+          prompt.prompt,
+          ...(prompt.tags || [])
+        ].join(' '));
+        const matchesQuery = !query || haystack.includes(query);
+        return matchesTag && matchesQuery;
+      });
+    };
+
+    const showToast = (message) => {
+      elements.toast.textContent = message;
+      elements.toast.classList.add('show');
+      window.clearTimeout(elements.toast.dataset.timeout);
+      const timeout = window.setTimeout(() => elements.toast.classList.remove('show'), 2000);
+      elements.toast.dataset.timeout = timeout;
+    };
+
+    const copyToClipboard = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Prompt copiado');
+      } catch (error) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+        showToast('Prompt copiado');
+      }
+    };
+
+    const renderCards = (list) => {
+      elements.grid.innerHTML = '';
+
+      list.forEach((prompt) => {
+        const card = document.createElement('article');
+        card.className = 'card prompt-card';
+
+        const title = document.createElement('h3');
+        title.textContent = prompt.title;
+
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        (prompt.tags || []).forEach((tag) => {
+          const chip = document.createElement('span');
+          chip.className = 'tag';
+          chip.textContent = tag;
+          tags.appendChild(chip);
+        });
+
+        const promptText = document.createElement('p');
+        promptText.className = 'prompt-text';
+        promptText.textContent = prompt.prompt;
+
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        if (prompt.source) {
+          const source = document.createElement('span');
+          source.textContent = `Fuente: ${prompt.source}`;
+          meta.appendChild(source);
+        }
+        if (prompt.createdAt) {
+          const date = document.createElement('span');
+          date.textContent = new Date(prompt.createdAt).toLocaleDateString('es-ES');
+          meta.appendChild(date);
+        }
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const copyButton = document.createElement('button');
+        copyButton.className = 'btn';
+        copyButton.type = 'button';
+        copyButton.textContent = 'Copiar';
+        copyButton.setAttribute('aria-label', `Copiar prompt ${prompt.title}`);
+        copyButton.addEventListener('click', () => copyToClipboard(prompt.prompt));
+
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'btn btn-outline';
+        toggleButton.type = 'button';
+        toggleButton.textContent = 'Ver más';
+        toggleButton.setAttribute('aria-label', `Expandir prompt ${prompt.title}`);
+        toggleButton.addEventListener('click', () => {
+          const expanded = card.classList.toggle('expanded');
+          toggleButton.textContent = expanded ? 'Ver menos' : 'Ver más';
+        });
+
+        actions.appendChild(copyButton);
+        actions.appendChild(toggleButton);
+
+        card.appendChild(title);
+        card.appendChild(tags);
+        card.appendChild(promptText);
+        if (meta.childElementCount) {
+          card.appendChild(meta);
+        }
+        card.appendChild(actions);
+
+        elements.grid.appendChild(card);
+      });
+    };
+
+    const render = () => {
+      const filtered = sortPrompts(filterPrompts());
+      elements.resultsCount.textContent = filtered.length;
+
+      if (!filtered.length) {
+        elements.grid.innerHTML = '';
+        showStatus('No hay resultados con los filtros actuales.', 'empty');
+        return;
+      }
+
+      hideStatus();
+      renderCards(filtered);
+    };
+
+    const init = async () => {
+      showStatus('Cargando prompts…', 'loading');
+      try {
+        const response = await fetch('./data/prompts.json');
+        if (!response.ok) {
+          throw new Error('Error al cargar prompts');
+        }
+        state.prompts = await response.json();
+
+        renderTagFilter(buildTags(state.prompts));
+        render();
+      } catch (error) {
+        showStatus('No pudimos cargar los prompts. Intenta más tarde.', 'error');
+      }
+    };
+
+    elements.searchInput.addEventListener('input', (event) => {
+      state.query = event.target.value;
+      render();
+    });
+
+    elements.sortSelect.addEventListener('change', (event) => {
+      state.sort = event.target.value;
+      render();
+    });
+
+    init();
+  </script>
+</body>
+</html>
