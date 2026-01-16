@@ -16,3 +16,8 @@ En `app.js` puedes ajustar:
 ## Tips de rendimiento
 - En móviles o equipos con poca RAM puede tardar más o fallar.
 - Usa videos cortos para obtener mejores resultados.
+
+## Dependencias de FFmpeg
+La app carga `@ffmpeg/ffmpeg`, `@ffmpeg/util` y `@ffmpeg/core` desde CDN con fallback automático
+entre jsDelivr y el endpoint de Fastly. Esto evita errores de CORS/404 en GitHub Pages y garantiza
+que el motor se cargue sin configuración adicional.

@@ -1,6 +1,6 @@
 import { convertVideoToMp3, initFFmpeg, setProgressHandler } from "./lib/ffmpegClient.js";
 
-console.log("[video-to-mp3] app.js loaded");
+console.log("[video-to-mp3] loaded");
 
 const MAX_DURATION_SECONDS = 240;
 const MAX_FILE_MB = 200;
@@ -171,8 +171,7 @@ async function ensureFFmpegLoaded() {
   } catch (error) {
     console.error("[video-to-mp3] Error cargando FFmpeg", error);
     loadProgress.value = 0;
-    const message = error?.message ? `Error: ${error.message}` : "Error al cargar el motor.";
-    updateStatus(message, "error");
+    updateStatus("No se pudo cargar el motor FFmpeg. Revisa la consola.", "error");
     setWarnings([
       "Esta herramienta requiere WebAssembly. En algunos entornos puede fallar por falta de memoria o restricciones del navegador."
     ]);
