@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video → MP3 (local, en tu navegador)</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>🎵 Video → MP3 (local, en tu navegador)</h1>
+        <p class="sub">Convierte videos cortos a MP3 100% en tu dispositivo.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="/tools/">← Volver</a>
+        <a class="btn" href="/">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="card tool-shell" aria-live="polite">
+      <div class="grid">
+        <div class="col-12">
+          <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Zona para soltar video">
+            <input type="file" id="fileInput" accept="video/mp4,video/quicktime,video/webm" />
+            <div>
+              <p class="dropzone-title">Arrastra tu video aquí</p>
+              <p class="dropzone-text">o haz click para seleccionar (mp4, mov, webm)</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="file-meta" id="fileMeta">Sin archivo seleccionado.</div>
+          <div class="file-warnings" id="fileWarnings"></div>
+        </div>
+        <div class="col-6">
+          <label for="bitrate">Bitrate MP3</label>
+          <select id="bitrate" class="btn" aria-label="Selecciona bitrate">
+            <option value="128k">128 kbps</option>
+            <option value="192k" selected>192 kbps</option>
+            <option value="256k">256 kbps</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="channels">Canales</label>
+          <select id="channels" class="btn" aria-label="Selecciona canales">
+            <option value="2" selected>Estéreo</option>
+            <option value="1">Mono</option>
+          </select>
+        </div>
+        <div class="col-12 actions">
+          <button class="btn" id="convertBtn" disabled>Convertir</button>
+          <button class="btn btn-outline" id="resetBtn" type="button">Reiniciar</button>
+        </div>
+        <div class="col-12">
+          <div class="status" id="status">Listo para convertir.</div>
+          <div class="progress-group">
+            <div class="progress-label">Motor FFmpeg</div>
+            <progress id="loadProgress" max="100" value="0"></progress>
+          </div>
+          <div class="progress-group">
+            <div class="progress-label">Conversión</div>
+            <progress id="convertProgress" max="100" value="0"></progress>
+          </div>
+        </div>
+        <div class="col-12 result" id="result">
+          <div class="result-actions">
+            <a class="btn" id="downloadBtn" href="#" download="audio.mp3" hidden>Descargar MP3</a>
+            <audio id="preview" controls hidden></audio>
+          </div>
+        </div>
+        <div class="col-12">
+          <p class="note">⚠️ Recomendado: videos de hasta 4 minutos o 200MB. El rendimiento depende de tu dispositivo.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

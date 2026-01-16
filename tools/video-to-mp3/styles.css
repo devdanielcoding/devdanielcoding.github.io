@@ -1,0 +1,122 @@
+.tool-shell {
+  display: block;
+}
+
+.dropzone {
+  border: 1px dashed var(--border-mid);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-hover);
+  transition: border-color 0.2s ease, background 0.2s ease;
+  position: relative;
+}
+
+.dropzone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropzone:focus-visible,
+.dropzone.is-dragging {
+  outline: 2px solid rgba(59, 130, 246, 0.6);
+  outline-offset: 4px;
+  border-color: var(--border-hover);
+}
+
+.dropzone-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.dropzone-text {
+  color: var(--muted);
+  margin: 0;
+}
+
+.file-meta {
+  font-size: 0.95rem;
+}
+
+.file-warnings {
+  margin-top: 8px;
+  color: #fbbf24;
+  font-size: 0.9rem;
+}
+
+.warnings-list {
+  margin: 6px 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.status {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.status[data-tone="error"] {
+  color: #f87171;
+}
+
+.progress-group {
+  margin-bottom: 12px;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  appearance: none;
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--border-default);
+  border-radius: 999px;
+}
+
+progress::-webkit-progress-value {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 999px;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.note {
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .dropzone {
+    padding: 24px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
