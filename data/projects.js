@@ -64,6 +64,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T8',
+    title: 'Video to MP3',
+    desc: 'Convierte videos locales a MP3 con FFmpeg en tu navegador.',
+    path: '/tools/video-to-mp3/',
+    emoji: '🎵',
+    tags: ['Audio', 'Video', 'WASM'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',
