@@ -1,5 +1,7 @@
 import { convertVideoToMp3, initFFmpeg, setProgressHandler } from "./lib/ffmpegClient.js";
 
+console.log("[video-to-mp3] app.js loaded");
+
 const MAX_DURATION_SECONDS = 240;
 const MAX_FILE_MB = 200;
 const SUPPORTED_EXTENSIONS = ["mp4", "mov", "webm"];
@@ -154,11 +156,12 @@ function resetWarningsAndProgress() {
 async function ensureFFmpegLoaded() {
   if (ffmpegLoaded) return true;
   updateStatus("Cargando motor…");
-  loadProgress.value = 20;
+  loadProgress.value = 0;
   setProgressHandler((progress) => {
     const value = Math.min(100, Math.round(progress * 100));
-    convertProgress.value = value;
+    loadProgress.value = value;
   });
+
   try {
     await initFFmpeg();
     ffmpegLoaded = true;
@@ -166,8 +169,10 @@ async function ensureFFmpegLoaded() {
     updateStatus("Motor listo. Puedes convertir.");
     return true;
   } catch (error) {
+    console.error("[video-to-mp3] Error cargando FFmpeg", error);
     loadProgress.value = 0;
-    updateStatus("Falló la carga del motor. Reintenta o cambia de navegador.", "error");
+    const message = error?.message ? `Error: ${error.message}` : "Error al cargar el motor.";
+    updateStatus(message, "error");
     setWarnings([
       "Esta herramienta requiere WebAssembly. En algunos entornos puede fallar por falta de memoria o restricciones del navegador."
     ]);
@@ -200,8 +205,9 @@ async function handleConvert() {
     preview.hidden = false;
     updateStatus("Listo. Descarga tu MP3.");
   } catch (error) {
-    console.error(error);
-    updateStatus("Error en la conversión. Intenta con otro archivo.", "error");
+    console.error("[video-to-mp3] Error en la conversión", error);
+    const message = error?.message ? `Error: ${error.message}` : "Error en la conversión.";
+    updateStatus(message, "error");
     setWarnings([
       "Si el fallo persiste, intenta en un navegador de escritorio con más memoria disponible."
     ]);
