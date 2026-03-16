@@ -68,7 +68,9 @@
     zoomInBtn: document.getElementById("zoomInBtn"),
     zoomOutBtn: document.getElementById("zoomOutBtn"),
     resetViewBtn: document.getElementById("resetViewBtn"),
-    downloadImageBtn: document.getElementById("downloadImageBtn")
+    downloadImageBtn: document.getElementById("downloadImageBtn"),
+    toggleDetailsBtn: document.getElementById("toggleDetailsBtn"),
+    toggleJsonBtn: document.getElementById("toggleJsonBtn")
   };
 
   init();
@@ -208,6 +210,12 @@
     });
     elements.resetViewBtn.addEventListener("click", resetGraphView);
     elements.downloadImageBtn.addEventListener("click", downloadGraphImage);
+    elements.toggleDetailsBtn.addEventListener("click", function () {
+      togglePanel(".panel-details", elements.toggleDetailsBtn);
+    });
+    elements.toggleJsonBtn.addEventListener("click", function () {
+      togglePanel(".panel-json", elements.toggleJsonBtn);
+    });
 
     state.editor.on("cursorActivity", function () {
       if (state.ignoreCursorSync) {
@@ -830,6 +838,17 @@
     document.body.appendChild(link);
     link.click();
     link.remove();
+  }
+
+  function togglePanel(selector, button) {
+    const panel = document.querySelector(selector);
+    if (!panel) {
+      return;
+    }
+
+    const isCollapsed = panel.classList.toggle("is-collapsed");
+    button.textContent = isCollapsed ? "+" : "−";
+    button.setAttribute("aria-expanded", String(!isCollapsed));
   }
 
   function selectStep(stepId, options) {

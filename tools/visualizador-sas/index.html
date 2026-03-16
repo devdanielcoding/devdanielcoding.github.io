@@ -65,31 +65,41 @@
           <div id="graph" aria-label="Diagrama del flujo de datos"></div>
         </section>
         
-        <section class="panel panel-details">
+        <section class="panel panel-details is-collapsed">
           <div class="panel-head">
-            <h2>Detalle del paso</h2>
-            <p>Selecciona un nodo o mueve el cursor en el editor.</p>
-          </div>
-          <div class="details-status" id="detailsStatus">
-            Todavía no hay un paso seleccionado.
-          </div>
-          <div class="details-grid" id="detailsGrid"></div>
-          <div class="code-preview">
-            <div class="code-preview-head">
-              <span>Código SAS del bloque</span>
-              <span id="stepMeta">Sin bloque activo</span>
+            <div>
+              <h2>Detalle del paso</h2>
+              <p>Selecciona un nodo o mueve el cursor en el editor.</p>
             </div>
-            <pre id="rawCode">Analiza un script para ver aquí el bloque correspondiente.</pre>
+            <button class="panel-toggle" id="toggleDetailsBtn" type="button" aria-expanded="false" aria-label="Expandir detalle del paso">+</button>
+          </div>
+          <div class="panel-collapsible-content">
+            <div class="details-status" id="detailsStatus">
+              Todavía no hay un paso seleccionado.
+            </div>
+            <div class="details-grid" id="detailsGrid"></div>
+            <div class="code-preview">
+              <div class="code-preview-head">
+                <span>Código SAS del bloque</span>
+                <span id="stepMeta">Sin bloque activo</span>
+              </div>
+              <pre id="rawCode">Analiza un script para ver aquí el bloque correspondiente.</pre>
+            </div>
           </div>
         </section>
       </div>
-        
-      <section class="panel panel-json">
+
+      <section class="panel panel-json is-collapsed">
         <div class="panel-head">
-          <h2>Modelo JSON intermedio</h2>
-          <p>Representación base para extender el parser del MVP.</p>
+          <div>
+            <h2>Modelo JSON intermedio</h2>
+            <p>Representación base para extender el parser del MVP.</p>
+          </div>
+          <button class="panel-toggle" id="toggleJsonBtn" type="button" aria-expanded="false" aria-label="Expandir modelo JSON intermedio">+</button>
         </div>
-        <pre id="jsonPreview">{ "nodes": [], "edges": [], "steps": [] }</pre>
+        <div class="panel-collapsible-content">
+          <pre id="jsonPreview">{ "nodes": [], "edges": [], "steps": [] }</pre>
+        </div>
       </section>
       
     </section>
