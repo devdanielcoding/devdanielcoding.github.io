@@ -184,6 +184,11 @@ body {
   padding-inline: 1rem;
 }
 
+.graph-control-export {
+  padding-inline: 1rem;
+  background: rgba(184, 92, 56, 0.1);
+}
+
 #graph {
   height: calc(100% - 134px);
   min-height: 420px;

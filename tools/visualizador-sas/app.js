@@ -67,7 +67,8 @@
     panRightBtn: document.getElementById("panRightBtn"),
     zoomInBtn: document.getElementById("zoomInBtn"),
     zoomOutBtn: document.getElementById("zoomOutBtn"),
-    resetViewBtn: document.getElementById("resetViewBtn")
+    resetViewBtn: document.getElementById("resetViewBtn"),
+    downloadImageBtn: document.getElementById("downloadImageBtn")
   };
 
   init();
@@ -206,6 +207,7 @@
       zoomGraph(0.88);
     });
     elements.resetViewBtn.addEventListener("click", resetGraphView);
+    elements.downloadImageBtn.addEventListener("click", downloadGraphImage);
 
     state.editor.on("cursorActivity", function () {
       if (state.ignoreCursorSync) {
@@ -790,6 +792,44 @@
     }, {
       duration: 220
     });
+  }
+
+  function downloadGraphImage() {
+    const pngOutput = state.graph.png({
+      output: "blob-promise",
+      full: false,
+      bg: "#fff9f1",
+      scale: window.devicePixelRatio > 1 ? 2 : 1
+    });
+
+    Promise.resolve(pngOutput).then(function (result) {
+      if (typeof result === "string") {
+        triggerImageDownload(result);
+        return;
+      }
+
+      const blobUrl = URL.createObjectURL(result);
+      const link = document.createElement("a");
+
+      link.href = blobUrl;
+      link.download = "grafo-sas.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      window.setTimeout(function () {
+        URL.revokeObjectURL(blobUrl);
+      }, 1000);
+    });
+  }
+
+  function triggerImageDownload(url) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "grafo-sas.png";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
 
   function selectStep(stepId, options) {
