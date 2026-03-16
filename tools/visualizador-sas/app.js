@@ -47,7 +47,8 @@
     graph: null,
     analysis: emptyAnalysis(),
     selectedStepId: null,
-    ignoreCursorSync: false
+    ignoreCursorSync: false,
+    initialViewport: null
   };
 
   const elements = {
@@ -59,7 +60,14 @@
     detailsGrid: document.getElementById("detailsGrid"),
     rawCode: document.getElementById("rawCode"),
     stepMeta: document.getElementById("stepMeta"),
-    jsonPreview: document.getElementById("jsonPreview")
+    jsonPreview: document.getElementById("jsonPreview"),
+    panUpBtn: document.getElementById("panUpBtn"),
+    panDownBtn: document.getElementById("panDownBtn"),
+    panLeftBtn: document.getElementById("panLeftBtn"),
+    panRightBtn: document.getElementById("panRightBtn"),
+    zoomInBtn: document.getElementById("zoomInBtn"),
+    zoomOutBtn: document.getElementById("zoomOutBtn"),
+    resetViewBtn: document.getElementById("resetViewBtn")
   };
 
   init();
@@ -179,6 +187,25 @@
     elements.loadExampleBtn.addEventListener("click", loadExampleIntoEditor);
     elements.clearBtn.addEventListener("click", clearEditor);
     elements.fileInput.addEventListener("change", handleFileLoad);
+    elements.panUpBtn.addEventListener("click", function () {
+      panGraph(0, 90);
+    });
+    elements.panDownBtn.addEventListener("click", function () {
+      panGraph(0, -90);
+    });
+    elements.panLeftBtn.addEventListener("click", function () {
+      panGraph(90, 0);
+    });
+    elements.panRightBtn.addEventListener("click", function () {
+      panGraph(-90, 0);
+    });
+    elements.zoomInBtn.addEventListener("click", function () {
+      zoomGraph(1.12);
+    });
+    elements.zoomOutBtn.addEventListener("click", function () {
+      zoomGraph(0.88);
+    });
+    elements.resetViewBtn.addEventListener("click", resetGraphView);
 
     state.editor.on("cursorActivity", function () {
       if (state.ignoreCursorSync) {
@@ -701,11 +728,67 @@
 
     const zoom = 0.9;
     const centerX = (bounds.minX + bounds.maxX) / 2;
-
-    state.graph.zoom(zoom);
-    state.graph.pan({
+    const pan = {
       x: state.graph.width() / 2 - centerX * zoom,
       y: 40 - bounds.minY * zoom
+    };
+
+    state.graph.zoom(zoom);
+    state.graph.pan(pan);
+    state.initialViewport = {
+      zoom: zoom,
+      pan: pan
+    };
+  }
+
+  function panGraph(deltaX, deltaY) {
+    const currentPan = state.graph.pan();
+    state.graph.animate({
+      pan: {
+        x: currentPan.x + deltaX,
+        y: currentPan.y + deltaY
+      }
+    }, {
+      duration: 180
+    });
+  }
+
+  function zoomGraph(factor) {
+    const currentZoom = state.graph.zoom();
+    const nextZoom = clamp(currentZoom * factor, state.graph.minZoom(), state.graph.maxZoom());
+
+    state.graph.animate({
+      zoom: {
+        level: nextZoom,
+        renderedPosition: {
+          x: state.graph.width() / 2,
+          y: state.graph.height() / 2
+        }
+      }
+    }, {
+      duration: 180
+    });
+  }
+
+  function resetGraphView() {
+    if (!state.initialViewport) {
+      return;
+    }
+
+    state.graph.animate({
+      zoom: {
+        level: state.initialViewport.zoom,
+        renderedPosition: {
+          x: state.graph.width() / 2,
+          y: state.graph.height() / 2
+        }
+      },
+      pan: {
+        x: state.initialViewport.pan.x,
+        y: state.initialViewport.pan.y
+      }
+    }, {
+      duration: 220
     });
   }
 
@@ -928,5 +1011,9 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
   }
 })();
