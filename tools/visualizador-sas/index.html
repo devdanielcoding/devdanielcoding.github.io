@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visualizador SAS Pipeline</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Herramienta frontend-only</p>
+        <h1>Visualizador de Scripts SAS</h1>
+        <p class="sub">
+          Convierte scripts `.sas` en un flujo visual de transformación de datos sin ejecutar SAS.
+        </p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="../index.html">← Volver</a>
+        <a class="btn" href="../../index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="card tool-shell">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button class="btn" id="analyzeBtn" type="button">Analizar script</button>
+          <button class="btn btn-outline" id="loadExampleBtn" type="button">Cargar ejemplo</button>
+          <button class="btn btn-outline" id="clearBtn" type="button">Limpiar</button>
+        </div>
+        <div class="toolbar-group">
+          <label class="file-button btn btn-outline" for="fileInput">Abrir `.sas`</label>
+          <input id="fileInput" type="file" accept=".sas,.txt" hidden />
+        </div>
+      </div>
+
+      <div class="workspace">
+        <section class="panel panel-editor">
+          <div class="panel-head">
+            <h2>Editor SAS</h2>
+            <p>Pega o edita tu script y sincronízalo con el grafo.</p>
+          </div>
+          <textarea id="sasEditor" aria-label="Editor SAS"></textarea>
+        </section>
+
+        <section class="panel panel-graph">
+          <div class="panel-head">
+            <h2>Flujo de datos</h2>
+            <p>Nodos para tablas, resultados finales y destinos externos.</p>
+          </div>
+          <div id="graph" aria-label="Diagrama del flujo de datos"></div>
+        </section>
+
+        <section class="panel panel-details">
+          <div class="panel-head">
+            <h2>Detalle del paso</h2>
+            <p>Selecciona un nodo o mueve el cursor en el editor.</p>
+          </div>
+          <div class="details-status" id="detailsStatus">
+            Todavía no hay un paso seleccionado.
+          </div>
+          <div class="details-grid" id="detailsGrid"></div>
+          <div class="code-preview">
+            <div class="code-preview-head">
+              <span>Código SAS del bloque</span>
+              <span id="stepMeta">Sin bloque activo</span>
+            </div>
+            <pre id="rawCode">Analiza un script para ver aquí el bloque correspondiente.</pre>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel panel-json">
+        <div class="panel-head">
+          <h2>Modelo JSON intermedio</h2>
+          <p>Representación base para extender el parser del MVP.</p>
+        </div>
+        <pre id="jsonPreview">{ "nodes": [], "edges": [], "steps": [] }</pre>
+      </section>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+  <script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
