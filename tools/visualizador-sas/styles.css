@@ -82,7 +82,7 @@ body {
 .workspace {
   display: grid;
   grid-template-columns: minmax(320px, 1.1fr) minmax(320px, 1fr);
-  grid-template-rows: minmax(430px, 58vh) minmax(240px, auto);
+  grid-template-rows: minmax(500px, 68vh) minmax(240px, auto);
   gap: 1rem;
 }
 
@@ -133,13 +133,13 @@ body {
 
 .CodeMirror {
   height: calc(100% - 74px);
-  min-height: 350px;
+  min-height: 420px;
   font-size: 0.92rem;
 }
 
 #graph {
   height: calc(100% - 74px);
-  min-height: 350px;
+  min-height: 420px;
   background:
     linear-gradient(transparent 39px, rgba(36, 76, 90, 0.06) 40px),
     linear-gradient(90deg, transparent 39px, rgba(36, 76, 90, 0.06) 40px);
@@ -242,7 +242,7 @@ body {
   .CodeMirror,
   #graph {
     min-height: 320px;
-    height: 420px;
+    height: 460px;
   }
 }
 

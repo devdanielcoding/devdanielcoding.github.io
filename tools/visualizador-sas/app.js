@@ -35,6 +35,13 @@
     "run;"
   ].join("\n");
 
+  const CASCADE_LAYOUT = {
+    topPadding: 80,
+    stepGapY: 190,
+    outputOffsetY: 96,
+    rowGapX: 210
+  };
+
   const state = {
     editor: null,
     graph: null,
@@ -160,10 +167,9 @@
         }
       ],
       layout: {
-        name: "breadthfirst",
-        directed: true,
-        padding: 20,
-        spacingFactor: 1.15
+        name: "preset",
+        fit: false,
+        padding: 40
       }
     });
   }
@@ -227,7 +233,7 @@
     renderGraph(state.analysis);
 
     if (state.analysis.steps.length > 0) {
-      selectStep(state.analysis.steps[0].id, { focusEditor: false, centerGraph: true });
+      selectStep(state.analysis.steps[0].id, { focusEditor: false, centerGraph: false });
     } else {
       renderEmptyDetails();
     }
@@ -247,18 +253,24 @@
     topBlocks.forEach(function (block) {
       if (block.kind === "proc_sql") {
         parseProcSqlBlock(block).forEach(function (step) {
-          step.id = "step-" + stepCounter++;
+          step.id = "step-" + stepCounter;
+          step.stepOrder = stepCounter;
+          stepCounter += 1;
           steps.push(step);
         });
       } else if (block.kind === "data_step") {
         const step = parseDataStepBlock(block);
         if (step) {
-          step.id = "step-" + stepCounter++;
+          step.id = "step-" + stepCounter;
+          step.stepOrder = stepCounter;
+          stepCounter += 1;
           steps.push(step);
         }
       } else if (block.kind === "proc_s3") {
         parseProcS3Block(block).forEach(function (step) {
-          step.id = "step-" + stepCounter++;
+          step.id = "step-" + stepCounter;
+          step.stepOrder = stepCounter;
+          stepCounter += 1;
           steps.push(step);
         });
       }
@@ -426,6 +438,17 @@
     const nodeMap = new Map();
     const edges = [];
     const producedTargets = new Set();
+    const firstConsumedStepOrder = new Map();
+    const stepById = new Map();
+
+    steps.forEach(function (step) {
+      stepById.set(step.id, step);
+      step.sourceTables.forEach(function (tableName) {
+        if (!firstConsumedStepOrder.has(tableName)) {
+          firstConsumedStepOrder.set(tableName, step.stepOrder);
+        }
+      });
+    });
 
     steps.forEach(function (step) {
       step.sourceTables.forEach(function (tableName) {
@@ -491,7 +514,9 @@
       }
 
       return Object.assign({}, node, {
-        nodeRole: nodeRole
+        nodeRole: nodeRole,
+        producedAtStepOrder: node.producedByStepId ? stepById.get(node.producedByStepId).stepOrder : null,
+        firstConsumedStepOrder: firstConsumedStepOrder.get(node.id) || null
       });
     });
 
@@ -544,11 +569,12 @@
   }
 
   function renderGraph(analysis) {
-    // The graph is derived entirely from the intermediate JSON model.
+    const positions = computeCascadePositions(analysis);
     const elements = analysis.nodes.map(function (node) {
       return {
         group: "nodes",
-        data: node
+        data: node,
+        position: positions[node.id] || { x: 0, y: 0 }
       };
     }).concat(analysis.edges.map(function (edge) {
       return {
@@ -560,12 +586,127 @@
     state.graph.elements().remove();
     state.graph.add(elements);
     state.graph.layout({
-      name: "breadthfirst",
-      directed: true,
-      padding: 28,
-      spacingFactor: 1.2,
+      name: "preset",
+      fit: false,
+      padding: 70,
       animate: false
     }).run();
+    setInitialCascadeViewport(positions);
+  }
+
+  function computeCascadePositions(analysis) {
+    const nodesById = new Map();
+    const rows = new Map();
+    const positions = {};
+
+    analysis.nodes.forEach(function (node) {
+      nodesById.set(node.id, node);
+    });
+
+    analysis.steps
+      .slice()
+      .sort(function (left, right) {
+        return left.stepOrder - right.stepOrder;
+      })
+      .forEach(function (step) {
+        const stepRows = getCascadeStepRows(step.stepOrder);
+
+        step.sourceTables.forEach(function (sourceId) {
+          const sourceNode = nodesById.get(sourceId);
+          const rowY = sourceNode && sourceNode.producedAtStepOrder
+            ? getCascadeStepRows(sourceNode.producedAtStepOrder).outputY
+            : stepRows.sourceY;
+
+          placeNodeInRow(rows, rowY, sourceId);
+        });
+
+        step.targetTables.concat(step.externalTargets).forEach(function (targetId) {
+          placeNodeInRow(rows, stepRows.outputY, targetId);
+        });
+      });
+
+    analysis.nodes.forEach(function (node) {
+      if (hasPlacedNode(rows, node.id)) {
+        return;
+      }
+
+      const fallbackY = node.producedAtStepOrder
+        ? getCascadeStepRows(node.producedAtStepOrder).outputY
+        : getCascadeStepRows(node.firstConsumedStepOrder || 1).sourceY;
+
+      placeNodeInRow(rows, fallbackY, node.id);
+    });
+
+    Array.from(rows.keys())
+      .sort(function (left, right) {
+        return left - right;
+      })
+      .forEach(function (rowY) {
+        const rowNodeIds = rows.get(rowY);
+        const rowWidth = (rowNodeIds.length - 1) * CASCADE_LAYOUT.rowGapX;
+
+        rowNodeIds.forEach(function (nodeId, index) {
+          positions[nodeId] = {
+            x: index * CASCADE_LAYOUT.rowGapX - rowWidth / 2,
+            y: rowY
+          };
+        });
+      });
+
+    return positions;
+  }
+
+  function getCascadeStepRows(stepOrder) {
+    const sourceY = CASCADE_LAYOUT.topPadding + (stepOrder - 1) * CASCADE_LAYOUT.stepGapY;
+    return {
+      sourceY: sourceY,
+      outputY: sourceY + CASCADE_LAYOUT.outputOffsetY
+    };
+  }
+
+  function placeNodeInRow(rows, rowY, nodeId) {
+    if (!rows.has(rowY)) {
+      rows.set(rowY, []);
+    }
+
+    const row = rows.get(rowY);
+    if (!row.includes(nodeId)) {
+      row.push(nodeId);
+    }
+  }
+
+  function hasPlacedNode(rows, nodeId) {
+    return Array.from(rows.values()).some(function (row) {
+      return row.includes(nodeId);
+    });
+  }
+
+  function setInitialCascadeViewport(positions) {
+    const nodePositions = Object.values(positions);
+    if (nodePositions.length === 0) {
+      return;
+    }
+
+    const bounds = nodePositions.reduce(function (acc, position) {
+      return {
+        minX: Math.min(acc.minX, position.x),
+        maxX: Math.max(acc.maxX, position.x),
+        minY: Math.min(acc.minY, position.y)
+      };
+    }, {
+      minX: Number.POSITIVE_INFINITY,
+      maxX: Number.NEGATIVE_INFINITY,
+      minY: Number.POSITIVE_INFINITY
+    });
+
+    const zoom = 0.9;
+    const centerX = (bounds.minX + bounds.maxX) / 2;
+
+    state.graph.zoom(zoom);
+    state.graph.pan({
+      x: state.graph.width() / 2 - centerX * zoom,
+      y: 40 - bounds.minY * zoom
+    });
   }
 
   function selectStep(stepId, options) {
