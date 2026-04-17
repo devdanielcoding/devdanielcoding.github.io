@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Historic Game - devdanielcoding</title>
+  <meta name="description" content="Juego de cartas historicas para ordenar eventos en una linea de tiempo." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="ghost-link" href="/games/">Volver a juegos</a>
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">HG</span>
+        <div>
+          <h1>Historic Game</h1>
+          <p>Ordena eventos historicos sin mirar el año hasta validar.</p>
+        </div>
+      </div>
+      <button class="ghost-button" id="restartButton" type="button">Reiniciar</button>
+    </header>
+
+    <main>
+      <section class="view view-active" id="deckView" aria-labelledby="deckTitle">
+        <div class="deck-hero">
+          <div class="intro">
+            <p class="eyebrow">Vista 1 de 3</p>
+            <h2 id="deckTitle">Elige una partida</h2>
+            <p>Los mazos se cargan desde JSON para que luego puedas sumar epocas, regiones o categorias.</p>
+          </div>
+          <img class="deck-art" src="./assets/timeline-emblem.svg" alt="Cartas historicas conectadas por una linea de tiempo" />
+        </div>
+        <fieldset class="mode-panel">
+          <legend>Modalidad</legend>
+          <label class="mode-option">
+            <input type="radio" name="gameMode" value="hard" checked />
+            <span>
+              <strong>Modo dificil</strong>
+              <small>Si fallas, la carta entra a la linea de tiempo en su posicion correcta y robas otra carta.</small>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="gameMode" value="easy" />
+            <span>
+              <strong>Modo facil</strong>
+              <small>Si fallas, se revela el año, la carta va al descarte y robas otra carta.</small>
+            </span>
+          </label>
+        </fieldset>
+        <div class="deck-grid" id="deckGrid"></div>
+      </section>
+
+      <section class="view" id="configView" aria-labelledby="configTitle">
+        <div class="intro">
+          <p class="eyebrow">Vista 2 de 3</p>
+          <h2 id="configTitle">Configura jugadores</h2>
+          <p>Cada jugador empieza con 6 cartas. El orden de turno y las cartas se sortean una sola vez al iniciar.</p>
+        </div>
+        <div class="setup-panel">
+          <fieldset>
+            <legend>Cantidad de jugadores</legend>
+            <label class="player-option">
+              <input type="radio" name="players" value="2" checked />
+              <span>2 jugadores</span>
+            </label>
+            <label class="player-option">
+              <input type="radio" name="players" value="3" />
+              <span>3 jugadores</span>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Nombres de jugadores</legend>
+            <div class="player-names" id="playerNames"></div>
+          </fieldset>
+          <div class="setup-summary" id="setupSummary"></div>
+          <div class="setup-actions">
+            <button class="ghost-button" id="backToDeckButton" type="button">Cambiar mazo</button>
+            <button class="primary-button" id="startGameButton" type="button">Iniciar partida</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="gameView" aria-labelledby="gameTitle">
+        <div class="game-header">
+          <div>
+            <p class="eyebrow">Vista 3 de 3</p>
+            <h2 id="gameTitle">Linea de tiempo</h2>
+          </div>
+          <div class="turn-card">
+            <span>Turno actual</span>
+            <strong id="currentTurnLabel">Jugador 1</strong>
+          </div>
+        </div>
+
+        <section class="scoreboard" id="scoreboard" aria-label="Estado de jugadores"></section>
+
+        <section class="timeline-zone" aria-label="Linea de tiempo central">
+          <div class="timeline-hint" id="timelineHint">Arrastra una carta a una posicion de la linea.</div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+
+        <section class="hand-zone" aria-label="Mano del jugador actual">
+          <div class="hand-head">
+            <h3 id="handTitle">Cartas del jugador</h3>
+            <button class="primary-button" id="validateButton" type="button" disabled>Validar posicion</button>
+          </div>
+          <div class="hand" id="hand"></div>
+        </section>
+
+        <div class="message" id="message" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="winnerModal" hidden>
+    <section class="winner-modal" role="dialog" aria-modal="true" aria-labelledby="winnerTitle">
+      <p class="eyebrow">Partida terminada</p>
+      <h2 id="winnerTitle">Jugador 1 gano</h2>
+      <p id="winnerText">Se quedo sin cartas y conquisto la linea de tiempo.</p>
+      <div class="modal-actions">
+        <button class="ghost-button" id="winnerDeckButton" type="button">Elegir otro mazo</button>
+        <button class="primary-button" id="winnerRestartButton" type="button">Jugar otra vez</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

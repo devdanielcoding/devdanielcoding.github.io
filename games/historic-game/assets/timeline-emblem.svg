@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Emblema de linea de tiempo historica</title>
+  <desc id="desc">Tres cartas antiguas conectadas por una linea de tiempo.</desc>
+  <rect width="320" height="220" rx="18" fill="#18191f"/>
+  <path d="M45 154h230" stroke="#d7a84f" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="82" cy="154" r="12" fill="#68b684"/>
+  <circle cx="160" cy="154" r="12" fill="#d7a84f"/>
+  <circle cx="238" cy="154" r="12" fill="#d86c61"/>
+  <g transform="translate(44 38) rotate(-7)">
+    <rect width="74" height="96" rx="8" fill="#f7ead2" stroke="#d7a84f" stroke-width="3"/>
+    <path d="M16 24h42M16 42h30M16 66h42" stroke="#281f16" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(123 24)">
+    <rect width="74" height="104" rx="8" fill="#f7ead2" stroke="#d7a84f" stroke-width="3"/>
+    <path d="M17 28h40M17 48h32M17 72h40" stroke="#281f16" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(203 38) rotate(7)">
+    <rect width="74" height="96" rx="8" fill="#f7ead2" stroke="#d7a84f" stroke-width="3"/>
+    <path d="M16 24h42M16 42h30M16 66h42" stroke="#281f16" stroke-width="6" stroke-linecap="round"/>
+  </g>
+</svg>

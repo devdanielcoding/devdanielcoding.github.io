@@ -1,0 +1,157 @@
+{
+  "id": "historia-general",
+  "title": "Historia general",
+  "description": "Treinta eventos historicos para ordenar en una linea de tiempo.",
+  "events": [
+    {
+      "id": "america-1492",
+      "title": "Descubrimiento de America",
+      "year": 1492
+    },
+    {
+      "id": "peru-1821",
+      "title": "Independencia del Peru",
+      "year": 1821
+    },
+    {
+      "id": "french-revolution-1789",
+      "title": "Inicio de la Revolucion Francesa",
+      "year": 1789
+    },
+    {
+      "id": "printing-press-1450",
+      "title": "Invencion de la imprenta de Gutenberg",
+      "year": 1450
+    },
+    {
+      "id": "constantinople-1453",
+      "title": "Caida de Constantinopla",
+      "year": 1453
+    },
+    {
+      "id": "magellan-1522",
+      "title": "Primera vuelta al mundo",
+      "year": 1522
+    },
+    {
+      "id": "peru-university-1551",
+      "title": "Fundacion de la Universidad de San Marcos",
+      "year": 1551
+    },
+    {
+      "id": "us-independence-1776",
+      "title": "Independencia de Estados Unidos",
+      "year": 1776
+    },
+    {
+      "id": "world-cup-1930",
+      "title": "Primer Mundial de futbol organizado",
+      "year": 1930
+    },
+    {
+      "id": "russian-revolution-1917",
+      "title": "Revolucion Rusa",
+      "year": 1917
+    },
+    {
+      "id": "first-flight-1903",
+      "title": "Primer vuelo de los hermanos Wright",
+      "year": 1903
+    },
+    {
+      "id": "wwii-end-1945",
+      "title": "Fin de la Segunda Guerra Mundial",
+      "year": 1945
+    },
+    {
+      "id": "un-1945",
+      "title": "Creacion de las Naciones Unidas",
+      "year": 1945
+    },
+    {
+      "id": "sputnik-1957",
+      "title": "Lanzamiento del Sputnik 1",
+      "year": 1957
+    },
+    {
+      "id": "moon-landing-1969",
+      "title": "Llegada del ser humano a la Luna",
+      "year": 1969
+    },
+    {
+      "id": "berlin-wall-build-1961",
+      "title": "Construccion del Muro de Berlin",
+      "year": 1961
+    },
+    {
+      "id": "woodstock-1969",
+      "title": "Festival de Woodstock",
+      "year": 1969
+    },
+    {
+      "id": "machu-picchu-1911",
+      "title": "Descubrimiento de Machu Picchu",
+      "year": 1911
+    },
+    {
+      "id": "mac-1984",
+      "title": "Invencion de la Mac",
+      "year": 1984
+    },
+    {
+      "id": "eu-1993",
+      "title": "Creacion de la Union Europea",
+      "year": 1993
+    },
+    {
+      "id": "berlin-wall-1989",
+      "title": "Caida del Muro de Berlin",
+      "year": 1989
+    },
+    {
+      "id": "euro-1999",
+      "title": "Creacion del euro",
+      "year": 1999
+    },
+    {
+      "id": "google-1998",
+      "title": "Fundacion de Google",
+      "year": 1998
+    },
+    {
+      "id": "facebook-2004",
+      "title": "Creacion de Facebook",
+      "year": 2004
+    },
+    {
+      "id": "internet-www-1991",
+      "title": "Publicacion de la World Wide Web",
+      "year": 1991
+    },
+    {
+      "id": "wikipedia-2001",
+      "title": "Lanzamiento de Wikipedia",
+      "year": 2001
+    },
+    {
+      "id": "iphone-2007",
+      "title": "Invencion del iPhone",
+      "year": 2007
+    },
+    {
+      "id": "bitcoin-2009",
+      "title": "Creacion de Bitcoin",
+      "year": 2009
+    },
+    {
+      "id": "covid-pandemic-2020",
+      "title": "Inicio de la pandemia de COVID-19",
+      "year": 2020
+    },
+    {
+      "id": "iphone-x-2017",
+      "title": "Lanzamiento del iPhone X",
+      "year": 2017
+    }
+  ]
+}

@@ -82,6 +82,15 @@ export const PROJECTS = [
     category: 'games'
   },
   {
+    id: 'J2',
+    title: 'Historic Game',
+    desc: 'Juego de cartas para ordenar eventos historicos en una linea de tiempo.',
+    path: '/games/historic-game/',
+    emoji: '🏛️',
+    tags: ['Historia', 'Cartas', 'JS'],
+    category: 'games'
+  },
+  {
     id: 'DS1',
     title: 'Churn Base',
     desc: 'Analisis base de churn.',
