@@ -65,11 +65,11 @@ export const PROJECTS = [
   },
   {
     id: 'T8',
-    title: 'Video to MP3',
-    desc: 'Convierte videos locales a MP3 con FFmpeg en tu navegador.',
-    path: '/tools/video-to-mp3/',
-    emoji: '🎵',
-    tags: ['Audio', 'Video', 'WASM'],
+    title: 'Visualizador SAS',
+    desc: 'Convierte scripts SAS en un flujo visual de transformación de datos.',
+    path: '/tools/visualizador-sas/',
+    emoji: '📊',
+    tags: ['SAS', 'Datos', 'Visualización'],
     category: 'tools'
   },
   {
