@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML to Markdown — devdanielcoding</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>HTML to Markdown</h1>
+        <p class="sub">Convierte archivos HTML locales a Markdown sin subir nada.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="/tools/">← Volver</a>
+        <a class="btn" href="/">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="hero card html-md-hero">
+      <div class="hero-content">
+        <h2 class="hero-title">HTML local, Markdown limpio</h2>
+        <p class="hero-text">Carga una página guardada desde tu navegador, limpia el ruido y conserva headings, listas, párrafos y enlaces.</p>
+      </div>
+      <div class="hero-aside">
+        <div class="note">No se suben archivos</div>
+      </div>
+    </section>
+
+    <main class="converter-layout">
+      <section class="upload-panel" aria-labelledby="upload-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="upload-title">Archivo HTML</h2>
+            <p>Arrastra un `.html` o selecciónalo desde tu equipo.</p>
+          </div>
+          <span class="local-badge">Procesamiento local</span>
+        </div>
+
+        <label class="drop-zone" id="drop-zone" for="html-file">
+          <input id="html-file" type="file" accept=".html,.htm,text/html" />
+          <span class="drop-icon">HTML</span>
+          <strong>Soltar archivo aquí</strong>
+          <small>También puedes hacer clic para buscarlo</small>
+        </label>
+
+        <div class="file-summary" id="file-summary">Todavía no hay archivo seleccionado.</div>
+
+        <div class="actions-row">
+          <button class="btn primary" id="convert-btn" type="button" disabled>Convertir</button>
+          <button class="btn btn-outline" id="clear-btn" type="button">Limpiar</button>
+        </div>
+      </section>
+
+      <section class="output-panel" aria-labelledby="output-title">
+        <div class="panel-head">
+          <div>
+            <h2 id="output-title">Markdown</h2>
+            <p id="output-meta">El resultado aparecerá aquí.</p>
+          </div>
+          <div class="output-actions">
+            <button class="btn btn-outline" id="copy-btn" type="button" disabled>Copiar</button>
+            <button class="btn" id="download-btn" type="button" disabled>Descargar .md</button>
+          </div>
+        </div>
+
+        <textarea id="markdown-output" spellcheck="false" placeholder="Convierte un HTML para ver el Markdown generado..." aria-label="Preview de Markdown"></textarea>
+      </section>
+    </main>
+
+    <div class="status" id="status" role="status" aria-live="polite">Listo para convertir.</div>
+
+    <footer class="footer">© <span id="year"></span> devdanielcoding</footer>
+  </div>
+
+  <script src="./lib/turndown.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

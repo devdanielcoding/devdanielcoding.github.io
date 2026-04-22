@@ -73,6 +73,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T9',
+    title: 'HTML to Markdown',
+    desc: 'Convierte archivos HTML locales a Markdown sin subirlos a ningún servidor.',
+    path: '/tools/html-to-md/',
+    emoji: '📝',
+    tags: ['HTML', 'Markdown', 'Privacidad'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',
