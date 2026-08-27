@@ -1,0 +1,485 @@
+{
+  "metadata": {
+    "title": "Árbol Filogenético de Carnívoros y Especies",
+    "version": "1.0",
+    "total_nodes": 27,
+    "total_links": 26,
+    "sources": [
+      "Wikipedia REST API"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "carnivora",
+      "label": "Orden Carnivora",
+      "scientific_name": "Carnivora",
+      "type": "root",
+      "emoji": "🥩",
+      "color": "#f43f5e",
+      "description": "Orden de mamíferos placentarios especializados principalmente en la digestión de carne. Incluye tanto carnívoros terrestres (félidos, cánidos, osos) como marinos (focas, leones marinos, morsas).",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Panthera_pardus_close_up.jpg/330px-Panthera_pardus_close_up.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Carnivora"
+    },
+    {
+      "id": "pinnipedia",
+      "label": "Pinnipedia (Pinnípedos)",
+      "scientific_name": "Pinnipedia",
+      "type": "suborder",
+      "parent": "carnivora",
+      "emoji": "🌊",
+      "color": "#0ea5e9",
+      "description": "Los pinnípedos (Pinnipedia) son una parvorden de mamíferos carnívoros del suborden Caniformia; junto con los cetáceos, y los sirenios, los únicos mamíferos adaptados a la vida acuática marina. Son de cuerpo alargado y fusiforme, patas cortas con extremidades palmeadas en forma de aleta. Suelen ser gregarios, se alimentan de peces, moluscos y crustáceos. Están presentes en todos los mares, menos en el mar Caribe, donde abundaba una especie ya extinta: la foca monje del Caribe, la cual probablemente se extinguió a mediados del siglo XX. Se dividen en tres familias, los otáridos, los fócidos (focas) y los odobénidos (morsas).",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Pinniped_collage.png/330px-Pinniped_collage.png?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Pinnipedia"
+    },
+    {
+      "id": "feliformia",
+      "label": "Feliformia (Feliformes)",
+      "scientific_name": "Feliformia",
+      "type": "suborder",
+      "parent": "carnivora",
+      "emoji": "🐱",
+      "color": "#f59e0b",
+      "description": "Los feliformes (Feliformia) son un suborden del orden de los carnívoros que incluye a los félidos, hienas, mangostas, civetas y otras formas relacionadas. El otro suborden de Carnivora es Caniformia que incluye típicamente carnívoros de hocico largo y uñas no retráctiles.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Panthera_tigris_tigris_edited2.jpg/330px-Panthera_tigris_tigris_edited2.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Feliformia"
+    },
+    {
+      "id": "caniformia",
+      "label": "Caniformia (Caniformes)",
+      "scientific_name": "Caniformia",
+      "type": "suborder",
+      "parent": "carnivora",
+      "emoji": "🐾",
+      "color": "#10b981",
+      "description": "Los caniformes (Caniformia) son un suborden del orden de los carnívoros. Típicamente poseen un hocico largo y uñas no retráctiles. Los animales que pertenecen a este grupo son los cánidos, los mustélidos, los osos, los prociónidos y otras familias afines. Los pinnípedos evolucionaron con los ancestros caniformes y, por consiguiente, se los considera dentro de este grupo.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Caniformia_2021_Montage.jpg/330px-Caniformia_2021_Montage.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Caniformia"
+    },
+    {
+      "id": "otariidae",
+      "label": "Otariidae (Leones y Lobos marinos)",
+      "scientific_name": "Otariidae",
+      "type": "family",
+      "parent": "pinnipedia",
+      "emoji": "🦭",
+      "color": "#38bdf8",
+      "description": "Los otarios u otaríidos (Otariidae) son una familia de mamíferos pinnípedos. Se diferencian de los fócidos (focas) por tener orejas visibles y facilidad para caminar sobre la tierra, ya que las extremidades posteriores están dirigidas adelante y son funcionales en el desplazamiento terrestre, aunque están mejor adaptados para nadar. También se les puede llamar «falsas focas» o «focas caminantes».",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Neophoca_cinerea.JPG/330px-Neophoca_cinerea.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Otariidae"
+    },
+    {
+      "id": "phocidae",
+      "label": "Phocidae (Focas verdaderas)",
+      "scientific_name": "Phocidae",
+      "type": "family",
+      "parent": "pinnipedia",
+      "emoji": "🦭",
+      "color": "#0284c7",
+      "description": "Los fócidos o focas verdaderas (Phocidae) son una familia de mamíferos pinnípedos adaptados a vivir en medios acuáticos la mayor parte del tiempo. El nombre común deriva directamente del latín phoca, que a su vez tiene su origen en el griego φώκη (phṓkē).",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Seehund11cele4_edit.jpg/330px-Seehund11cele4_edit.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Phocidae"
+    },
+    {
+      "id": "odobenidae",
+      "label": "Odobenidae (Morsas)",
+      "scientific_name": "Odobenidae",
+      "type": "family",
+      "parent": "pinnipedia",
+      "emoji": "🦭",
+      "color": "#0369a1",
+      "description": "Los odobénidos (Odobenidae) son una familia de pinípedos. La única especie viviente es la morsa. En el pasado geológico, este grupo fue mucho más diverso, e incluía más de diez géneros ahora extintos.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Noaa-walrus22.jpg/330px-Noaa-walrus22.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Odobenidae"
+    },
+    {
+      "id": "felidae",
+      "label": "Felidae (Felinos)",
+      "scientific_name": "Felidae",
+      "type": "family",
+      "parent": "feliformia",
+      "emoji": "🐆",
+      "color": "#d97706",
+      "description": "Los félidos (Felidae), son una familia de mamíferos placentarios del orden Carnivora. Poseen un cuerpo esbelto, oído agudo, hocico corto y excelente vista. Son los mamíferos cazadores más sigilosos. La mayoría consume exclusivamente carne e ignora cualquier otra comida que no sea una presa viva. La capturan con sus afiladas garras y suelen matarla de un único y tenaz mordisco en la columna vertebral que conecta el cuello de la presa. Son digitígrados.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/The_Felidae.jpg/330px-The_Felidae.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Felidae"
+    },
+    {
+      "id": "canidae",
+      "label": "Canidae (Cánidos)",
+      "scientific_name": "Canidae",
+      "type": "family",
+      "parent": "caniformia",
+      "emoji": "🐺",
+      "color": "#059669",
+      "description": "Los cánidos (Canidae) son una familia de mamíferos del orden Carnivora, de régimen carnívoro. Entre otros, abarca a lobos, coyotes, chacales, cuones, dingos, licaones, perros mapache, aguarás guazú, guarás, zorros de la Pampa o aguarachays, zorros culpeo y vulpinos (zorros). Estos animales son digitígrados. Entre sus principales características, en general, se incluyen hocico largo y fino y cuerpo esbelto.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Familia_Canidae.jpg/330px-Familia_Canidae.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Canidae"
+    },
+    {
+      "id": "ursidae",
+      "label": "Ursidae (Osos)",
+      "scientific_name": "Ursidae",
+      "type": "family",
+      "parent": "caniformia",
+      "emoji": "🐻",
+      "color": "#16a34a",
+      "description": "Los osos o úrsidos (Ursidae) son una familia de mamíferos omnívoros. Son animales de gran tamaño, generalmente omnívoros, ya que, a pesar de su temible dentadura, comen frutos, raíces e insectos, además de carne. Con sus pesados cuerpos y sus poderosas mandíbulas, los osos se encuentran entre los mayores carnívoros que viven en la Tierra.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ursidae-01.jpg/330px-Ursidae-01.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Ursidae"
+    },
+    {
+      "id": "zalophus_californianus",
+      "label": "León marino de California",
+      "common_name": "León marino de California",
+      "scientific_name": "Zalophus californianus",
+      "type": "species",
+      "parent": "otariidae",
+      "emoji": "🦭",
+      "description": "El lobo marino de California o León marino de California es una especie de mamífero carnívoro de la familia de los otáridos que vive en las costas del norte del Pacífico desde Canadá hasta la península de Baja California en México y es ocacionalmente avistado en Guatemala, El Salvador, Honduras, Nicaragua y Costa Rica.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/California_sea_lion_in_La_Jolla_%2870568%29.jpg/330px-California_sea_lion_in_La_Jolla_%2870568%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/California_sea_lion_in_La_Jolla_%2870568%29.jpg/3840px-California_sea_lion_in_La_Jolla_%2870568%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Zalophus_californianus"
+    },
+    {
+      "id": "otaria_flavescens",
+      "label": "Lobo marino sudamericano",
+      "common_name": "Lobo marino sudamericano",
+      "scientific_name": "Otaria flavescens",
+      "type": "species",
+      "parent": "otariidae",
+      "emoji": "🦭",
+      "description": "El lobo marino sudamericano, también llamado otario de la Patagonia, lobo marino chusco, lobo marino de un pelo, león marino del sur, león marino sudamericano o simplemente lobo marino o lobo, es una especie de mamífero pinnípedo de la familia Otariidae.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Male_southern_sea_lion.jpg/330px-Male_southern_sea_lion.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Male_southern_sea_lion.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Otaria_flavescens"
+    },
+    {
+      "id": "arctocephalus_gazella",
+      "label": "Lobo marino antártico",
+      "common_name": "Lobo marino antártico",
+      "scientific_name": "Arctocephalus gazella",
+      "type": "species",
+      "parent": "otariidae",
+      "emoji": "🦭",
+      "description": "El lobo marino antártico es una especie de mamífero pinnípedo de la familia de los otáridos, una de las siete del género Arctocephalus. Vive en las aguas antárticas, y fueron vistos por primera vez en las islas Kerguelen.[cita requerida]",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Antarctic%2C_sea_lion_%28js%29_64.jpg/330px-Antarctic%2C_sea_lion_%28js%29_64.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Antarctic%2C_sea_lion_%28js%29_64.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Arctocephalus_gazella"
+    },
+    {
+      "id": "phoca_vitulina",
+      "label": "Foca común",
+      "common_name": "Foca común",
+      "scientific_name": "Phoca vitulina",
+      "type": "species",
+      "parent": "phocidae",
+      "emoji": "🦭",
+      "description": "La foca común, foca de puerto o foca moteada es una especie de mamífero pinnípedo de la familia de los fócidos que habita a lo largo de las líneas costeras de los mares templados y fríos del hemisferio norte. Se la puede hallar en las aguas costeras del norte del Atlántico y del Pacífico, así como también en el mar Báltico y en el mar del Norte, lo que la convierte en la especie más ampliamente distribuida del orden de los pinnípedos, el cual incluye a la morsa, los otarios y las focas verdaderas.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Seehund.jpg/330px-Seehund.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Seehund.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Phoca_vitulina"
+    },
+    {
+      "id": "mirounga_leonina",
+      "label": "Elefante marino del sur",
+      "common_name": "Elefante marino del sur",
+      "scientific_name": "Mirounga leonina",
+      "type": "species",
+      "parent": "phocidae",
+      "emoji": "🦭",
+      "description": "El elefante marino del sur o meridional es una especie de mamífero pinnípedo de la familia Phocidae. No se reconocen subespecies.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Mirounga_leonina_male.JPG/330px-Mirounga_leonina_male.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Mirounga_leonina_male.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Mirounga_leonina"
+    },
+    {
+      "id": "hydrurga_leptonyx",
+      "label": "Foca leopardo",
+      "common_name": "Foca leopardo",
+      "scientific_name": "Hydrurga leptonyx",
+      "type": "species",
+      "parent": "phocidae",
+      "emoji": "🦭",
+      "description": "La foca leopardo, llamada también leopardo marino, es una especie de mamífero pinnípedo de la familia de los fócidos. Se trata de una especie solitaria y agresiva y es la principal depredadora del pingüino emperador en la Antártida.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Leopard_Seal_%2818110129948%29.jpg/330px-Leopard_Seal_%2818110129948%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Leopard_Seal_%2818110129948%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Hydrurga_leptonyx"
+    },
+    {
+      "id": "odobenus_rosmarus",
+      "label": "Morsa",
+      "common_name": "Morsa",
+      "scientific_name": "Odobenus rosmarus",
+      "type": "species",
+      "parent": "odobenidae",
+      "emoji": "🦭",
+      "description": "La morsa es una especie de mamífero pinnípedo de la familia de los odobénidos que habita en los mares árticos. Existen dos subespecies, la morsa del Atlántico y la del Pacífico. La población mundial de morsas se calcula en unos doscientos cincuenta mil ejemplares.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Pacific_Walrus_-_Bull_%288247646168%29_cropped.jpg/330px-Pacific_Walrus_-_Bull_%288247646168%29_cropped.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Pacific_Walrus_-_Bull_%288247646168%29_cropped.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Odobenus_rosmarus"
+    },
+    {
+      "id": "panthera_leo",
+      "label": "León",
+      "common_name": "León",
+      "scientific_name": "Panthera leo",
+      "type": "species",
+      "parent": "felidae",
+      "emoji": "🦁",
+      "description": "El león es un mamífero carnívoro de la familia de los félidos y una de las cinco especies del género Panthera. Los leones salvajes viven en poblaciones cada vez más dispersas y fragmentadas del África subsahariana y una pequeña zona del noroeste de India, habiendo desaparecido del resto de Asia del Sur, Asia Occidental, África del Norte y la península balcánica en tiempos históricos. Hasta hace aproximadamente diez mil años, a finales del Pleistoceno, el león era el más extendido de los grandes mamíferos terrestres tras los humanos. Su distribución cubría la mayor parte de África, gran parte de Eurasia, desde el oeste de Europa hasta la India, y en América, desde el río Yukón hasta el sur de México.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/330px-002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg/3840px-002_The_lion_king_Snyggve_in_the_Serengeti_National_Park_Photo_by_Giles_Laurent.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Panthera_leo"
+    },
+    {
+      "id": "panthera_tigris",
+      "label": "Tigre",
+      "common_name": "Tigre",
+      "scientific_name": "Panthera tigris",
+      "type": "species",
+      "parent": "felidae",
+      "emoji": "🐅",
+      "description": "El tigre es una de las especies de la subfamilia de los panterinos pertenecientes al género Panthera. Se le encuentra solamente en el continente asiático; es un depredador carnívoro y es la especie de félido más grande del mundo, sobrepasando por largo al león. También es cierto que ambas especies pudieron alcanzar un tamaño comparable al de los fósiles de félidos de mayor tamaño.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Tigress_at_Jim_Corbett_National_Park.jpg/330px-Tigress_at_Jim_Corbett_National_Park.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/5/54/Tigress_at_Jim_Corbett_National_Park.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Panthera_tigris"
+    },
+    {
+      "id": "panthera_onca",
+      "label": "Jaguar",
+      "common_name": "Jaguar",
+      "scientific_name": "Panthera onca",
+      "type": "species",
+      "parent": "felidae",
+      "emoji": "🐆",
+      "description": "El yaguar, jaguar, yaguareté, jaguareté, tigre americano o tecuán  es un mamífero carnívoro félido de la subfamilia de los Panterinos y género Panthera. Es la única de las cinco especies actuales de este género que se encuentra en América. También es el mayor félido de América y el tercero del mundo, después del tigre y el león. Su distribución actual se extiende desde el extremo sur de Estados Unidos continuando por parte de México, América Central y América del Sur hasta el norte y noreste de Argentina. Habita principalmente en zonas tropicales secas y húmedas, pero también vive en matorrales áridos. Su dieta es muy amplia, puede cazar grandes presas, incluido ganado, o pequeños animales. Exceptuando algunas poblaciones en Arizona, esta especie ya ha sido prácticamente extirpada en los Estados Unidos desde principios de la década de 1900.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jaguar_%28Panthera_onca_palustris%29_female_Piquiri_River_2.JPG/330px-Jaguar_%28Panthera_onca_palustris%29_female_Piquiri_River_2.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Jaguar_%28Panthera_onca_palustris%29_female_Piquiri_River_2.JPG/3840px-Jaguar_%28Panthera_onca_palustris%29_female_Piquiri_River_2.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Panthera_onca"
+    },
+    {
+      "id": "puma_concolor",
+      "label": "Puma",
+      "common_name": "Puma",
+      "scientific_name": "Puma concolor",
+      "type": "species",
+      "parent": "felidae",
+      "emoji": "🐱",
+      "description": "El puma, león de montaña o león americano es un mamífero carnívoro de la familia Felidae nativo de América. Este felino vive en más lugares que cualquier otro mamífero silvestre terrestre del continente, ya que su área de distribución se extiende desde el Yukón, en Canadá, hasta el sur de la cordillera de los Andes y la Patagonia en América del Sur. Con esta amplia distribución geográfica, el puma tiene decenas de nombres y es mencionado con diversas referencias en la mitología de los pueblos aborígenes de América y también en la cultura contemporánea. Además, el puma es territorial y tiene una baja densidad de población.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Puma_-_49044464307.jpg/330px-Puma_-_49044464307.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Puma_-_49044464307.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Puma_concolor"
+    },
+    {
+      "id": "canis_lupus",
+      "label": "Lobo gris",
+      "common_name": "Lobo gris",
+      "scientific_name": "Canis lupus",
+      "type": "species",
+      "parent": "canidae",
+      "emoji": "🐺",
+      "description": "El lobo gris, o simplemente lobo, es una especie de mamífero placentario del orden de los carnívoros. El naturalista Carlos Linneo, en la décima edición de su obra Systema naturæ, publicada en 1758, clasificó al perro doméstico como especie distinta. Sin embargo, en la actualidad predomina su consideración como miembro de la misma especie según la secuencia del ADN y otros estudios genéticos. El primer registro fósil data de hace ochocientos mil años. Los lobos son originarios de América del Norte y Eurasia, por donde antaño se distribuían y eran abundantes. Hoy en día habitan únicamente una muy limitada porción del que antes fue su territorio.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Canis_lupus_265b.jpg/330px-Canis_lupus_265b.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Canis_lupus_265b.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Canis_lupus"
+    },
+    {
+      "id": "vulpes_vulpes",
+      "label": "Zorro rojo",
+      "common_name": "Zorro rojo",
+      "scientific_name": "Vulpes vulpes",
+      "type": "species",
+      "parent": "canidae",
+      "emoji": "🦊",
+      "description": "El zorro común o zorro rojo, también llamado raposo o raboso, es una especie de mamífero de la familia de los cánidos, de distribución holártica, aunque también fue introducido en Australia en el siglo XIX. Es un animal silencioso y muy cauteloso, que caza sobre todo por la noche. Durante el día permanece oculto entre los matorrales o en sus madrigueras, excavadas en parajes secos y escondidos, a menudo entre las rocas, los barrancos herbosos y las espesuras.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Vulpes_vulpes_2.jpg/330px-Vulpes_vulpes_2.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Vulpes_vulpes_2.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Vulpes_vulpes"
+    },
+    {
+      "id": "lycalopex_culpaeus",
+      "label": "Zorro culpeo (Andino)",
+      "common_name": "Zorro culpeo (Andino)",
+      "scientific_name": "Lycalopex culpaeus",
+      "type": "species",
+      "parent": "canidae",
+      "emoji": "🦊",
+      "description": "Lycalopex culpaeus, conocido como culpeo, zorro culpeo, raposa colorada o zorro colorado, es el segundo cánido viviente más grande de Sudamérica, solo superado por el lobo de crin o aguará guazú.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Culpeo_MC.jpg/330px-Culpeo_MC.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Culpeo_MC.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Lycalopex_culpaeus"
+    },
+    {
+      "id": "ursus_maritimus",
+      "label": "Oso polar",
+      "common_name": "Oso polar",
+      "scientific_name": "Ursus maritimus",
+      "type": "species",
+      "parent": "ursidae",
+      "emoji": "🐻‍❄️",
+      "description": "El oso polar u oso blanco es una especie de mamífero carnívoro de la familia de los osos (Ursidae). Es junto con su pariente, el oso Kodiak, uno de los carnívoros terrestres más grandes de la Tierra. Vive en el medio polar y zonas heladas del hemisferio norte. Es el único superdepredador del Ártico.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Polar_Bear_-_Alaska.jpg/330px-Polar_Bear_-_Alaska.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/0/09/Polar_Bear_-_Alaska.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+      "wiki_url": "https://es.wikipedia.org/wiki/Ursus_maritimus"
+    },
+    {
+      "id": "ursus_arctos",
+      "label": "Oso pardo",
+      "common_name": "Oso pardo",
+      "scientific_name": "Ursus arctos",
+      "type": "species",
+      "parent": "ursidae",
+      "emoji": "🐻",
+      "description": "El oso pardo es una especie de mamífero carnívoro de la familia Ursidae propio de Eurasia y Norteamérica.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Brown_bear_%28Ursus_arctos%29%2C_Viiksimo%2C_Kainuu_region%2C_Finland%2C_16_June_2018_%2843094873292%29.jpg/330px-Brown_bear_%28Ursus_arctos%29%2C_Viiksimo%2C_Kainuu_region%2C_Finland%2C_16_June_2018_%2843094873292%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Brown_bear_%28Ursus_arctos%29%2C_Viiksimo%2C_Kainuu_region%2C_Finland%2C_16_June_2018_%2843094873292%29.jpg/3840px-Brown_bear_%28Ursus_arctos%29%2C_Viiksimo%2C_Kainuu_region%2C_Finland%2C_16_June_2018_%2843094873292%29.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Ursus_arctos"
+    },
+    {
+      "id": "ailuropoda_melanoleuca",
+      "label": "Oso panda gigante",
+      "common_name": "Oso panda gigante",
+      "scientific_name": "Ailuropoda melanoleuca",
+      "type": "species",
+      "parent": "ursidae",
+      "emoji": "🐼",
+      "description": "El panda, oso panda o panda gigante es una especie de mamífero del orden de los carnívoros y de la familia de los osos (Ursidae). Su distribución está muy localizada: nativo de China central, el panda gigante habita en regiones montañosas, principalmente las de Sichuan, hasta una altitud de 3500 m.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/330px-Grosser_Panda.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/3840px-Grosser_Panda.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "wiki_url": "https://es.wikipedia.org/wiki/Ailuropoda_melanoleuca"
+    }
+  ],
+  "links": [
+    {
+      "source": "carnivora",
+      "target": "pinnipedia",
+      "relation": "suborden"
+    },
+    {
+      "source": "carnivora",
+      "target": "feliformia",
+      "relation": "suborden"
+    },
+    {
+      "source": "carnivora",
+      "target": "caniformia",
+      "relation": "suborden"
+    },
+    {
+      "source": "pinnipedia",
+      "target": "otariidae",
+      "relation": "familia"
+    },
+    {
+      "source": "pinnipedia",
+      "target": "phocidae",
+      "relation": "familia"
+    },
+    {
+      "source": "pinnipedia",
+      "target": "odobenidae",
+      "relation": "familia"
+    },
+    {
+      "source": "feliformia",
+      "target": "felidae",
+      "relation": "familia"
+    },
+    {
+      "source": "caniformia",
+      "target": "canidae",
+      "relation": "familia"
+    },
+    {
+      "source": "caniformia",
+      "target": "ursidae",
+      "relation": "familia"
+    },
+    {
+      "source": "otariidae",
+      "target": "zalophus_californianus",
+      "relation": "especie"
+    },
+    {
+      "source": "otariidae",
+      "target": "otaria_flavescens",
+      "relation": "especie"
+    },
+    {
+      "source": "otariidae",
+      "target": "arctocephalus_gazella",
+      "relation": "especie"
+    },
+    {
+      "source": "phocidae",
+      "target": "phoca_vitulina",
+      "relation": "especie"
+    },
+    {
+      "source": "phocidae",
+      "target": "mirounga_leonina",
+      "relation": "especie"
+    },
+    {
+      "source": "phocidae",
+      "target": "hydrurga_leptonyx",
+      "relation": "especie"
+    },
+    {
+      "source": "odobenidae",
+      "target": "odobenus_rosmarus",
+      "relation": "especie"
+    },
+    {
+      "source": "felidae",
+      "target": "panthera_leo",
+      "relation": "especie"
+    },
+    {
+      "source": "felidae",
+      "target": "panthera_tigris",
+      "relation": "especie"
+    },
+    {
+      "source": "felidae",
+      "target": "panthera_onca",
+      "relation": "especie"
+    },
+    {
+      "source": "felidae",
+      "target": "puma_concolor",
+      "relation": "especie"
+    },
+    {
+      "source": "canidae",
+      "target": "canis_lupus",
+      "relation": "especie"
+    },
+    {
+      "source": "canidae",
+      "target": "vulpes_vulpes",
+      "relation": "especie"
+    },
+    {
+      "source": "canidae",
+      "target": "lycalopex_culpaeus",
+      "relation": "especie"
+    },
+    {
+      "source": "ursidae",
+      "target": "ursus_maritimus",
+      "relation": "especie"
+    },
+    {
+      "source": "ursidae",
+      "target": "ursus_arctos",
+      "relation": "especie"
+    },
+    {
+      "source": "ursidae",
+      "target": "ailuropoda_melanoleuca",
+      "relation": "especie"
+    }
+  ]
+}

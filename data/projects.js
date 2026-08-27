@@ -82,6 +82,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T10',
+    title: 'Visor de Especies (Grafo)',
+    desc: 'Explorador filogenético interactivo de carnívoros, pinnípedos, felinos y cánidos con grafos D3.js.',
+    path: '/tools/visor-animales/',
+    emoji: '🕸️',
+    tags: ['Grafos', 'Naturaleza', 'D3.js', 'Educativo'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',

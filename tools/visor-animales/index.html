@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visor de Especies en Grafo | devdaniel</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- D3.js v7 para el grafo interactivo con física -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Barra Superior / Header -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <a href="../../index.html" class="back-link" title="Volver al inicio">← Inicio</a>
+        <div class="title-group">
+          <h1>Visor de Especies <span>(Grafo Taxonómico)</span></h1>
+          <p class="subtitle">Explora conexiones evolutivas entre mamíferos carnívoros, pinnípedos, felinos y cánidos</p>
+        </div>
+      </div>
+      <div class="nav-controls">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Buscar especie o familia..." autocomplete="off" />
+          <button id="clearSearch" class="btn-icon" title="Limpiar búsqueda" style="display:none">✕</button>
+        </div>
+        <div class="filter-group">
+          <select id="groupFilter" class="select-filter">
+            <option value="all">🌐 Todas las ramas</option>
+            <option value="pinnipedia">🌊 Pinnípedos (Focas, Lobos, Morsas)</option>
+            <option value="feliformia">🐱 Feliformes (Felinos)</option>
+            <option value="caniformia">🐾 Caniformes (Cánidos y Osos)</option>
+          </select>
+        </div>
+        <div class="action-buttons">
+          <button id="btnResetZoom" class="btn-control" title="Centrar y reajustar vista">🎯 Centrar</button>
+          <button id="btnTogglePhysics" class="btn-control" title="Pausar o reanudar física">⏸️ Física</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Área principal del Grafo -->
+    <main class="graph-viewport" id="graphViewport">
+      <svg id="graphSvg"></svg>
+
+      <!-- Leyenda flotante -->
+      <div class="floating-legend">
+        <div class="legend-header">Taxonomía</div>
+        <div class="legend-items">
+          <span class="legend-item"><span class="dot" style="background:#f43f5e"></span> Orden (Carnivora)</span>
+          <span class="legend-item"><span class="dot" style="background:#0ea5e9"></span> Pinnípedos (Marinos)</span>
+          <span class="legend-item"><span class="dot" style="background:#f59e0b"></span> Feliformes (Felinos)</span>
+          <span class="legend-item"><span class="dot" style="background:#10b981"></span> Caniformes (Cánidos/Osos)</span>
+        </div>
+      </div>
+
+      <!-- Guía de interacción rápida -->
+      <div class="interaction-hints">
+        <span>🖱️ Arrastra nodos para jugar con la física</span> • 
+        <span>🔍 Rueda del ratón para Zoom</span> • 
+        <span>👆 Clic en un nodo para ver ficha</span>
+      </div>
+    </main>
+
+    <!-- Panel Lateral / Inspector Drawer (Detalles de Especie) -->
+    <aside class="detail-drawer" id="detailDrawer" aria-hidden="true">
+      <button class="btn-close-drawer" id="btnCloseDrawer" title="Cerrar panel">✕</button>
+      
+      <div class="drawer-content">
+        <div class="drawer-image-wrap">
+          <img id="drawerImage" src="" alt="" />
+          <div class="drawer-badge" id="drawerBadge">Especie</div>
+        </div>
+
+        <div class="drawer-header">
+          <h2 id="drawerTitle">Nombre común</h2>
+          <p class="scientific-name" id="drawerScientific">Nombre científico</p>
+        </div>
+
+        <div class="drawer-meta">
+          <div class="meta-card">
+            <span class="meta-label">Categoría</span>
+            <span class="meta-val" id="drawerRank">–</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Rama / Padre</span>
+            <span class="meta-val" id="drawerParent">–</span>
+          </div>
+        </div>
+
+        <div class="drawer-body">
+          <h3>Descripción (Wikipedia)</h3>
+          <p id="drawerDescription">Cargando información...</p>
+        </div>
+
+        <div class="drawer-footer">
+          <a id="drawerWikiLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-wiki">
+            <span>📖 Leer artículo completo en Wikipedia</span> ↗
+          </a>
+          <button id="drawerFocusBtn" class="btn-focus">🎯 Enfocar en el Grafo</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
