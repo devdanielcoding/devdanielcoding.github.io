@@ -91,6 +91,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T11',
+    title: 'Precios de Combustible (Lima)',
+    desc: 'Tablero interactivo con precios actualizados de Gasohol Premium por distrito y grifos en Lima (Facilito).',
+    path: '/tools/precios-combustible/',
+    emoji: '⛽',
+    tags: ['Combustible', 'Precios', 'Facilito', 'Data'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',
