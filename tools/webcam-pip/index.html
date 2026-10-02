@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webcam PiP — devdanielcoding</title>
+  <meta name="description" content="Visualizador de cámara web y capturadora UVC en ventana flotante Picture-in-Picture con soporte de relación de aspecto y efecto espejo. 100% privado y offline." />
+  <link rel="stylesheet" href="../../styles.css" />
+  <style>
+    :root {
+      --pip-bg: #121214;
+      --pip-card: #1a1a1e;
+      --pip-border: #2c2c34;
+      --pip-accent: #3b82f6;
+      --pip-accent-hover: #2563eb;
+      --pip-text: #f3f4f6;
+      --pip-muted: #9ca3af;
+    }
+
+    body {
+      background-color: #0b0b0e;
+      color: var(--pip-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1;
+    }
+
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header-nav .brand {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--pip-text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-nav .brand span {
+      color: var(--pip-accent);
+    }
+
+    .btn-nav {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      background: #1f1f26;
+      color: var(--pip-muted);
+      text-decoration: none;
+      border: 1px solid var(--pip-border);
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      color: #fff;
+      border-color: #4b5563;
+      background: #272732;
+    }
+
+    .main-card {
+      background: var(--pip-card);
+      border: 1px solid var(--pip-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .tool-header {
+      margin-bottom: 20px;
+    }
+
+    .tool-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tool-header p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--pip-muted);
+      line-height: 1.4;
+    }
+
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 20px;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #22222a;
+      border: 1px solid var(--pip-border);
+      color: var(--pip-muted);
+    }
+
+    .badge.ok {
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+
+    .badge.err {
+      background: rgba(239, 68, 68, 0.12);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .badge.info {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.25);
+    }
+
+    .controls-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: #141418;
+      border: 1px solid var(--pip-border);
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    select, button.action-btn {
+      background: #23232b;
+      color: #fff;
+      border: 1px solid #383844;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    select {
+      max-width: 220px;
+      text-overflow: ellipsis;
+    }
+
+    select:hover, button.action-btn:hover {
+      background: #2d2d38;
+      border-color: #555566;
+    }
+
+    button.primary-btn {
+      background: var(--pip-accent);
+      border-color: var(--pip-accent);
+      color: #fff;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.primary-btn:hover {
+      background: var(--pip-accent-hover);
+      border-color: var(--pip-accent-hover);
+    }
+
+    button.active-toggle {
+      background: #2e384d;
+      border-color: #4b6cb7;
+      color: #93c5fd;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #222;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+      transition: aspect-ratio 0.2s ease;
+    }
+
+    video#videoElement {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .placeholder-state {
+      position: absolute;
+      text-align: center;
+      padding: 24px;
+      color: var(--pip-muted);
+      z-index: 2;
+    }
+
+    .placeholder-state .icon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .placeholder-state p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .placeholder-state small {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--pip-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--pip-muted);
+    }
+
+    .footer-note a {
+      color: var(--pip-muted);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <!-- Header Nav -->
+    <header class="header-nav">
+      <a href="/" class="brand">
+        devdanielcoding<span>.github.io</span>
+      </a>
+      <nav style="display: flex; gap: 8px;">
+        <a href="/tools/" class="btn-nav">← Herramientas</a>
+        <a href="/" class="btn-nav">Inicio</a>
+      </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-card">
+      <div class="tool-header">
+        <h1>📹 Webcam PiP</h1>
+        <p>Previsualiza tu cámara web o capturadora UVC en una ventana flotante (Picture-in-Picture), con relación de aspecto ajustable y efecto espejo.</p>
+      </div>
+
+      <!-- Badges -->
+      <div class="badges-row">
+        <div id="statusBadge" class="badge">🔄 Inicializando cámaras...</div>
+        <div class="badge ok">🔒 100% Privado (Hardware Local)</div>
+        <div class="badge info">⚡ Offline Ready</div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls-panel">
+        <div class="ctrl-group">
+          <select id="cameraSelect" title="Seleccionar cámara">
+            <option value="">Buscando cámaras...</option>
+          </select>
+          <button id="refreshBtn" class="action-btn" title="Refrescar lista de dispositivos">🔄</button>
+        </div>
+
+        <div class="ctrl-group">
+          <select id="ratioSelect" title="Relación de aspecto">
+            <option value="1.777777778">16:9 (Widescreen)</option>
+            <option value="1.333333333">4:3 (Estándar)</option>
+            <option value="1">1:1 (Cuadrado)</option>
+          </select>
+        </div>
+
+        <button id="mirrorBtn" class="action-btn active-toggle">Espejo: ON</button>
+        
+        <div style="margin-left: auto;">
+          <button id="pipBtn" class="action-btn primary-btn">
+            <span>🔲</span> Activar PiP Flotante
+          </button>
+        </div>
+      </div>
+
+      <!-- Video Canvas Area -->
+      <div class="video-wrapper" id="videoWrapper">
+        <div id="placeholder" class="placeholder-state">
+          <div class="icon">📷</div>
+          <p>Buscando señal de cámara...</p>
+          <small>Asegúrate de permitir el acceso cuando el navegador te lo solicite.</small>
+        </div>
+        
+        <video id="videoElement" autoplay playsinline muted></video>
+        <video id="rawVideo" style="display: none;" autoplay playsinline muted></video>
+        <canvas id="canvasElement" style="display: none;"></canvas>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="footer-note">
+        <span>El video se procesa exclusivamente en tu CPU/GPU local. Cero transferencia de datos.</span>
+        <span>Compatible con Chrome, Edge, Safari y navegadores Chromium.</span>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const videoElement = document.getElementById('videoElement');
+    const rawVideo = document.getElementById('rawVideo');
+    const canvasElement = document.getElementById('canvasElement');
+    const ctx = canvasElement.getContext('2d');
+    
+    const cameraSelect = document.getElementById('cameraSelect');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const ratioSelect = document.getElementById('ratioSelect');
+    const mirrorBtn = document.getElementById('mirrorBtn');
+    const pipBtn = document.getElementById('pipBtn');
+    const statusBadge = document.getElementById('statusBadge');
+    const placeholder = document.getElementById('placeholder');
+    const videoWrapper = document.getElementById('videoWrapper');
+
+    let isMirrored = true;
+    let animFrameId = null;
+
+    function setStatus(text, type = '') {
+      statusBadge.textContent = text;
+      statusBadge.className = 'badge ' + type;
+    }
+
+    function renderFrame() {
+      if (rawVideo.readyState === rawVideo.HAVE_ENOUGH_DATA) {
+        if (canvasElement.width !== rawVideo.videoWidth || canvasElement.height !== rawVideo.videoHeight) {
+          canvasElement.width = rawVideo.videoWidth || 640;
+          canvasElement.height = rawVideo.videoHeight || 480;
+        }
+        ctx.save();
+        if (isMirrored) {
+          ctx.translate(canvasElement.width, 0);
+          ctx.scale(-1, 1);
+        }
+        ctx.drawImage(rawVideo, 0, 0, canvasElement.width, canvasElement.height);
+        ctx.restore();
+      }
+      animFrameId = requestAnimationFrame(renderFrame);
+    }
+
+    async function initCameras(autoSelectFirst = true) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setStatus('❌ Navegador no soporta captura de video', 'err');
+        placeholder.style.display = 'block';
+        placeholder.innerHTML = '<div class="icon">⚠️</div><p>Tu navegador no soporta MediaDevices API.</p>';
+        return;
+      }
+
+      setStatus('🔄 Solicitando permisos...', '');
+      try {
+        let tempStream;
+        try {
+          tempStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        } catch (permErr) {
+          console.warn('Permiso directo inicial:', permErr);
+        }
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevices = devices.filter(d => d.kind === 'videoinput');
+
+        cameraSelect.innerHTML = '';
+
+        if (videoDevices.length === 0) {
+          cameraSelect.innerHTML = '<option value="">❌ Sin cámaras detectadas</option>';
+          setStatus('⚠️ Sin cámaras detectadas', 'err');
+          placeholder.style.display = 'block';
+          placeholder.innerHTML = '<div class="icon">🔌</div><p>No se detectaron cámaras conectadas.</p><small>Conecta tu cámara/webcam y pulsa 🔄.</small>';
+          return;
+        }
+
+        videoDevices.forEach((device, index) => {
+          const option = document.createElement('option');
+          option.value = device.deviceId;
+          option.text = device.label || `Cámara ${index + 1} (${device.deviceId.slice(0, 5)}...)`;
+          cameraSelect.appendChild(option);
+        });
+
+        setStatus(`🟢 ${videoDevices.length} cámara(s) lista(s)`, 'ok');
+        placeholder.style.display = 'none';
+
+        if (autoSelectFirst && videoDevices[0].deviceId) {
+          startStream(videoDevices[0].deviceId);
+        }
+
+        if (tempStream) {
+          tempStream.getTracks().forEach(t => t.stop());
+        }
+      } catch (error) {
+        console.error('Error al inicializar cámaras:', error);
+        cameraSelect.innerHTML = '<option value="">⚠️ Permiso denegado</option>';
+        setStatus('❌ Permiso denegado', 'err');
+        placeholder.style.display = 'block';
+        placeholder.innerHTML = '<div class="icon">🔒</div><p>Permiso de cámara bloqueado.</p><small>Permite el acceso en el icono de candado de tu navegador y refresca.</small>';
+      }
+    }
+
+    async function startStream(deviceId) {
+      if (window.currentStream) {
+        window.currentStream.getTracks().forEach(track => track.stop());
+      }
+
+      const ratio = parseFloat(ratioSelect.value);
+      const constraints = {
+        video: deviceId 
+          ? { deviceId: { exact: deviceId }, aspectRatio: { ideal: ratio } } 
+          : { aspectRatio: { ideal: ratio } },
+        audio: false
+      };
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        window.currentStream = stream;
+        rawVideo.srcObject = stream;
+        
+        await rawVideo.play().catch(e => console.warn('Autoplay error:', e));
+
+        const selectedLabel = cameraSelect.options[cameraSelect.selectedIndex]?.text || 'Cámara activa';
+        setStatus(`🟢 En vivo: ${selectedLabel}`, 'ok');
+        placeholder.style.display = 'none';
+
+        if (!videoElement.srcObject) {
+          videoElement.srcObject = canvasElement.captureStream(30);
+          videoElement.play().catch(e => console.warn('Canvas stream play error:', e));
+          if (!animFrameId) {
+            renderFrame();
+          }
+        }
+        
+        videoWrapper.style.aspectRatio = ratio === 1 ? '1/1' : (ratio > 1.5 ? '16/9' : '4/3');
+      } catch (error) {
+        console.error('Error al iniciar stream:', error);
+        setStatus('❌ Error al acceder a la cámara seleccionada', 'err');
+      }
+    }
+
+    cameraSelect.addEventListener('change', (e) => {
+      if (e.target.value) {
+        startStream(e.target.value);
+      }
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      initCameras(true);
+    });
+
+    ratioSelect.addEventListener('change', () => {
+      if (cameraSelect.value) {
+        startStream(cameraSelect.value);
+      }
+    });
+
+    mirrorBtn.addEventListener('click', () => {
+      isMirrored = !isMirrored;
+      mirrorBtn.textContent = isMirrored ? 'Espejo: ON' : 'Espejo: OFF';
+      mirrorBtn.classList.toggle('active-toggle', isMirrored);
+    });
+
+    pipBtn.addEventListener('click', async () => {
+      try {
+        if (!document.pictureInPictureEnabled) {
+          alert('Tu navegador no soporta el modo Picture-in-Picture.');
+          return;
+        }
+
+        if (document.pictureInPictureElement) {
+          await document.exitPictureInPicture();
+        } else if (videoElement.readyState >= 2) {
+          await videoElement.requestPictureInPicture();
+        } else {
+          alert('El video aún está cargando la señal de la cámara.');
+        }
+      } catch (error) {
+        console.error('Error con PiP:', error);
+        alert('No se pudo activar el modo flotante PiP: ' + error.message);
+      }
+    });
+
+    videoElement.addEventListener('enterpictureinpicture', () => {
+      pipBtn.innerHTML = '<span>⏹️</span> Salir de PiP';
+      pipBtn.classList.add('active-toggle');
+    });
+
+    videoElement.addEventListener('leavepictureinpicture', () => {
+      pipBtn.innerHTML = '<span>🔲</span> Activar PiP Flotante';
+      pipBtn.classList.remove('active-toggle');
+    });
+
+    // Soporte Hotplugging (detección de conexión/desconexión de cámaras externas)
+    if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) {
+      navigator.mediaDevices.addEventListener('devicechange', () => {
+        initCameras(false);
+      });
+    }
+
+    // Arranque inicial
+    initCameras(true);
+  </script>
+</body>
+</html>

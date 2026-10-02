@@ -100,6 +100,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T12',
+    title: 'Webcam PiP',
+    desc: 'Visualizador de cámara web y capturadora UVC en ventana flotante (Picture-in-Picture) con espejo y aspect ratio.',
+    path: '/tools/webcam-pip/',
+    emoji: '📹',
+    tags: ['Cámara', 'Video', 'PiP', 'Offline'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',

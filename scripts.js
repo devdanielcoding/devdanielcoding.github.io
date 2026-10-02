@@ -45,8 +45,8 @@ function render(list) {
   }
 }
 
-// Render inicial (orden por id)
-const sorted = [...PROJECTS].sort((a, b) => a.id.localeCompare(b.id));
+// Render inicial (orden natural por id)
+const sorted = [...PROJECTS].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
 render(sorted);
 
 // Búsqueda en vivo (título, descripción y tags)
