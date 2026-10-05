@@ -109,6 +109,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T13',
+    title: 'Human Atlas 3D',
+    desc: 'Explorador anatómico 3D con selector clínico de zonas de dolor, impacto y filtrado dinámico por sistemas.',
+    path: '/tools/human-atlas/',
+    emoji: '🧬',
+    tags: ['Anatomía', 'Three.js', '3D', 'Salud'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',
