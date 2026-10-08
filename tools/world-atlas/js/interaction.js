@@ -797,35 +797,36 @@
 
       const pCountry = parentCountry || State.getState().selectedCountry || {};
       const pDiv = parentDivision || State.getState().selectedDivision || {};
-      const flag = pCountry.flag || '🇵🇪';
-      const cName = pCountry.name_es || pCountry.name || 'Perú';
-      const divName = pDiv.name || 'Lima';
-      const distName = district.name || 'Distrito';
+      const flag = pCountry.flag || '📍';
+      const cName = pCountry.name_es || pCountry.name || 'País';
+      const divName = pDiv.name || 'Jurisdicción';
+      const distName = district.name || 'Entidad Local';
+      const distType = district.type || district.properties?.type || 'Distrito';
 
       // Encabezado
       if (this.flagEl) this.flagEl.textContent = flag;
       if (this.titleEl) this.titleEl.textContent = distName;
-      if (this.subtitleEl) this.subtitleEl.textContent = `Nivel 2 · Distrito de ${divName} · ${cName}`;
+      if (this.subtitleEl) this.subtitleEl.textContent = `Nivel 2 · ${distType} · ${divName}, ${cName}`;
 
       // Métricas
       if (this.metricLabel1) this.metricLabel1.textContent = 'Categoría Administrativa';
-      if (this.capitalEl) this.capitalEl.textContent = '🏛️ Distrito';
+      if (this.capitalEl) this.capitalEl.textContent = `🏛️ ${distType}`;
 
-      if (this.metricLabel2) this.metricLabel2.textContent = 'Provincia / Región';
+      if (this.metricLabel2) this.metricLabel2.textContent = 'Jurisdicción / Metrópoli';
       if (this.continentEl) this.continentEl.textContent = `🏙️ ${divName}`;
 
       // Ficha territorial
       if (this.curiosityIcon) this.curiosityIcon.textContent = '🏛️';
-      if (this.curiosityTitle) this.curiosityTitle.textContent = 'Ficha de Distrito';
+      if (this.curiosityTitle) this.curiosityTitle.textContent = `Ficha de ${distType}`;
       if (this.curiosityEl) {
-        this.curiosityEl.textContent = `${distName} es una entidad distrital representativa de ${divName} Metropolitana (${cName}). Cuenta con demarcación cartográfica vectorial en alta resolución dentro de la red urbana local.`;
+        this.curiosityEl.textContent = `${distName} es una demarcación representativa de ${divName} (${cName}). Cuenta con cartografía vectorial de alta precisión en la red metropolitana local.`;
       }
 
       // Badges
-      if (this.badgeIsoEl) this.badgeIsoEl.textContent = 'Cat: Distrito';
+      if (this.badgeIsoEl) this.badgeIsoEl.textContent = `Cat: ${distType}`;
       if (this.badgeLevelEl) this.badgeLevelEl.textContent = 'Nivel L2 · Local';
       if (this.badgeDivisionsEl) {
-        this.badgeDivisionsEl.textContent = `Provincia: ${divName}`;
+        this.badgeDivisionsEl.textContent = `Región: ${divName}`;
         this.badgeDivisionsEl.className = 'badge badge-emerald';
       }
 
@@ -833,7 +834,7 @@
       if (this.emptyNoticeEl) this.emptyNoticeEl.style.display = 'none';
       if (this.emptyNoticeL2El) this.emptyNoticeL2El.style.display = 'none';
 
-      // Botones de acción (SPEC-10: retorno a Lima y retorno al País)
+      // Botones de acción (SPEC-10 & SPEC-12: retorno a la División y retorno al País)
       if (this.exploreBtn) this.exploreBtn.style.display = 'none';
       if (this.btnOpenL2) this.btnOpenL2.style.display = 'none';
       if (this.btnBackDivision) {
@@ -846,7 +847,7 @@
       }
       if (this.backBtn) this.backBtn.style.display = 'inline-flex';
 
-      // Breadcrumb multinivel de 4 niveles: Mundo > País > Región > Distrito (SPEC-10)
+      // Breadcrumb multinivel de 4 niveles: Mundo > País > Región > Entidad Local (SPEC-10 & SPEC-12)
       if (this.crumbWorld) this.crumbWorld.classList.remove('active');
       if (this.crumbSepCountry) this.crumbSepCountry.style.display = 'inline-block';
       if (this.crumbCountry) {
@@ -1208,24 +1209,25 @@
 
       const pDiv = division || State.getState().selectedDivision || {};
       const pCountry = State.getState().selectedCountry || {};
-      const divName = pDiv.name || 'Lima';
-      const countryName = pCountry.name_es || pCountry.name || 'Perú';
-      const flag = pCountry.flag || '🇵🇪';
+      const divName = pDiv.name || 'Jurisdicción';
+      const countryName = pCountry.name_es || pCountry.name || '';
+      const flag = pCountry.flag || '📍';
 
       WorldMap.layers.districts
         .selectAll('path.district-path')
         .on('mouseenter', function (event, d) {
           d3.select(this).classed('district-hover', true);
-          const name = d.properties?.name || 'Distrito';
+          const name = d.properties?.name || 'Entidad';
+          const type = d.properties?.type || 'Distrito';
 
           const districtInfo = {
             feature: d,
             name: name,
             province: d.properties?.province || divName,
             department: d.properties?.department || divName,
-            type: 'Distrito',
+            type: type,
             flag: flag,
-            subtitle: `Distrito de ${name} · ${divName}, ${countryName}`
+            subtitle: `${type} de ${name} · ${divName}, ${countryName}`
           };
 
           State.setHoveredFeature(districtInfo);
@@ -1241,20 +1243,21 @@
         })
         .on('click', function (event, d) {
           event.stopPropagation();
-          const name = d.properties?.name || 'Distrito';
+          const name = d.properties?.name || 'Entidad';
+          const type = d.properties?.type || 'Distrito';
 
           const districtData = {
             feature: d,
             name: name,
             province: d.properties?.province || divName,
             department: d.properties?.department || divName,
-            type: 'Distrito'
+            type: type
           };
 
           State.selectDistrict(districtData);
         });
 
-      console.log(`[WorldInteraction] Eventos interactivos enlazados a distritos de "${divName}".`);
+      console.log(`[WorldInteraction] Eventos interactivos enlazados a entidades L2 de "${divName}".`);
     },
 
     _bindMapEvents() {

@@ -401,9 +401,38 @@
     },
 
     /**
-     * Carga bajo demanda ($O(1)$) e indexa geometrías distritales de Nivel 2 (SPEC-10).
+     * Catálogo indexado de datasets cartográficos de Nivel 2 ($O(1)$) (SPEC-12).
+     */
+    capitalDatasets: {
+      // Fase 1: América del Sur
+      'lima': 'data/districts/lima.geojson',
+      'lima province': 'data/districts/lima.geojson',
+      'lima department': 'data/districts/lima.geojson',
+      'santiago': 'data/districts/santiago.geojson',
+      'región metropolitana de santiago': 'data/districts/santiago.geojson',
+      'region metropolitana de santiago': 'data/districts/santiago.geojson',
+      'metropolitana de santiago': 'data/districts/santiago.geojson',
+      'ciudad autónoma de buenos aires': 'data/districts/buenos-aires.geojson',
+      'ciudad de buenos aires': 'data/districts/buenos-aires.geojson',
+      'buenos aires': 'data/districts/buenos-aires.geojson',
+      'caba': 'data/districts/buenos-aires.geojson',
+      'bogota': 'data/districts/bogota.geojson',
+      'bogotá': 'data/districts/bogota.geojson',
+      'bogota d.c.': 'data/districts/bogota.geojson',
+      'distrito capital': 'data/districts/bogota.geojson',
+      'montevideo': 'data/districts/montevideo.geojson',
+      'departamento de montevideo': 'data/districts/montevideo.geojson',
+      'distrito federal': 'data/districts/brasilia.geojson',
+      'brasilia': 'data/districts/brasilia.geojson',
+      'brasília': 'data/districts/brasilia.geojson',
+      'quito': 'data/districts/quito.geojson',
+      'pichincha': 'data/districts/quito.geojson'
+    },
+
+    /**
+     * Carga bajo demanda ($O(1)$) e indexa geometrías de Nivel 2 (SPEC-10 & SPEC-12).
      * @param {string} regionName Nombre de la división/departamento
-     * @returns {Promise<Object|null>} GeoJSON de distritos o null
+     * @returns {Promise<Object|null>} GeoJSON de distritos/comunas/localidades o null
      */
     async loadDistricts(regionName) {
       if (!regionName) return null;
@@ -417,38 +446,60 @@
         return this.data.districtsCache[normalized];
       }
 
-      // Piloto territorial de alta resolución: Lima / Lima Province / Lima Metropolitana
-      if (normalized.includes('lima')) {
-        try {
-          const resp = await fetch('data/districts_lima.geojson');
-          if (!resp.ok) {
-            throw new Error(`HTTP error ${resp.status}`);
+      // 1. Identificar dataset por coincidencia exacta o por subcadena en el catálogo
+      let targetPath = this.capitalDatasets[normalized] || null;
+
+      if (!targetPath) {
+        for (const [key, path] of Object.entries(this.capitalDatasets)) {
+          if (normalized.includes(key) || key.includes(normalized)) {
+            targetPath = path;
+            break;
           }
-          const geojson = await resp.json();
-          // Sanitización de winding order: invertir anillos si el polígono cubre más de media esfera terrestre
-          if (geojson && geojson.features) {
-            geojson.features.forEach(f => {
-              if (f.geometry && typeof d3.geoArea === 'function' && d3.geoArea(f) > 2 * Math.PI) {
-                if (f.geometry.type === 'Polygon') {
-                  f.geometry.coordinates = f.geometry.coordinates.map(ring => ring.slice().reverse());
-                } else if (f.geometry.type === 'MultiPolygon') {
-                  f.geometry.coordinates = f.geometry.coordinates.map(poly => poly.map(ring => ring.slice().reverse()));
-                }
-              }
-            });
-          }
-          this.data.districtsCache['lima'] = geojson;
-          this.data.districtsCache['lima province'] = geojson;
-          this.data.districtsCache[normalized] = geojson;
-          return geojson;
-        } catch (err) {
-          console.error('[WorldMap] Error cargando data/districts_lima.geojson:', err);
-          return null;
         }
       }
 
-      // Regiones sin dataset distrital aún compilado (dispara fallback elegante SPEC-10)
-      return null;
+      // Si no hay dataset mapeado en el catálogo, retornar null (dispara fallback elegante)
+      if (!targetPath) {
+        return null;
+      }
+
+      try {
+        let resp = await fetch(targetPath);
+        // Fallback histórico para Lima si targetPath directo falla
+        if (!resp.ok && targetPath.includes('lima')) {
+          resp = await fetch('data/districts_lima.geojson');
+        }
+        if (!resp.ok) {
+          throw new Error(`HTTP error ${resp.status} al solicitar ${targetPath}`);
+        }
+
+        const geojson = await resp.json();
+
+        // Sanitización de Winding Order (Regla de la mano derecha):
+        // Invertir anillos si el polígono cubre más de media esfera terrestre (SPEC-12)
+        if (geojson && geojson.features) {
+          geojson.features.forEach(f => {
+            if (f.geometry && typeof d3.geoArea === 'function' && d3.geoArea(f) > 2 * Math.PI) {
+              if (f.geometry.type === 'Polygon') {
+                f.geometry.coordinates = f.geometry.coordinates.map(ring => ring.slice().reverse());
+              } else if (f.geometry.type === 'MultiPolygon') {
+                f.geometry.coordinates = f.geometry.coordinates.map(poly => poly.map(ring => ring.slice().reverse()));
+              }
+            }
+          });
+        }
+
+        this.data.districtsCache[normalized] = geojson;
+        if (targetPath.includes('/')) {
+          const slug = targetPath.split('/').pop().replace('.geojson', '');
+          this.data.districtsCache[slug] = geojson;
+        }
+
+        return geojson;
+      } catch (err) {
+        console.error(`[WorldMap] Error cargando dataset L2 "${targetPath}":`, err);
+        return null;
+      }
     },
 
     /**
@@ -609,9 +660,10 @@
       const width = this.container.clientWidth || window.innerWidth;
       const height = this.container.clientHeight || window.innerHeight;
 
-      // SPEC-07 & SPEC-10: Escala y traslación óptimas con padding del 20%
-      // Límites de escala: hasta 220 para distritos/ciudades locales (L2), hasta 12 para países/provincias
-      const isL2 = geoFeature.type === 'FeatureCollection' || geoFeature.properties?.type === 'Distrito';
+      // SPEC-07, SPEC-10 & SPEC-12: Escala y traslación óptimas con padding del 20%
+      // Límites de escala: hasta 220 para distritos/comunas/ciudades locales (L2), hasta 12 para países/provincias
+      const isL2 = geoFeature.type === 'FeatureCollection' || 
+        ['distrito', 'comuna', 'localidad', 'barrio', 'regi', 'parroquia'].some(t => (geoFeature.properties?.type || '').toLowerCase().includes(t));
       const maxScaleCeiling = isL2 ? 220 : 12;
       const maxDimRatio = Math.max(dx / width, dy / height);
       const scale = maxDimRatio > 0 ? Math.max(1, Math.min(maxScaleCeiling, 0.8 / maxDimRatio)) : 1;
