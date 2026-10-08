@@ -1,0 +1,1782 @@
+{
+  "India": {
+    "name_es": "India",
+    "capital": "Nueva Delhi",
+    "continent": "Asia",
+    "population": 1428000000.0,
+    "flag": "🇮🇳",
+    "hasLevel1": true,
+    "divisionsCount": 36,
+    "fact": "El país más poblado de la Tierra, con una inmensa riqueza cultural que abarca desde los Himalayas hasta el océano Índico."
+  },
+  "China": {
+    "name_es": "China",
+    "capital": "Pekín",
+    "continent": "Asia",
+    "population": 1410000000.0,
+    "flag": "🇨🇳",
+    "hasLevel1": true,
+    "divisionsCount": 32,
+    "fact": "Una de las civilizaciones continuas más antiguas; cuenta con la Gran Muralla y una geografía que va del Tíbet al Mar Amarillo."
+  },
+  "United States": {
+    "name_es": "Estados Unidos",
+    "capital": "Washington D.C.",
+    "continent": "América del Norte",
+    "population": 340000000.0,
+    "flag": "🇺🇸",
+    "hasLevel1": true,
+    "divisionsCount": 51,
+    "fact": "País de dimensiones continentales con 63 parques nacionales, incluyendo Yellowstone, el primer parque nacional del mundo (1872)."
+  },
+  "Indonesia": {
+    "name_es": "Indonesia",
+    "capital": "Yakarta (Nusantara)",
+    "continent": "Asia",
+    "population": 279000000.0,
+    "flag": "🇮🇩",
+    "hasLevel1": true,
+    "divisionsCount": 33,
+    "fact": "El país insular más grande del mundo con más de 17.500 islas ubicadas a lo largo del Cinturón de Fuego del Pacífico."
+  },
+  "Nigeria": {
+    "name_es": "Nigeria",
+    "capital": "Abuya",
+    "continent": "África",
+    "population": 224000000.0,
+    "flag": "🇳🇬",
+    "hasLevel1": true,
+    "divisionsCount": 37,
+    "fact": "El país más poblado de África con más de 220 millones de habitantes y una vibrante diversidad de más de 250 etnias."
+  },
+  "Brazil": {
+    "name_es": "Brasil",
+    "capital": "Brasilia",
+    "continent": "América Latina",
+    "population": 214079986.0,
+    "flag": "🇧🇷",
+    "hasLevel1": true,
+    "divisionsCount": 27,
+    "fact": "El país con mayor biodiversidad del mundo, hogar de la mayor cuenca hidrográfica y selva amazónica."
+  },
+  "Mexico": {
+    "name_es": "México",
+    "capital": "Ciudad de México",
+    "continent": "América Latina",
+    "population": 134409985.0,
+    "flag": "🇲🇽",
+    "hasLevel1": true,
+    "divisionsCount": 33,
+    "fact": "Cuna de las civilizaciones olmeca, maya y mexica; posee la pirámide de mayor volumen de la Tierra (Gran Pirámide de Cholula)."
+  },
+  "Japan": {
+    "name_es": "Japón",
+    "capital": "Tokio",
+    "continent": "Asia",
+    "population": 124500000.0,
+    "flag": "🇯🇵",
+    "hasLevel1": true,
+    "divisionsCount": 47,
+    "fact": "Archipiélago de más de 6.800 islas volcánicas; el monte Fuji es su pico más sagrado y un estratovolcán activo."
+  },
+  "Philippines": {
+    "name_es": "Filipinas",
+    "capital": "Manila",
+    "continent": "Asia",
+    "population": 117000000.0,
+    "flag": "🇵🇭",
+    "hasLevel1": true,
+    "divisionsCount": 115,
+    "fact": "Archipiélago de más de 7.640 islas con maravillas como el río subterráneo de Puerto Princesa y las Colinas de Chocolate."
+  },
+  "Egypt": {
+    "name_es": "Egipto",
+    "capital": "El Cairo",
+    "continent": "África",
+    "population": 111000000.0,
+    "flag": "🇪🇬",
+    "hasLevel1": true,
+    "divisionsCount": 27,
+    "fact": "Cuna de la civilización faraónica unida al curso del Nilo, con monumentos milenarios como las pirámides de Guiza."
+  },
+  "Vietnam": {
+    "name_es": "Vietnam",
+    "capital": "Hanói",
+    "continent": "Asia",
+    "population": 100300000.0,
+    "flag": "🇻🇳",
+    "hasLevel1": true,
+    "divisionsCount": 63,
+    "fact": "Alberga la cueva Son Doong, la más grande del mundo por volumen, con su propia selva interior y sistema meteorológico."
+  },
+  "Turkey": {
+    "name_es": "Turquía",
+    "capital": "Ankara",
+    "continent": "Europa / Asia",
+    "population": 85300000.0,
+    "flag": "🇹🇷",
+    "hasLevel1": true,
+    "divisionsCount": 81,
+    "fact": "País transcontinental cuyos estrechos del Bósforo y Dardanelos dividen y unen Europa con Asia; alberga la Capadocia."
+  },
+  "Germany": {
+    "name_es": "Alemania",
+    "capital": "Berlín",
+    "continent": "Europa",
+    "population": 84400000.0,
+    "flag": "🇩🇪",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "Motor económico de Europa; un tercio de su territorio está cubierto de bosques como la legendaria Selva Negra."
+  },
+  "Thailand": {
+    "name_es": "Tailandia",
+    "capital": "Bangkok",
+    "continent": "Asia",
+    "population": 71800000.0,
+    "flag": "🇹🇭",
+    "hasLevel1": true,
+    "divisionsCount": 77,
+    "fact": "El único país del sudeste asiático que nunca fue colonizado por potencias europeas; famoso por sus costas en el mar de Andamán."
+  },
+  "United Kingdom": {
+    "name_es": "Reino Unido",
+    "capital": "Londres",
+    "continent": "Europa",
+    "population": 68300000.0,
+    "flag": "🇬🇧",
+    "hasLevel1": true,
+    "divisionsCount": 231,
+    "fact": "Nación insular atlántica por cuyo Real Observatorio de Greenwich pasa el meridiano cero que define la hora mundial."
+  },
+  "France": {
+    "name_es": "Francia",
+    "capital": "París",
+    "continent": "Europa",
+    "population": 68200000.0,
+    "flag": "🇫🇷",
+    "hasLevel1": true,
+    "divisionsCount": 101,
+    "fact": "El país que abarca más husos horarios del mundo (12) gracias a sus territorios de ultramar repartidos en todos los océanos."
+  },
+  "South Africa": {
+    "name_es": "Sudáfrica",
+    "capital": "Pretoria (Adm.) / Ciudad del Cabo (Leg.) / Bloemfontein (Jud.)",
+    "continent": "África",
+    "population": 60400000.0,
+    "flag": "🇿🇦",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Rodea por completo al reino de Lesoto; hogar de la Montaña de la Mesa y del Parque Nacional Kruger."
+  },
+  "Italy": {
+    "name_es": "Italia",
+    "capital": "Roma",
+    "continent": "Europa",
+    "population": 58900000.0,
+    "flag": "🇮🇹",
+    "hasLevel1": true,
+    "divisionsCount": 110,
+    "fact": "El país con mayor número de sitios declarados Patrimonio de la Humanidad por la UNESCO en el mundo (más de 58)."
+  },
+  "Colombia": {
+    "name_es": "Colombia",
+    "capital": "Bogotá",
+    "continent": "América Latina",
+    "population": 53399983.0,
+    "flag": "🇨🇴",
+    "hasLevel1": true,
+    "divisionsCount": 34,
+    "fact": "El país con mayor diversidad de aves y orquídeas del mundo y el único de Sudamérica con costas en el Pacífico y el Caribe."
+  },
+  "South Korea": {
+    "name_es": "Corea del Sur",
+    "capital": "Seúl",
+    "continent": "Asia",
+    "population": 51700000.0,
+    "flag": "🇰🇷",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "Potencia tecnológica global con una geografía montañosa en el 70% de su superficie y la isla volcánica de Jeju."
+  },
+  "Spain": {
+    "name_es": "España",
+    "capital": "Madrid",
+    "continent": "Europa",
+    "population": 48600000.0,
+    "flag": "🇪🇸",
+    "hasLevel1": true,
+    "divisionsCount": 52,
+    "fact": "Puente natural entre Europa y África; el segundo país más montañoso de la UE y el segundo más visitado del mundo."
+  },
+  "Argentina": {
+    "name_es": "Argentina",
+    "capital": "Buenos Aires",
+    "continent": "América Latina",
+    "population": 47949987.0,
+    "flag": "🇦🇷",
+    "hasLevel1": true,
+    "divisionsCount": 24,
+    "fact": "Alberga el Aconcagua (pico más alto de América con 6.961 m) y el Parque Nacional Los Glaciares."
+  },
+  "Canada": {
+    "name_es": "Canadá",
+    "capital": "Ottawa",
+    "continent": "América del Norte",
+    "population": 40100000.0,
+    "flag": "🇨🇦",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Posee la línea costera más extensa del planeta (202.080 km) y más de la mitad de todos los lagos naturales del mundo."
+  },
+  "Morocco": {
+    "name_es": "Marruecos",
+    "capital": "Rabat",
+    "continent": "África",
+    "population": 37800000.0,
+    "flag": "🇲🇦",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "Posee la universidad más antigua del mundo en funcionamiento continuo (Al-Qarawiyyin en Fez, fundada en el 859)."
+  },
+  "Poland": {
+    "name_es": "Polonia",
+    "capital": "Varsovia",
+    "continent": "Europa",
+    "population": 37600000.0,
+    "flag": "🇵🇱",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "Hogar de la mina de sal de Wieliczka y del bosque virgen de Białowieża, el último vestigio de la selva europea primaria."
+  },
+  "Saudi Arabia": {
+    "name_es": "Arabia Saudita",
+    "capital": "Riad",
+    "continent": "Asia",
+    "population": 36900000.0,
+    "flag": "🇸🇦",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Alberga el Rub al-Jali, la mayor extensión continua de arena del mundo, y los sitios sagrados de La Meca y Medina."
+  },
+  "Peru": {
+    "name_es": "Perú",
+    "capital": "Lima",
+    "continent": "América Latina",
+    "population": 34749989.0,
+    "flag": "🇵🇪",
+    "hasLevel1": true,
+    "divisionsCount": 26,
+    "fact": "Cuna de la civilización Caral y del Imperio Inca; alberga Machu Picchu, el cañón del Colca y el nacimiento del Amazonas."
+  },
+  "Malaysia": {
+    "name_es": "Malasia",
+    "capital": "Kuala Lumpur",
+    "continent": "Asia",
+    "population": 34300000.0,
+    "flag": "🇲🇾",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "Dividida por el mar de China Meridional; alberga selvas tropicales de más de 130 millones de años en Taman Negara."
+  },
+  "Venezuela": {
+    "name_es": "Venezuela",
+    "capital": "Caracas",
+    "continent": "América Latina",
+    "population": 26879988.0,
+    "flag": "🇻🇪",
+    "hasLevel1": true,
+    "divisionsCount": 26,
+    "fact": "Posee el Salto Ángel en el Parque Nacional Canaima, la caída de agua ininterrumpida más alta del planeta (979 m)."
+  },
+  "Australia": {
+    "name_es": "Australia",
+    "capital": "Canberra",
+    "continent": "Oceanía",
+    "population": 26800000.0,
+    "flag": "🇦🇺",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "El único país que es un continente entero; alberga la Gran Barrera de Coral y el monolito Uluru."
+  },
+  "Chile": {
+    "name_es": "Chile",
+    "capital": "Santiago",
+    "continent": "América Latina",
+    "population": 20149991.0,
+    "flag": "🇨🇱",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "El país más largo y angosto del mundo; acoge el desierto de Atacama, el lugar no polar más árido de la Tierra."
+  },
+  "Guatemala": {
+    "name_es": "Guatemala",
+    "capital": "Ciudad de Guatemala",
+    "continent": "América Latina",
+    "population": 18929989.0,
+    "flag": "🇬🇹",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "fact": "Corazón de la civilización maya con templos monumentales en Tikal rodeados de densa selva tropical petenera."
+  },
+  "Ecuador": {
+    "name_es": "Ecuador",
+    "capital": "Quito",
+    "continent": "América Latina",
+    "population": 18239989.0,
+    "flag": "🇪🇨",
+    "hasLevel1": true,
+    "divisionsCount": 24,
+    "fact": "La cumbre del volcán Chimborazo es el punto de la superficie terrestre más cercano al Sol debido al abultamiento ecuatorial."
+  },
+  "Netherlands": {
+    "name_es": "Países Bajos",
+    "capital": "Ámsterdam",
+    "continent": "Europa",
+    "population": 17900000.0,
+    "flag": "🇳🇱",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Aproximadamente un tercio de su territorio se encuentra por debajo del nivel del mar, protegido por canales, pólderes y diques."
+  },
+  "Afghanistan": {
+    "name_es": "Afganistán",
+    "capital": "Kabul",
+    "continent": "Asia",
+    "population": 41500000,
+    "flag": "🇦🇫",
+    "hasLevel1": true,
+    "divisionsCount": 32,
+    "fact": "Encrucijada histórica de la Ruta de la Seda, con el macizo del Hindu Kush dominando su relieve."
+  },
+  "Angola": {
+    "name_es": "Angola",
+    "capital": "Luanda",
+    "continent": "África",
+    "population": 36700000,
+    "flag": "🇦🇴",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Alberga la falla geológica de Tundavala y las impresionantes cataratas de Kalandula."
+  },
+  "Albania": {
+    "name_es": "Albania",
+    "capital": "Tirana",
+    "continent": "Europa",
+    "population": 2750000,
+    "flag": "🇦🇱",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Posee más de 170.000 búnkeres de hormigón construidos durante la era comunista en su costa y montañas."
+  },
+  "Armenia": {
+    "name_es": "Armenia",
+    "capital": "Ereván",
+    "continent": "Asia",
+    "population": 2780000,
+    "flag": "🇦🇲",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Fue la primera nación del mundo en adoptar el cristianismo como religión oficial en el año 301."
+  },
+  "Antarctica": {
+    "name_es": "Antártida",
+    "capital": "Bases científicas",
+    "continent": "Antártida",
+    "population": 0,
+    "flag": "🇦🇶",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "El desierto más frío, seco y ventoso del planeta; contiene cerca del 70% del agua dulce mundial."
+  },
+  "French Southern and Antarctic Lands": {
+    "name_es": "Tierras Australes y Antárticas Francesas",
+    "capital": "Port-aux-Français (Base)",
+    "continent": "Antártida",
+    "population": 0,
+    "flag": "🇹🇫",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Territorio insular subantártico remoto en el océano Índico habitado principalmente por científicos e investigadores."
+  },
+  "Azerbaijan": {
+    "name_es": "Azerbaiyán",
+    "capital": "Bakú",
+    "continent": "Asia",
+    "population": 10100000,
+    "flag": "🇦🇿",
+    "hasLevel1": true,
+    "divisionsCount": 74,
+    "fact": "Conocido como la 'Tierra del Fuego' por sus manantiales de gas natural en llamas perpetuas como Yanar Dag."
+  },
+  "Burundi": {
+    "name_es": "Burundi",
+    "capital": "Gitega",
+    "continent": "África",
+    "population": 13200000,
+    "flag": "🇧🇮",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "Ubicado en el Gran Valle del Rift, bordea el lago Tanganica, el segundo lago de agua dulce más profundo del mundo."
+  },
+  "Benin": {
+    "name_es": "Benín",
+    "capital": "Porto Novo",
+    "continent": "África",
+    "population": 13700000,
+    "flag": "🇧🇯",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Cuna histórica del Reino de Dahomey y de la religión del Vudú; posee la ciudad lacustre de Ganvié."
+  },
+  "Burkina Faso": {
+    "name_es": "Burkina Faso",
+    "capital": "Uagadugú",
+    "continent": "África",
+    "population": 23300000,
+    "flag": "🇧🇫",
+    "hasLevel1": true,
+    "divisionsCount": 45,
+    "fact": "Su nombre significa 'Tierra de los hombres íntegros' y es sede del festival de cine más influyente de África (FESPACO)."
+  },
+  "Bangladesh": {
+    "name_es": "Bangladés",
+    "capital": "Daca",
+    "continent": "Asia",
+    "population": 173000000,
+    "flag": "🇧🇩",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "fact": "Posee el delta del río Ganges-Brahmaputra, el más grande del planeta, y el bosque de manglares de Sundarbans."
+  },
+  "Bulgaria": {
+    "name_es": "Bulgaria",
+    "capital": "Sofía",
+    "continent": "Europa",
+    "population": 6450000,
+    "flag": "🇧🇬",
+    "hasLevel1": true,
+    "divisionsCount": 28,
+    "fact": "Uno de los países más antiguos de Europa que nunca cambió su nombre desde su fundación en el 681 d.C."
+  },
+  "The Bahamas": {
+    "name_es": "Bahamas",
+    "capital": "Nasáu",
+    "continent": "América Latina",
+    "population": 410000,
+    "flag": "🇧🇸",
+    "hasLevel1": true,
+    "divisionsCount": 30,
+    "fact": "Archipiélago coralino de más de 700 islas y cayos con algunas de las aguas oceánicas más cristalinas del Caribe."
+  },
+  "Bosnia and Herzegovina": {
+    "name_es": "Bosnia y Herzegovina",
+    "capital": "Sarajevo",
+    "continent": "Europa",
+    "population": 3200000,
+    "flag": "🇧🇦",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Encuentro de culturas otomana y austrohúngara; célebre por el puente medieval reconstruido de Móstar."
+  },
+  "Belarus": {
+    "name_es": "Bielorrusia",
+    "capital": "Minsk",
+    "continent": "Europa",
+    "population": 9200000,
+    "flag": "🇧🇾",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "fact": "Conocido por sus densos bosques primitivos de Belovezha, hogar del último bisonte europeo libre."
+  },
+  "Belize": {
+    "name_es": "Belice",
+    "capital": "Belmopán",
+    "continent": "América Latina",
+    "population": 410000,
+    "flag": "🇧🇿",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Alberga el Gran Agujero Azul (Great Blue Hole), un sumidero marino colosal visible desde el espacio."
+  },
+  "Brunei": {
+    "name_es": "Brunéi",
+    "capital": "Bandar Seri Begawan",
+    "continent": "Asia",
+    "population": 450000,
+    "flag": "🇧🇳",
+    "hasLevel1": true,
+    "divisionsCount": 4,
+    "fact": "Sultanato en la isla de Borneo con densas selvas tropicales vírgenes y opulentas mezquitas de cúpulas de oro."
+  },
+  "Bhutan": {
+    "name_es": "Bután",
+    "capital": "Timbu",
+    "continent": "Asia",
+    "population": 790000,
+    "flag": "🇧🇹",
+    "hasLevel1": true,
+    "divisionsCount": 20,
+    "fact": "Mide su desarrollo mediante la Felicidad Nacional Bruta y es el primer país con balance de carbono negativo."
+  },
+  "Botswana": {
+    "name_es": "Botsuana",
+    "capital": "Gaborone",
+    "continent": "África",
+    "population": 2680000,
+    "flag": "🇧🇼",
+    "hasLevel1": true,
+    "divisionsCount": 15,
+    "fact": "Alberga el delta del Okavango, un río endorreico que desemboca en el desierto del Kalahari en lugar del mar."
+  },
+  "Central African Republic": {
+    "name_es": "República Centroafricana",
+    "capital": "Bangui",
+    "continent": "África",
+    "population": 5700000,
+    "flag": "🇨🇫",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "Una de las zonas con cielos nocturnos más oscuros y vírgenes del planeta, libre de contaminación lumínica."
+  },
+  "Ivory Coast": {
+    "name_es": "Costa de Marfil",
+    "capital": "Yamusukro",
+    "continent": "África",
+    "population": 28900000,
+    "flag": "🇨🇮",
+    "hasLevel1": true,
+    "divisionsCount": 19,
+    "fact": "El mayor productor y exportador mundial de granos de cacao; Yamusukro alberga la basílica más grande del mundo."
+  },
+  "Cameroon": {
+    "name_es": "Camerún",
+    "capital": "Yaundé",
+    "continent": "África",
+    "population": 28600000,
+    "flag": "🇨🇲",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Llamado 'África en miniatura' por reunir todos los climas, selvas, sabanas, montañas y costas del continente."
+  },
+  "Democratic Republic of the Congo": {
+    "name_es": "Rep. Democrática del Congo",
+    "capital": "Kinsasa",
+    "continent": "África",
+    "population": 102300000,
+    "flag": "🇨🇩",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Contiene la segunda selva tropical más grande del mundo tras el Amazonas y el río Congo, el más profundo del planeta."
+  },
+  "Republic of the Congo": {
+    "name_es": "República del Congo",
+    "capital": "Brazzaville",
+    "continent": "África",
+    "population": 6100000,
+    "flag": "🇨🇬",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Hogar del Parque Nacional Odzala-Kokoua, santuario vital para los gorilas de llanura occidentales en la cuenca del Congo."
+  },
+  "Northern Cyprus": {
+    "name_es": "Chipre del Norte",
+    "capital": "Nicosia del Norte",
+    "continent": "Europa",
+    "population": 380000,
+    "flag": "🇨🇾",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Franja norte de la isla mediterránea con castillos medievales en los montes Pentadáctilos como San Hilarión."
+  },
+  "Cyprus": {
+    "name_es": "Chipre",
+    "capital": "Nicosia",
+    "continent": "Europa",
+    "population": 930000,
+    "flag": "🇨🇾",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Isla mediterránea mítica como lugar de nacimiento de Afrodita, cuya capital Nicosia sigue dividida por una línea verde."
+  },
+  "Czech Republic": {
+    "name_es": "República Checa",
+    "capital": "Praga",
+    "continent": "Europa",
+    "population": 10900000,
+    "flag": "🇨🇿",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Posee la mayor densidad de castillos históricos por kilómetro cuadrado de Europa y la histórica región de Bohemia."
+  },
+  "Djibouti": {
+    "name_es": "Yibuti",
+    "capital": "Yibuti",
+    "continent": "África",
+    "population": 1140000,
+    "flag": "🇩🇯",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Ubicado en el estrecho de Bab el-Mandeb; contiene el lago Assal, el punto más bajo de África a -155 m."
+  },
+  "Denmark": {
+    "name_es": "Dinamarca",
+    "capital": "Copenhague",
+    "continent": "Europa",
+    "population": 5950000,
+    "flag": "🇩🇰",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Nación insular y peninsular que incluye la soberanía sobre Groenlandia y las Islas Feroe."
+  },
+  "Algeria": {
+    "name_es": "Argelia",
+    "capital": "Argel",
+    "continent": "África",
+    "population": 45600000,
+    "flag": "🇩🇿",
+    "hasLevel1": true,
+    "divisionsCount": 48,
+    "fact": "El país más extenso de África y del mundo árabe; más del 80% de su superficie es desierto del Sahara."
+  },
+  "Eritrea": {
+    "name_es": "Eritrea",
+    "capital": "Asmara",
+    "continent": "África",
+    "population": 3750000,
+    "flag": "🇪🇷",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Su capital Asmara es Patrimonio de la Humanidad por su extraordinaria arquitectura modernista y art decó italiana."
+  },
+  "Estonia": {
+    "name_es": "Estonia",
+    "capital": "Tallin",
+    "continent": "Europa",
+    "population": 1370000,
+    "flag": "🇪🇪",
+    "hasLevel1": true,
+    "divisionsCount": 15,
+    "fact": "Pionero mundial en gobernanza digital y residencia electrónica; más del 50% de su territorio está cubierto de bosques."
+  },
+  "Ethiopia": {
+    "name_es": "Etiopía",
+    "capital": "Adís Abeba",
+    "continent": "África",
+    "population": 126500000,
+    "flag": "🇪🇹",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Una de las naciones más antiguas del mundo, cuna del café y con su propio calendario de 13 meses."
+  },
+  "Finland": {
+    "name_es": "Finlandia",
+    "capital": "Helsinki",
+    "continent": "Europa",
+    "population": 5580000,
+    "flag": "🇫🇮",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Llamada la tierra de los mil lagos (posee más de 188.000) y de las saunas, con más saunas que automóviles."
+  },
+  "Fiji": {
+    "name_es": "Fiyi",
+    "capital": "Suva",
+    "continent": "Oceanía",
+    "population": 940000,
+    "flag": "🇫🇯",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Archipiélago del Pacífico sur compuesto por más de 330 islas volcánicas y atolones de aguas turquesas."
+  },
+  "Falkland Islands": {
+    "name_es": "Islas Malvinas / Falkland",
+    "capital": "Stanley",
+    "continent": "América Latina",
+    "population": 3700,
+    "flag": "🇫🇰",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Archipiélago del Atlántico Sur célebre por sus colonias de cientos de miles de pingüinos de cinco especies distintas."
+  },
+  "Gabon": {
+    "name_es": "Gabón",
+    "capital": "Libreville",
+    "continent": "África",
+    "population": 2440000,
+    "flag": "🇬🇦",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Más del 85% de su superficie está cubierta de selva virgen; protege el 10% de su territorio en parques nacionales."
+  },
+  "Georgia": {
+    "name_es": "Georgia",
+    "capital": "Tiflis",
+    "continent": "Asia",
+    "population": 3700000,
+    "flag": "🇬🇪",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Considerada la cuna del vino, con evidencias arqueológicas de viticultura en vasijas de barro (kvevri) de hace 8.000 años."
+  },
+  "Ghana": {
+    "name_es": "Ghana",
+    "capital": "Acra",
+    "continent": "África",
+    "population": 34100000,
+    "flag": "🇬🇭",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Alberga el embalse de Volta, el lago artificial más extenso del mundo en superficie (8.502 km²)."
+  },
+  "Guinea": {
+    "name_es": "Guinea",
+    "capital": "Conakri",
+    "continent": "África",
+    "population": 14200000,
+    "flag": "🇬🇳",
+    "hasLevel1": true,
+    "divisionsCount": 34,
+    "fact": "Posee las mayores reservas de bauxita del mundo y es la fuente de los grandes ríos Níger, Senegal y Gambia."
+  },
+  "Gambia": {
+    "name_es": "Gambia",
+    "capital": "Banjul",
+    "continent": "África",
+    "population": 2770000,
+    "flag": "🇬🇲",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "El país continental más pequeño de África, cuyo territorio rodea milimétricamente el cauce del río Gambia."
+  },
+  "Guinea Bissau": {
+    "name_es": "Guinea-Bisáu",
+    "capital": "Bisáu",
+    "continent": "África",
+    "population": 2150000,
+    "flag": "🇬🇼",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Alberga el archipiélago de las Bijagós, declarado Reserva de la Biosfera por sus hipopótamos marinos únicos."
+  },
+  "Equatorial Guinea": {
+    "name_es": "Guinea Ecuatorial",
+    "capital": "Malabo",
+    "continent": "África",
+    "population": 1710000,
+    "flag": "🇬🇶",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "fact": "El único país soberano de África donde el idioma español es idioma oficial y predominante."
+  },
+  "Greece": {
+    "name_es": "Grecia",
+    "capital": "Atenas",
+    "continent": "Europa",
+    "population": 10400000,
+    "flag": "🇬🇷",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Cuna de la democracia occidental, la filosofía y los Juegos Olímpicos, con más de 6.000 islas en los mares Egeo y Jónico."
+  },
+  "Greenland": {
+    "name_es": "Groenlandia",
+    "capital": "Nuuk",
+    "continent": "América del Norte",
+    "population": 56000,
+    "flag": "🇬🇱",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "La isla más grande del mundo que no es un continente; más del 80% de su suelo está cubierto por una inmensa capa de hielo."
+  },
+  "Guyana": {
+    "name_es": "Guyana",
+    "capital": "Georgetown",
+    "continent": "América Latina",
+    "population": 810000,
+    "flag": "🇬🇾",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Hogar de las cataratas Kaieteur, una de las caídas de agua de un solo salto más poderosas del planeta."
+  },
+  "Croatia": {
+    "name_es": "Croacia",
+    "capital": "Zagreb",
+    "continent": "Europa",
+    "population": 3860000,
+    "flag": "🇭🇷",
+    "hasLevel1": true,
+    "divisionsCount": 20,
+    "fact": "Costa dálmata con más de 1.200 islas e islotes en el mar Adriático y los lagos en cascada de Plitvice."
+  },
+  "Hungary": {
+    "name_es": "Hungría",
+    "capital": "Budapest",
+    "continent": "Europa",
+    "population": 9590000,
+    "flag": "🇭🇺",
+    "hasLevel1": true,
+    "divisionsCount": 42,
+    "fact": "Famosa por sus manantiales termales curativos y el lago Balatón, el mayor lago de agua dulce de Europa Central."
+  },
+  "Iran": {
+    "name_es": "Irán",
+    "capital": "Teherán",
+    "continent": "Asia",
+    "population": 89200000,
+    "flag": "🇮🇷",
+    "hasLevel1": true,
+    "divisionsCount": 31,
+    "fact": "Heredero del antiguo Imperio Persa; su meseta contiene el desierto de Lut, uno de los puntos con temperaturas superficiales más altas."
+  },
+  "Iraq": {
+    "name_es": "Irak",
+    "capital": "Bagdad",
+    "continent": "Asia",
+    "population": 45500000,
+    "flag": "🇮🇶",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Cuna de la antigua Mesopotamia entre los ríos Tigris y Éufrates, donde nació la escritura cuneiforme y la rueda."
+  },
+  "Iceland": {
+    "name_es": "Islandia",
+    "capital": "Reikiavik",
+    "continent": "Europa",
+    "population": 390000,
+    "flag": "🇮🇸",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Tierra de fuego y hielo sobre la dorsal mesoatlántica; funciona al 100% con energía renovable geotérmica e hidroeléctrica."
+  },
+  "Jamaica": {
+    "name_es": "Jamaica",
+    "capital": "Kingston",
+    "continent": "América Latina",
+    "population": 2830000,
+    "flag": "🇯🇲",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Cuna del ritmo reggae y del café Blue Mountain, cultivado en nieblas constantes en las montañas orientales."
+  },
+  "Jordan": {
+    "name_es": "Jordania",
+    "capital": "Amán",
+    "continent": "Asia",
+    "population": 11300000,
+    "flag": "🇯🇴",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Hogar de la mítica ciudad nabatea de Petra, esculpida directamente en acantilados de arenisca rosa y roja."
+  },
+  "Kazakhstan": {
+    "name_es": "Kazajistán",
+    "capital": "Astaná",
+    "continent": "Asia",
+    "population": 19600000,
+    "flag": "🇰🇿",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "El mayor país sin litoral marítimo de la Tierra, cubierto por inmensas estepas y hogar del cosmódromo de Baikonur."
+  },
+  "Kenya": {
+    "name_es": "Kenia",
+    "capital": "Nairobi",
+    "continent": "África",
+    "population": 55100000,
+    "flag": "🇰🇪",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Epicentro de la Gran Migración de millones de ñus y cebras a través de las llanuras del Masái Mara."
+  },
+  "Kyrgyzstan": {
+    "name_es": "Kirguistán",
+    "capital": "Biskek",
+    "continent": "Asia",
+    "population": 7000000,
+    "flag": "🇰🇬",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Tierra montañosa con el 90% de su territorio sobre los 1.500 m en la cordillera de Tian Shan; alberga el lago Issyk-Kul."
+  },
+  "Cambodia": {
+    "name_es": "Camboya",
+    "capital": "Nom Pen",
+    "continent": "Asia",
+    "population": 16900000,
+    "flag": "🇰🇭",
+    "hasLevel1": true,
+    "divisionsCount": 24,
+    "fact": "Hogar del complejo arqueológico de Angkor Wat, la estructura religiosa más grande jamás construida."
+  },
+  "Kosovo": {
+    "name_es": "Kosovo",
+    "capital": "Pristina",
+    "continent": "Europa",
+    "population": 1760000,
+    "flag": "🇽🇰",
+    "hasLevel1": true,
+    "divisionsCount": 30,
+    "fact": "Una de las naciones más jóvenes de Europa; cuenta con los montes Šar y la impresionante garganta de Rugova."
+  },
+  "Kuwait": {
+    "name_es": "Kuwait",
+    "capital": "Ciudad de Kuwait",
+    "continent": "Asia",
+    "population": 4310000,
+    "flag": "🇰🇼",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Ubicado en el golfo Pérsico, posee una de las reservas de petróleo comprobadas más concentradas del planeta."
+  },
+  "Laos": {
+    "name_es": "Laos",
+    "capital": "Vientián",
+    "continent": "Asia",
+    "population": 7660000,
+    "flag": "🇱🇦",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "El único país sin salida al mar en el sudeste asiático, vertebrado por el majestuoso paso del río Mekong."
+  },
+  "Lebanon": {
+    "name_es": "Líbano",
+    "capital": "Beirut",
+    "continent": "Asia",
+    "population": 5350000,
+    "flag": "🇱🇧",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Tierra milenaria de los cedros bíblicos y de los fenicios, inventores de uno de los primeros alfabetos fonéticos."
+  },
+  "Liberia": {
+    "name_es": "Liberia",
+    "capital": "Monrovia",
+    "continent": "África",
+    "population": 5420000,
+    "flag": "🇱🇷",
+    "hasLevel1": true,
+    "divisionsCount": 15,
+    "fact": "La república más antigua de África moderna, fundada en 1822 por ciudadanos libres de ascendencia afroamericana."
+  },
+  "Libya": {
+    "name_es": "Libia",
+    "capital": "Trípoli",
+    "continent": "África",
+    "population": 6890000,
+    "flag": "🇱🇾",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "fact": "Posee algunas de las ruinas romanas mejor preservadas del Mediterráneo, como las ciudades de Leptis Magna y Sabratha."
+  },
+  "Sri Lanka": {
+    "name_es": "Sri Lanka",
+    "capital": "Sri Jayawardenepura Kotte",
+    "continent": "Asia",
+    "population": 22000000,
+    "flag": "🇱🇰",
+    "hasLevel1": true,
+    "divisionsCount": 25,
+    "fact": "Llamada la 'Lágrima de la India'; famosa por la fortaleza rocosa de Sigiriya y sus plantaciones de té de Ceilán."
+  },
+  "Lesotho": {
+    "name_es": "Lesoto",
+    "capital": "Maseru",
+    "continent": "África",
+    "population": 2330000,
+    "flag": "🇱🇸",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "El único estado soberano del mundo que se encuentra completamente a más de 1.000 metros de altitud sobre el nivel del mar."
+  },
+  "Lithuania": {
+    "name_es": "Lituania",
+    "capital": "Vilna",
+    "continent": "Europa",
+    "population": 2860000,
+    "flag": "🇱🇹",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Alberga la Colina de las Cruces y el Istmo de Curlandia, una colosal lengua de dunas de arena en el mar Báltico."
+  },
+  "Luxembourg": {
+    "name_es": "Luxemburgo",
+    "capital": "Luxemburgo",
+    "continent": "Europa",
+    "population": 660000,
+    "flag": "🇱🇺",
+    "hasLevel1": true,
+    "divisionsCount": 3,
+    "fact": "Uno de los países más pequeños y prósperos del mundo; el único Gran Ducado soberano existente en la actualidad."
+  },
+  "Latvia": {
+    "name_es": "Letonia",
+    "capital": "Riga",
+    "continent": "Europa",
+    "population": 1880000,
+    "flag": "🇱🇻",
+    "hasLevel1": true,
+    "divisionsCount": 115,
+    "fact": "Riga posee una de las mayores y más bellas colecciones de arquitectura Art Nouveau del mundo."
+  },
+  "Moldova": {
+    "name_es": "Moldavia",
+    "capital": "Chisináu",
+    "continent": "Europa",
+    "population": 2490000,
+    "flag": "🇲🇩",
+    "hasLevel1": true,
+    "divisionsCount": 39,
+    "fact": "Posee las bodegas subterráneas de Milestii Mici, las más grandes del mundo con más de 200 km de galerías de vino."
+  },
+  "Madagascar": {
+    "name_es": "Madagascar",
+    "capital": "Antananarivo",
+    "continent": "África",
+    "population": 30300000,
+    "flag": "🇲🇬",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "fact": "Aislada hace más de 88 millones de años; más del 90% de su flora y fauna silvestre es única del planeta (incluyendo lémures)."
+  },
+  "Macedonia": {
+    "name_es": "Macedonia del Norte",
+    "capital": "Skopie",
+    "continent": "Europa",
+    "population": 1830000,
+    "flag": "🇲🇰",
+    "hasLevel1": true,
+    "divisionsCount": 84,
+    "fact": "Alberga el lago Ohrid, uno de los más antiguos y profundos de Europa, con más de 200 especies endémicas."
+  },
+  "Mali": {
+    "name_es": "Malí",
+    "capital": "Bamako",
+    "continent": "África",
+    "population": 23300000,
+    "flag": "🇲🇱",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Hogar de la mítica Tombuctú y de la Gran Mezquita de Djenné, el mayor edificio de adobe del mundo."
+  },
+  "Myanmar": {
+    "name_es": "Myanmar",
+    "capital": "Naipyidó",
+    "continent": "Asia",
+    "population": 54600000,
+    "flag": "🇲🇲",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Alberga la planicie de Bagán, donde se conservan más de 2.200 templos y pagodas budistas medievales."
+  },
+  "Montenegro": {
+    "name_es": "Montenegro",
+    "capital": "Podgorica",
+    "continent": "Europa",
+    "population": 620000,
+    "flag": "🇲🇪",
+    "hasLevel1": true,
+    "divisionsCount": 21,
+    "fact": "Alberga las Bocas de Kotor, el fiordo meridional más espectacular de Europa, y el cañón del río Tara."
+  },
+  "Mongolia": {
+    "name_es": "Mongolia",
+    "capital": "Ulán Bator",
+    "continent": "Asia",
+    "population": 3450000,
+    "flag": "🇲🇳",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "fact": "El país independiente con menor densidad demográfica del mundo; patria de los nómadas de las estepas y del imperio de Gengis Kan."
+  },
+  "Mozambique": {
+    "name_es": "Mozambique",
+    "capital": "Maputo",
+    "continent": "África",
+    "population": 33900000,
+    "flag": "🇲🇿",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Costa de más de 2.500 km en el canal de Mozambique, célebre por sus arrecifes de coral y el Parque Nacional de Gorongosa."
+  },
+  "Mauritania": {
+    "name_es": "Mauritania",
+    "capital": "Nuakchot",
+    "continent": "África",
+    "population": 4860000,
+    "flag": "🇲🇷",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Alberga la colosal Estructura de Richat o el 'Ojo del Sahara', una formación circular geológica de 50 km visible desde el espacio."
+  },
+  "Malawi": {
+    "name_es": "Malaui",
+    "capital": "Lilongüe",
+    "continent": "África",
+    "population": 20900000,
+    "flag": "🇲🇼",
+    "hasLevel1": true,
+    "divisionsCount": 27,
+    "fact": "Llamado el 'Corazón Cálido de África'; el lago Malaui contiene más especies de peces cíclidos que cualquier otro lago de la Tierra."
+  },
+  "Namibia": {
+    "name_es": "Namibia",
+    "capital": "Windhoek",
+    "continent": "África",
+    "population": 2600000,
+    "flag": "🇳🇦",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "El desierto del Namib es considerado el desierto más antiguo del planeta (al menos 55 millones de años) con dunas de arena roja."
+  },
+  "New Caledonia": {
+    "name_es": "Nueva Caledonia",
+    "capital": "Numea",
+    "continent": "Oceanía",
+    "population": 290000,
+    "flag": "🇳🇨",
+    "hasLevel1": true,
+    "divisionsCount": 3,
+    "fact": "Territorio francés en el Pacífico con la segunda barrera de coral más grande del mundo y una laguna marina colosal."
+  },
+  "Niger": {
+    "name_es": "Níger",
+    "capital": "Niamey",
+    "continent": "África",
+    "population": 27200000,
+    "flag": "🇳🇪",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Encrucijada histórica sahariana de caravanas; alberga el macizo de Aïr y el desierto de Ténéré."
+  },
+  "Nepal": {
+    "name_es": "Nepal",
+    "capital": "Katmandú",
+    "continent": "Asia",
+    "population": 30900000,
+    "flag": "🇳🇵",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Hogar de ocho de las diez montañas más altas de la Tierra, incluyendo la cima del planeta: el Monte Everest (8.848 m)."
+  },
+  "Oman": {
+    "name_es": "Omán",
+    "capital": "Mascate",
+    "continent": "Asia",
+    "population": 4640000,
+    "flag": "🇴🇲",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Nación marina de la península arábiga con fortalezas milenarias, fiordos desérticos en Musandam y cañones en Jebel Akhdar."
+  },
+  "Pakistan": {
+    "name_es": "Pakistán",
+    "capital": "Islamabad",
+    "continent": "Asia",
+    "population": 240500000,
+    "flag": "🇵🇰",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Alberga cinco de los catorce 'ochomiles' del planeta, incluyendo el K2 (segunda cima más alta con 8.611 m) en el Karakóram."
+  },
+  "Papua New Guinea": {
+    "name_es": "Papúa Nueva Guinea",
+    "capital": "Port Moresby",
+    "continent": "Oceanía",
+    "population": 10300000,
+    "flag": "🇵🇬",
+    "hasLevel1": true,
+    "divisionsCount": 20,
+    "fact": "El país con mayor diversidad lingüística de la Tierra, con más de 840 lenguas vivas habladas en sus valles montañosos."
+  },
+  "Puerto Rico": {
+    "name_es": "Puerto Rico",
+    "capital": "San Juan",
+    "continent": "América Latina",
+    "population": 3210000,
+    "flag": "🇵🇷",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Isla caribeña con la bahía bioluminiscente de Mosquito en Vieques y el bosque nacional tropical de El Yunque."
+  },
+  "North Korea": {
+    "name_es": "Corea del Norte",
+    "capital": "Pionyang",
+    "continent": "Asia",
+    "population": 26200000,
+    "flag": "🇰🇵",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Ubicado en el norte de la península coreana, con el monte Paektu en la frontera con China como su pico más sagrado."
+  },
+  "Qatar": {
+    "name_es": "Catar",
+    "capital": "Doha",
+    "continent": "Asia",
+    "population": 2720000,
+    "flag": "🇶🇦",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "fact": "Península en el golfo Pérsico donde las dunas del desierto se encuentran directamente con el mar en Khor Al Adaid."
+  },
+  "Romania": {
+    "name_es": "Rumania",
+    "capital": "Bucarest",
+    "continent": "Europa",
+    "population": 19000000,
+    "flag": "🇷🇴",
+    "hasLevel1": true,
+    "divisionsCount": 42,
+    "fact": "Alberga el delta del Danubio (el mejor conservado de Europa) y los montes Cárpatos con leyendas de Transilvania."
+  },
+  "Russia": {
+    "name_es": "Rusia",
+    "capital": "Moscú",
+    "continent": "Europa / Asia",
+    "population": 144000000,
+    "flag": "🇷🇺",
+    "hasLevel1": true,
+    "divisionsCount": 86,
+    "fact": "El país más extenso del planeta, con 11 husos horarios y el lago Baikal, el lago más antiguo y profundo de la Tierra."
+  },
+  "Rwanda": {
+    "name_es": "Ruanda",
+    "capital": "Kigali",
+    "continent": "África",
+    "population": 14100000,
+    "flag": "🇷🇼",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Llamada la 'Tierra de las mil colinas'; santuario en los volcanes Virunga de los últimos gorilas de montaña del planeta."
+  },
+  "Western Sahara": {
+    "name_es": "Sahara Occidental",
+    "capital": "El Aaiún",
+    "continent": "África",
+    "population": 580000,
+    "flag": "🇪🇭",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Territorio atlántico noroccidental caracterizado por desiertos costeros y ricos caladeros de pesca oceánicos."
+  },
+  "Sudan": {
+    "name_es": "Sudán",
+    "capital": "Jartum",
+    "continent": "África",
+    "population": 48100000,
+    "flag": "🇸🇩",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "Alberga más de 200 pirámides del antiguo Reino de Kush en Meroe, superando en número a las de Egipto."
+  },
+  "South Sudan": {
+    "name_es": "Sudán del Sur",
+    "capital": "Yuba",
+    "continent": "África",
+    "population": 11100000,
+    "flag": "🇸🇸",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "El país soberano más joven del mundo (reconocido en 2011); alberga el Sudd, uno de los humedales más extensos del planeta."
+  },
+  "Senegal": {
+    "name_es": "Senegal",
+    "capital": "Dakar",
+    "continent": "África",
+    "population": 17800000,
+    "flag": "🇸🇳",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "El punto más occidental de África continental en la península de Cabo Verde; famoso por el lago rosa Retba."
+  },
+  "Solomon Islands": {
+    "name_es": "Islas Salomón",
+    "capital": "Honiara",
+    "continent": "Oceanía",
+    "population": 740000,
+    "flag": "🇸🇧",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Archipiélago de casi 1.000 islas en Melanesia con atolones elevados como Rennell, el mayor atolón de coral elevado del mundo."
+  },
+  "Sierra Leone": {
+    "name_es": "Sierra Leona",
+    "capital": "Freetown",
+    "continent": "África",
+    "population": 8800000,
+    "flag": "🇸🇱",
+    "hasLevel1": true,
+    "divisionsCount": 4,
+    "fact": "Freetown fue fundada en 1792 como refugio para esclavos liberados; posee el tercer puerto natural más grande del mundo."
+  },
+  "Somaliland": {
+    "name_es": "Somalilandia",
+    "capital": "Hargeisa",
+    "continent": "África",
+    "population": 4500000,
+    "flag": "🇸🇴",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Alberga el complejo de arte rupestre de Laas Geel, con pinturas neolíticas de ganado con más de 5.000 años intactas."
+  },
+  "Somalia": {
+    "name_es": "Somalia",
+    "capital": "Mogadiscio",
+    "continent": "África",
+    "population": 18100000,
+    "flag": "🇸🇴",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Posee la línea costera más larga de toda África continental (más de 3.330 km) a lo largo del golfo de Adén y el Índico."
+  },
+  "Republic of Serbia": {
+    "name_es": "Serbia",
+    "capital": "Belgrado",
+    "continent": "Europa",
+    "population": 6620000,
+    "flag": "🇷🇸",
+    "hasLevel1": true,
+    "divisionsCount": 24,
+    "fact": "Ubicada en la confluencia de los ríos Danubio y Sava; Belgrado es una de las ciudades continuamente habitadas más antiguas de Europa."
+  },
+  "Suriname": {
+    "name_es": "Surinam",
+    "capital": "Paramaribo",
+    "continent": "América Latina",
+    "population": 620000,
+    "flag": "🇸🇷",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "El país con mayor porcentaje de cobertura selvática del mundo (más del 93% cubierto por la selva amazónica virgen)."
+  },
+  "Slovakia": {
+    "name_es": "Eslovaquia",
+    "capital": "Bratislava",
+    "continent": "Europa",
+    "population": 5430000,
+    "flag": "🇸🇰",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Alberga los montes Altos Tatras y más de 6.000 cuevas kársticas exploradas bajo su superficie montañosa."
+  },
+  "Slovenia": {
+    "name_es": "Eslovenia",
+    "capital": "Liubliana",
+    "continent": "Europa",
+    "population": 2120000,
+    "flag": "🇸🇮",
+    "hasLevel1": true,
+    "divisionsCount": 193,
+    "fact": "Más del 60% de su territorio es bosque virgen; célebre por la iglesia en la isla del lago Bled y la cueva de Postojna."
+  },
+  "Swaziland": {
+    "name_es": "Esuatini (Suazilandia)",
+    "capital": "Mbabane",
+    "continent": "África",
+    "population": 1210000,
+    "flag": "🇸🇿",
+    "hasLevel1": true,
+    "divisionsCount": 4,
+    "fact": "Una de las últimas monarquías absolutas del mundo; alberga la mina de hierro más antigua conocida (mina Ngwenya)."
+  },
+  "Syria": {
+    "name_es": "Siria",
+    "capital": "Damasco",
+    "continent": "Asia",
+    "population": 23200000,
+    "flag": "🇸🇾",
+    "hasLevel1": true,
+    "divisionsCount": 15,
+    "fact": "Damasco es considerada una de las ciudades continuamente habitadas más antiguas del mundo, cuna de rutas comerciales."
+  },
+  "Chad": {
+    "name_es": "Chad",
+    "capital": "Yamena",
+    "continent": "África",
+    "population": 18300000,
+    "flag": "🇹🇩",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "fact": "Alberga el macizo de Tibesti en pleno Sahara y el lago Chad, que ha variado drásticamente de tamaño en la historia."
+  },
+  "Togo": {
+    "name_es": "Togo",
+    "capital": "Lomé",
+    "continent": "África",
+    "population": 9050000,
+    "flag": "🇹🇬",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Franja estrecha en el golfo de Guinea con el paisaje fortificado de Koutammakou, Patrimonio de la Humanidad."
+  },
+  "Tajikistan": {
+    "name_es": "Tayikistán",
+    "capital": "Dusambé",
+    "continent": "Asia",
+    "population": 10100000,
+    "flag": "🇹🇯",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Más del 90% de su territorio son montañas; hogar de la cordillera del Pamir, apodada 'el Techo del Mundo'."
+  },
+  "Turkmenistan": {
+    "name_es": "Turkmenistán",
+    "capital": "Asjabad",
+    "continent": "Asia",
+    "population": 6500000,
+    "flag": "🇹🇲",
+    "hasLevel1": true,
+    "divisionsCount": 5,
+    "fact": "Alberga el cráter de gas de Darvaza, apodado 'la Puerta del Infierno', ardiendo ininterrumpidamente desde 1971."
+  },
+  "East Timor": {
+    "name_es": "Timor Oriental",
+    "capital": "Dili",
+    "continent": "Asia",
+    "population": 1360000,
+    "flag": "🇹🇱",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Nación joven independizada en 2002; sus arrecifes de la isla de Atauro tienen la mayor biodiversidad marina del mundo."
+  },
+  "Trinidad and Tobago": {
+    "name_es": "Trinidad y Tobago",
+    "capital": "Puerto España",
+    "continent": "América Latina",
+    "population": 1530000,
+    "flag": "🇹🇹",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "Alberga el Pitch Lake, el depósito natural de asfalto líquido más grande del mundo, y es cuna de la música Calipso."
+  },
+  "Tunisia": {
+    "name_es": "Túnez",
+    "capital": "Túnez",
+    "continent": "África",
+    "population": 12500000,
+    "flag": "🇹🇳",
+    "hasLevel1": true,
+    "divisionsCount": 23,
+    "fact": "Hogar de las legendarias ruinas de Cartago y del anfiteatro romano de El Djem en la encrucijada del Mediterráneo."
+  },
+  "Taiwan": {
+    "name_es": "Taiwán",
+    "capital": "Taipéi",
+    "continent": "Asia",
+    "population": 23400000,
+    "flag": "🇹🇼",
+    "hasLevel1": true,
+    "divisionsCount": 21,
+    "fact": "Isla montañosa con el pico Yu Shan (3.952 m) y epicentro mundial en fabricación de microconductores y tecnología de punta."
+  },
+  "United Republic of Tanzania": {
+    "name_es": "Tanzania",
+    "capital": "Dodoma",
+    "continent": "África",
+    "population": 67400000,
+    "flag": "🇹🇿",
+    "hasLevel1": true,
+    "divisionsCount": 30,
+    "fact": "Alberga el Monte Kilimanjaro (pico más alto de África con 5.895 m), el cráter del Ngorongoro y la llanura del Serengeti."
+  },
+  "Uganda": {
+    "name_es": "Uganda",
+    "capital": "Kampala",
+    "continent": "África",
+    "population": 48600000,
+    "flag": "🇺🇬",
+    "hasLevel1": true,
+    "divisionsCount": 111,
+    "fact": "Bautizada por Winston Churchill como la 'Perla de África'; alberga la fuente principal del río Nilo en el lago Victoria."
+  },
+  "Ukraine": {
+    "name_es": "Ucrania",
+    "capital": "Kiev",
+    "continent": "Europa",
+    "population": 37000000,
+    "flag": "🇺🇦",
+    "hasLevel1": true,
+    "divisionsCount": 25,
+    "fact": "El país completamente dentro del continente europeo más extenso; célebre por sus fértiles tierras negras (chernozem)."
+  },
+  "Uzbekistan": {
+    "name_es": "Uzbekistán",
+    "capital": "Taskent",
+    "continent": "Asia",
+    "population": 36400000,
+    "flag": "🇺🇿",
+    "hasLevel1": true,
+    "divisionsCount": 13,
+    "fact": "Uno de los únicos dos países doblemente aislados del mar en el mundo; joya de la Ruta de la Seda en Samarcanda y Bujará."
+  },
+  "Vanuatu": {
+    "name_es": "Vanuatu",
+    "capital": "Port Vila",
+    "continent": "Oceanía",
+    "population": 330000,
+    "flag": "🇻🇺",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Archipiélago de 83 islas en el Pacífico sur donde nació el salto en liana (naghol), precursor del puenting moderno."
+  },
+  "West Bank": {
+    "name_es": "Cisjordania / Palestina",
+    "capital": "Ramala",
+    "continent": "Asia",
+    "population": 3200000,
+    "flag": "🇵🇸",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Hogar de Jericó, considerada una de las ciudades habitadas más antiguas del planeta y el río Jordán."
+  },
+  "Yemen": {
+    "name_es": "Yemen",
+    "capital": "Saná",
+    "continent": "Asia",
+    "population": 34400000,
+    "flag": "🇾🇪",
+    "hasLevel1": true,
+    "divisionsCount": 21,
+    "fact": "Saná antigua es famosa por sus casas torre de adobe milenarias; la isla de Socotra alberga el árbol drago de sangre de dragón."
+  },
+  "Zambia": {
+    "name_es": "Zambia",
+    "capital": "Lusaka",
+    "continent": "África",
+    "population": 20600000,
+    "flag": "🇿🇲",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Comparte con Zimbabue las espectaculares Cataratas Victoria (Mosi-oa-Tunya: 'el humo que truena') en el río Zambeze."
+  },
+  "Zimbabwe": {
+    "name_es": "Zimbabue",
+    "capital": "Harare",
+    "continent": "África",
+    "population": 16700000,
+    "flag": "🇿🇼",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Toma su nombre del Gran Zimbabue, colosales ruinas de piedra de una ciudad medieval que dominó el comercio del oro."
+  },
+  "Bolivia": {
+    "name_es": "Bolivia",
+    "capital": "Sucre (Constitucional) / La Paz (Sede de Gobierno)",
+    "continent": "América Latina",
+    "population": 12749995.0,
+    "flag": "🇧🇴",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Posee el Salar de Uyuni, el mayor desierto de sal del mundo con más de 10.500 km² de espejo natural."
+  },
+  "Haiti": {
+    "name_es": "Haití",
+    "capital": "Puerto Príncipe",
+    "continent": "América Latina",
+    "population": 12729994.0,
+    "flag": "🇭🇹",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "fact": "Primera república independiente de América Latina y primera nación fundada por personas esclavizadas tras su revolución en 1804."
+  },
+  "Belgium": {
+    "name_es": "Bélgica",
+    "capital": "Bruselas",
+    "continent": "Europa",
+    "population": 11800000.0,
+    "flag": "🇧🇪",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "fact": "Sede de las principales instituciones de la Unión Europea y la OTAN, con un rico legado medieval flamenco."
+  },
+  "Honduras": {
+    "name_es": "Honduras",
+    "capital": "Tegucigalpa",
+    "continent": "América Latina",
+    "population": 11189992.0,
+    "flag": "🇭🇳",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Alberga las ruinas mayas de Copán, famosas por sus estelas talladas y la escalinata de jeroglíficos más larga de América."
+  },
+  "Cuba": {
+    "name_es": "Cuba",
+    "capital": "La Habana",
+    "continent": "América Latina",
+    "population": 11019993.0,
+    "flag": "🇨🇺",
+    "hasLevel1": true,
+    "divisionsCount": 16,
+    "fact": "La mayor isla del Caribe, con arquitectura colonial conservada y el Parque Nacional Alejandro de Humboldt."
+  },
+  "Dominican Republic": {
+    "name_es": "República Dominicana",
+    "capital": "Santo Domingo",
+    "continent": "América Latina",
+    "population": 10979983.0,
+    "flag": "🇩🇴",
+    "hasLevel1": true,
+    "divisionsCount": 32,
+    "fact": "Santo Domingo alberga la primera catedral, castillo y monasterio construidos en el continente americano."
+  },
+  "Sweden": {
+    "name_es": "Suecia",
+    "capital": "Estocolmo",
+    "continent": "Europa",
+    "population": 10500000.0,
+    "flag": "🇸🇪",
+    "hasLevel1": true,
+    "divisionsCount": 21,
+    "fact": "El país con más islas del planeta (estimadas en más de 260.000) y pionero del derecho de acceso público a la naturaleza (Allemansrätten)."
+  },
+  "Portugal": {
+    "name_es": "Portugal",
+    "capital": "Lisboa",
+    "continent": "Europa",
+    "population": 10400000.0,
+    "flag": "🇵🇹",
+    "hasLevel1": true,
+    "divisionsCount": 20,
+    "fact": "La nación con las fronteras más antiguas y estables de Europa continental, pionera de la era de los descubrimientos oceánicos."
+  },
+  "Israel": {
+    "name_es": "Israel",
+    "capital": "Jerusalén",
+    "continent": "Asia",
+    "population": 9800000.0,
+    "flag": "🇮🇱",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "fact": "Bordea el Mar Muerto, el punto emergido más bajo de la Tierra a más de 430 metros bajo el nivel del mar."
+  },
+  "United Arab Emirates": {
+    "name_es": "Emiratos Árabes Unidos",
+    "capital": "Abu Dabi",
+    "continent": "Asia",
+    "population": 9500000.0,
+    "flag": "🇦🇪",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "fact": "Hogar del Burj Khalifa en Dubái, el rascacielos y estructura humana más alta del mundo con 828 metros de altura."
+  },
+  "Austria": {
+    "name_es": "Austria",
+    "capital": "Viena",
+    "continent": "Europa",
+    "population": 9100000.0,
+    "flag": "🇦🇹",
+    "hasLevel1": true,
+    "divisionsCount": 9,
+    "fact": "Corazón alpino de Europa central, cuna de la música clásica y con más del 60% de relieve montañoso."
+  },
+  "Switzerland": {
+    "name_es": "Suiza",
+    "capital": "Berna",
+    "continent": "Europa",
+    "population": 8900000.0,
+    "flag": "🇨🇭",
+    "hasLevel1": true,
+    "divisionsCount": 26,
+    "fact": "Alberga el pico Cervino (Matterhorn) y los Alpes berneses; célebre por su neutralidad histórica y cuatro idiomas oficiales."
+  },
+  "Nicaragua": {
+    "name_es": "Nicaragua",
+    "capital": "Managua",
+    "continent": "América Latina",
+    "population": 6809991.0,
+    "flag": "🇳🇮",
+    "hasLevel1": true,
+    "divisionsCount": 17,
+    "fact": "Alberga el lago Cocibolca, el mayor lago de agua dulce de Centroamérica y el único donde habitan tiburones toro adaptados."
+  },
+  "Paraguay": {
+    "name_es": "Paraguay",
+    "capital": "Asunción",
+    "continent": "América Latina",
+    "population": 6459990.0,
+    "flag": "🇵🇾",
+    "hasLevel1": true,
+    "divisionsCount": 18,
+    "fact": "Corazón de Sudamérica; co-propietario de la represa de Itaipú, una de las mayores productoras de energía hidroeléctrica limpia."
+  },
+  "El Salvador": {
+    "name_es": "El Salvador",
+    "capital": "San Salvador",
+    "continent": "América Latina",
+    "population": 6429992.0,
+    "flag": "🇸🇻",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "fact": "Conocido como la 'Tierra de Volcanes'; el país más pequeño y densamente poblado de América Central continental."
+  },
+  "Singapore": {
+    "name_es": "Singapur",
+    "capital": "Singapur",
+    "continent": "Asia",
+    "population": 5900000.0,
+    "flag": "🇸🇬",
+    "hasLevel1": false,
+    "divisionsCount": 1,
+    "fact": "Ciudad-estado insular hiperconectada con una de las mayores coberturas de jardines verticales y conservación botánica urbana."
+  },
+  "Norway": {
+    "name_es": "Noruega",
+    "capital": "Oslo",
+    "continent": "Europa",
+    "population": 5500000.0,
+    "flag": "🇳🇴",
+    "hasLevel1": true,
+    "divisionsCount": 21,
+    "fact": "Célebre por sus profundos fiordos excavados por glaciares, el archipiélago ártico de Svalbard y el sol de medianoche."
+  },
+  "Costa Rica": {
+    "name_es": "Costa Rica",
+    "capital": "San José",
+    "continent": "América Latina",
+    "population": 5419996.0,
+    "flag": "🇨🇷",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "fact": "Alberga el 5% de la biodiversidad planetaria en sólo el 0.03% de la masa terrestre; abolió su ejército en 1948."
+  },
+  "Ireland": {
+    "name_es": "Irlanda",
+    "capital": "Dublín",
+    "continent": "Europa",
+    "population": 5200000.0,
+    "flag": "🇮🇪",
+    "hasLevel1": true,
+    "divisionsCount": 30,
+    "fact": "Conocida como la 'Isla Esmeralda' por su vibrante paisaje verde debido a las lluvias frecuentes y clima templado oceánico."
+  },
+  "New Zealand": {
+    "name_es": "Nueva Zelanda",
+    "capital": "Wellington",
+    "continent": "Oceanía",
+    "population": 5200000.0,
+    "flag": "🇳🇿",
+    "hasLevel1": true,
+    "divisionsCount": 24,
+    "fact": "Wellington es la capital soberana más austral del mundo; archipiélago de paisajes glaciares, fiordos y actividad geotérmica."
+  },
+  "Panama": {
+    "name_es": "Panamá",
+    "capital": "Ciudad de Panamá",
+    "continent": "América Latina",
+    "population": 4619994.0,
+    "flag": "🇵🇦",
+    "hasLevel1": true,
+    "divisionsCount": 12,
+    "fact": "Istmo geográfico que une Norte y Sudamérica; su Canal interoceánico conecta el Atlántico con el Pacífico desde 1914."
+  },
+  "Uruguay": {
+    "name_es": "Uruguay",
+    "capital": "Montevideo",
+    "continent": "América Latina",
+    "population": 3479991.0,
+    "flag": "🇺🇾",
+    "hasLevel1": true,
+    "divisionsCount": 19,
+    "fact": "Ubicado en el Río de la Plata; más del 95% de su electricidad proviene de fuentes renovables (eólica, solar e hidroeléctrica)."
+  }
+}

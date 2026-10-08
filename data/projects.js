@@ -118,6 +118,15 @@ export const PROJECTS = [
     category: 'tools'
   },
   {
+    id: 'T14',
+    title: 'World Atlas',
+    desc: 'Explorador cartográfico multinivel para descubrir el mundo, países y divisiones territoriales con curiosidad geográfica.',
+    path: '/tools/world-atlas/',
+    emoji: '🌍',
+    tags: ['Mapas', 'D3.js', 'Geografía', 'Educativo'],
+    category: 'tools'
+  },
+  {
     id: 'J1',
     title: 'Bingo',
     desc: 'Bingo clásico para el navegador. Lo desarrolle para reuniones familiares.',

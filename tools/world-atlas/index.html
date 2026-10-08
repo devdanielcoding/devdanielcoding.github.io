@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Atlas — Explorador Cartográfico Interactivo</title>
+  <meta name="description" content="Explorador cartográfico interactivo multinivel (Mundo, Divisiones Subnacionales y Local) sin backend, impulsado por D3.js.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Navbar Superior Fijo -->
+    <header id="navbar">
+      <div class="nav-left">
+        <a href="#" class="brand" id="brand-link" title="World Atlas">
+          <span class="brand-icon">🌍</span>
+          <span class="brand-text">World Atlas</span>
+          <span class="brand-tag">L0 · Mundo</span>
+        </a>
+
+        <!-- Migas de Pan (Breadcrumb Reactivo Multinivel) -->
+        <nav id="breadcrumb" aria-label="Navegación jerárquica">
+          <span class="breadcrumb-item active" data-level="0" id="crumb-world">Mundo</span>
+          <span class="breadcrumb-separator" id="crumb-sep-country" style="display: none;">/</span>
+          <span class="breadcrumb-item" data-level="1" id="crumb-country" style="display: none;">País</span>
+          <span class="breadcrumb-separator" id="crumb-sep-sub" style="display: none;">/</span>
+          <span class="breadcrumb-item" data-level="2" id="crumb-division" style="display: none;">Región</span>
+          <span class="breadcrumb-separator" id="crumb-sep-district" style="display: none;">/</span>
+          <span class="breadcrumb-item" data-level="3" id="crumb-district" style="display: none;">Distrito</span>
+        </nav>
+      </div>
+
+      <!-- Buscador en Tiempo Real -->
+      <div id="search-container">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Buscar país, capital..." 
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="search-clear-btn" id="search-clear-btn" aria-label="Limpiar búsqueda">✕</button>
+        </div>
+        <div id="search-results">
+          <!-- Resultados dinámicos renderizados por SPEC-05 -->
+        </div>
+      </div>
+
+      <!-- Acciones de Navegación -->
+      <div class="nav-actions">
+        <a href="../../" class="btn-nav" title="Regresar al listado de herramientas">
+          <span>← Volver al Portal</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Contenedor del Lienzo Cartográfico SVG -->
+    <main id="map-viewport">
+      <!-- SVG inyectado por SPEC-04 / D3.js -->
+    </main>
+
+    <!-- Panel Informativo Lateral Flotante -->
+    <aside id="info-panel" class="panel-hidden" aria-labelledby="panel-title">
+      <div class="panel-header">
+        <div class="panel-flag-container">
+          <span id="panel-flag" class="panel-flag">🌐</span>
+        </div>
+        <div class="panel-title-group">
+          <h2 id="panel-title" class="panel-title">Nombre de Territorio</h2>
+          <p id="panel-subtitle" class="panel-subtitle">Nivel 0 · Soberano</p>
+        </div>
+        <button id="btn-close-panel" class="panel-close-btn" aria-label="Cerrar panel">×</button>
+      </div>
+
+      <div class="panel-body">
+        <!-- Rejilla de métricas clave -->
+        <div class="panel-metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label" id="panel-metric-label-1">Capital</span>
+            <span id="panel-capital" class="metric-value">📍 —</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label" id="panel-metric-label-2">Continente</span>
+            <span id="panel-continent" class="metric-value">🌐 —</span>
+          </div>
+        </div>
+
+        <!-- Curiosidad / Hito Geográfico -->
+        <div class="curiosity-box">
+          <div class="curiosity-title">
+            <span id="curiosity-icon">✨</span>
+            <span id="curiosity-title-text">Curiosidad Territorial</span>
+          </div>
+          <p id="panel-curiosity" class="curiosity-text">
+            Selecciona un territorio en el mapa para descubrir sus características geográficas y culturales destacadas.
+          </p>
+        </div>
+
+        <!-- Badges territoriales -->
+        <div class="panel-tags" id="panel-tags">
+          <span class="badge badge-cyan" id="badge-iso">ISO: --</span>
+          <span class="badge" id="badge-level">Nivel L0</span>
+          <span class="badge badge-emerald" id="badge-subdivisions-count">Divisiones: --</span>
+        </div>
+
+        <!-- Aviso elegante de ausencia de geometrías L1 (SPEC-08) -->
+        <div id="panel-l1-empty-notice" class="notice-l1-empty" style="display: none;">
+          <span class="notice-icon">⏳</span>
+          <span class="notice-text">Divisiones detalladas en proceso de digitalización</span>
+        </div>
+
+        <!-- Aviso elegante para regiones sin L2 compilado (SPEC-10) -->
+        <div id="panel-l2-empty-notice" class="notice-l1-empty" style="display: none;">
+          <span class="notice-icon">⏳</span>
+          <span class="notice-text">Cartografía distrital en proceso de digitalización</span>
+        </div>
+      </div>
+
+      <div class="panel-actions">
+        <button id="btn-explore-l1" class="btn-primary">
+          <span>🔍</span>
+          <span>Explorar Divisiones (L1)</span>
+        </button>
+        <button id="btn-open-l2" class="btn-primary" style="display: none;">
+          <span>📍</span>
+          <span>Abrir Ficha Local (Nivel 2)</span>
+        </button>
+        <button id="btn-back-division" class="btn-secondary" style="display: none;">
+          <span>←</span>
+          <span>Volver a la Región (L1)</span>
+        </button>
+        <button id="btn-back-country" class="btn-secondary" style="display: none;">
+          <span>←</span>
+          <span>Volver al País (L1)</span>
+        </button>
+        <button id="btn-back" class="btn-secondary" style="display: none;">
+          <span>←</span>
+          <span>Volver al Mundo (L0)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Tooltip Flotante Reactivo -->
+    <div id="tooltip" role="tooltip" aria-hidden="true">
+      <span class="tooltip-flag" id="tooltip-flag">🏳️</span>
+      <div class="tooltip-text-group">
+        <span class="tooltip-title" id="tooltip-title">Territorio</span>
+        <span class="tooltip-subtitle" id="tooltip-subtitle">Nivel territorial</span>
+      </div>
+    </div>
+
+    <!-- Indicador de Nivel Cartográfico Activo -->
+    <div id="level-indicator">
+      <span class="level-dot"></span>
+      <span id="level-text">Nivel 0 · Explorador Mundial</span>
+    </div>
+
+    <!-- Controles de Zoom Flotantes -->
+    <nav id="zoom-controls" aria-label="Controles de navegación">
+      <button id="btn-zoom-in" class="zoom-btn" title="Acercar (+)" aria-label="Acercar">+</button>
+      <div class="zoom-divider"></div>
+      <button id="btn-zoom-out" class="zoom-btn" title="Alejar (-)" aria-label="Alejar">−</button>
+      <div class="zoom-divider"></div>
+      <button id="btn-zoom-reset" class="zoom-btn" title="Restablecer vista global" aria-label="Restablecer vista">⟲</button>
+    </nav>
+  </div>
+
+  <!-- Motor D3.js Local (Desacoplado) -->
+  <script src="d3.min.js"></script>
+  <!-- Gestor de Estado Reactivo (SPEC-03) -->
+  <script src="js/state.js"></script>
+  <!-- Motor Cartográfico Base D3.js (SPEC-04) -->
+  <script src="js/map.js"></script>
+  <!-- Interactividad L0: Hover, Tooltip y Buscador (SPEC-05) -->
+  <script src="js/interaction.js"></script>
+</body>
+</html>
