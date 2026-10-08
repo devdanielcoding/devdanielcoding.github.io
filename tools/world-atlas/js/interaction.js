@@ -388,8 +388,37 @@
   }
 
   /* ==========================================================================
-     3. GESTOR DEL PANEL INFORMATIVO LATERAL (#info-panel) (SPEC-06 / SPEC-09)
+     3. GESTOR DEL PANEL INFORMATIVO LATERAL (#info-panel) (SPEC-06 / SPEC-09 / SPEC-13)
      ========================================================================== */
+
+  /**
+   * Catálogo de acceso directo a capitales de Nivel 2 ($O(1)$) (SPEC-13).
+   * Mapea país a los identificadores de división territorial en Natural Earth.
+   */
+  const COUNTRY_CAPITAL_SHORTCUTS = {
+    'chile': { capital: 'Santiago', divisionQuery: 'región metropolitana de santiago', slug: 'santiago', type: 'Comunas' },
+    'argentina': { capital: 'Buenos Aires (CABA)', divisionQuery: 'ciudad de buenos aires', slug: 'buenos-aires', type: 'Comunas' },
+    'colombia': { capital: 'Bogotá D.C.', divisionQuery: 'bogota', slug: 'bogota', type: 'Localidades' },
+    'peru': { capital: 'Lima Metropolitana', divisionQuery: 'lima province', slug: 'lima', type: 'Distritos' },
+    'perú': { capital: 'Lima Metropolitana', divisionQuery: 'lima province', slug: 'lima', type: 'Distritos' },
+    'uruguay': { capital: 'Montevideo', divisionQuery: 'montevideo', slug: 'montevideo', type: 'Barrios' },
+    'brazil': { capital: 'Brasília', divisionQuery: 'distrito federal', slug: 'brasilia', type: 'Regiões Administrativas' },
+    'brasil': { capital: 'Brasília', divisionQuery: 'distrito federal', slug: 'brasilia', type: 'Regiões Administrativas' },
+    'ecuador': { capital: 'Quito', divisionQuery: 'pichincha', slug: 'quito', type: 'Parroquias' }
+  };
+
+  /**
+   * Obtiene la configuración de atajo a capital L2 para un país dado.
+   * @param {Object} country Objeto de país seleccionado
+   * @returns {Object|null}
+   */
+  function getCapitalShortcut(country) {
+    if (!country) return null;
+    const name = (country.name || '').toLowerCase().trim();
+    const nameEs = (country.name_es || '').toLowerCase().trim();
+    return COUNTRY_CAPITAL_SHORTCUTS[name] || COUNTRY_CAPITAL_SHORTCUTS[nameEs] || null;
+  }
+
   const InfoPanel = {
     panelEl: null,
     flagEl: null,
@@ -407,6 +436,8 @@
     badgeDivisionsEl: null,
     closeBtn: null,
     exploreBtn: null,
+    btnExploreCapital: null,
+    btnExploreCapitalText: null,
     btnOpenL2: null,
     btnBackDivision: null,
     btnBackCountry: null,
@@ -443,6 +474,8 @@
       this.emptyNoticeL2El = document.getElementById('panel-l2-empty-notice');
       this.closeBtn = document.getElementById('btn-close-panel');
       this.exploreBtn = document.getElementById('btn-explore-l1');
+      this.btnExploreCapital = document.getElementById('btn-explore-capital');
+      this.btnExploreCapitalText = document.getElementById('btn-explore-capital-text');
       this.btnOpenL2 = document.getElementById('btn-open-l2');
       this.btnBackDivision = document.getElementById('btn-back-division');
       this.btnBackCountry = document.getElementById('btn-back-country');
@@ -566,6 +599,65 @@
         });
       }
 
+      // Botón Atajo Ergonómico a Capital L2 (SPEC-13)
+      if (this.btnExploreCapital) {
+        this.btnExploreCapital.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const state = State.getState();
+          const country = state.selectedCountry;
+          if (!country) return;
+
+          const shortcut = getCapitalShortcut(country);
+          if (!shortcut) return;
+
+          // 1. Asegurar carga de divisiones L1 si no están en memoria
+          await WorldMap.loadSubdivisions();
+
+          // 2. Si estamos en L0, renderizar L1 primero para tener la capa base activa y atenuada
+          if (state.currentLevel === 0) {
+            await WorldMap.renderL1(country);
+          }
+
+          // 3. Localizar el feature de la capital dentro de las divisiones del país
+          const countryName = country.name || country.feature?.properties?.name;
+          const subdivisions = WorldMap.getSubdivisionsForCountry(countryName);
+          const targetQuery = shortcut.divisionQuery.toLowerCase();
+
+          let targetFeature = subdivisions.find(f => {
+            const fName = (f.properties?.name || '').toLowerCase();
+            return fName.includes(targetQuery) || targetQuery.includes(fName);
+          });
+
+          if (!targetFeature) {
+            const capQuery = shortcut.capital.toLowerCase();
+            targetFeature = subdivisions.find(f => {
+              const fName = (f.properties?.name || '').toLowerCase();
+              return fName.includes(capQuery) || capQuery.includes(fName) || fName.includes(shortcut.slug);
+            });
+          }
+
+          const divName = targetFeature?.properties?.name || shortcut.capital;
+          const rawType = targetFeature?.properties?.type || 'Distrito Federal';
+          const typeEs = formatDivisionType(rawType);
+          const meta = WorldMap.getSubdivisionMeta(countryName, divName) || {};
+          const population = meta.population || targetFeature?.properties?.population;
+
+          const divisionData = {
+            feature: targetFeature || null,
+            name: divName,
+            type: rawType,
+            type_es: typeEs,
+            population: population,
+            parentCountry: country,
+            isCapital: true
+          };
+
+          // 4. Sincronizar estado (seleccionar división y activar L2)
+          State.selectDivision(divisionData);
+          State.setLevel(2);
+        });
+      }
+
       // Tecla Escape secuencial: repliega de distrito a división, de división a mundo (SPEC-10)
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -641,6 +733,20 @@
           this.exploreBtn.title = 'Divisiones detalladas en proceso de digitalización';
           this.exploreBtn.style.opacity = '0.65';
           this.exploreBtn.style.cursor = 'not-allowed';
+        }
+      }
+
+      // Atajo ergonómico a Capital L2 (SPEC-13)
+      const shortcut = getCapitalShortcut(country);
+      if (this.btnExploreCapital) {
+        if (shortcut) {
+          this.btnExploreCapital.style.display = 'inline-flex';
+          if (this.btnExploreCapitalText) {
+            this.btnExploreCapitalText.textContent = `Ver Desglose de ${shortcut.capital} (L2)`;
+          }
+          this.btnExploreCapital.title = `Explorar desglose de ${shortcut.type} de ${shortcut.capital} (Nivel 2)`;
+        } else {
+          this.btnExploreCapital.style.display = 'none';
         }
       }
 
@@ -750,6 +856,7 @@
 
       // Botones de acción (SPEC-09: botón destacado "Abrir Ficha Local (Nivel 2)")
       if (this.exploreBtn) this.exploreBtn.style.display = 'none';
+      if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
       if (this.btnOpenL2) {
         this.btnOpenL2.style.display = 'inline-flex';
         this.btnOpenL2.innerHTML = '<span>📍</span><span>Abrir Ficha Local (Nivel 2)</span>';
@@ -836,6 +943,7 @@
 
       // Botones de acción (SPEC-10 & SPEC-12: retorno a la División y retorno al País)
       if (this.exploreBtn) this.exploreBtn.style.display = 'none';
+      if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
       if (this.btnOpenL2) this.btnOpenL2.style.display = 'none';
       if (this.btnBackDivision) {
         this.btnBackDivision.style.display = 'inline-flex';
@@ -886,6 +994,8 @@
       if (!this.panelEl) return;
       this.panelEl.classList.remove('panel-visible');
       this.panelEl.classList.add('panel-hidden');
+
+      if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
 
       // Restaurar Breadcrumb a Mundo
       if (this.crumbCountry) {
@@ -951,20 +1061,43 @@
           this.exploreBtn.disabled = true;
           this.exploreBtn.style.opacity = '0.75';
         }
+
+        // Atajo ergonómico a capital L2 (SPEC-13) accesible en L1
+        const shortcut = getCapitalShortcut(country);
+        if (this.btnExploreCapital) {
+          if (shortcut) {
+            this.btnExploreCapital.style.display = 'inline-flex';
+            if (this.btnExploreCapitalText) {
+              this.btnExploreCapitalText.textContent = `Ver Desglose de ${shortcut.capital} (L2)`;
+            }
+            this.btnExploreCapital.title = `Explorar desglose de ${shortcut.type} de ${shortcut.capital} (Nivel 2)`;
+          } else {
+            this.btnExploreCapital.style.display = 'none';
+          }
+        }
       } else if (level === 2 && country) {
         const flag = country.flag || '📍';
         const name = country.name_es || country.name || 'Territorio';
+        const state = State.getState();
+        const divName = state.selectedDivision?.name || 'Metrópoli';
 
         // Indicadores de nivel
-        if (this.levelText) this.levelText.textContent = `Nivel 2 · Cartografía Local (Distritos)`;
+        if (this.levelText) this.levelText.textContent = `Nivel 2 · Cartografía Local (${divName})`;
         if (this.brandTag) this.brandTag.textContent = 'L2 · Distritos';
         if (this.badgeLevelEl) this.badgeLevelEl.textContent = 'Nivel L2';
 
         // Acciones
         if (this.backBtn) this.backBtn.style.display = 'inline-flex';
-        if (this.btnBackDivision) this.btnBackDivision.style.display = 'inline-flex';
-        if (this.btnBackCountry) this.btnBackCountry.style.display = 'inline-flex';
+        if (this.btnBackDivision) {
+          this.btnBackDivision.style.display = 'inline-flex';
+          this.btnBackDivision.innerHTML = `<span>←</span><span>Volver a ${divName} (L1)</span>`;
+        }
+        if (this.btnBackCountry) {
+          this.btnBackCountry.style.display = 'inline-flex';
+          this.btnBackCountry.innerHTML = `<span>←</span><span>Volver a ${name} (L1)</span>`;
+        }
         if (this.btnOpenL2) this.btnOpenL2.style.display = 'none';
+        if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
       } else if (level === 0) {
         this.onReset();
       }
@@ -974,6 +1107,8 @@
      * Restablece completamente los controles e indicadores al estado inicial de L0 (Mundo).
      */
     onReset() {
+      if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
+
       // Breadcrumb a solo Mundo
       if (this.crumbWorld) this.crumbWorld.classList.add('active');
       if (this.crumbCountry) {
