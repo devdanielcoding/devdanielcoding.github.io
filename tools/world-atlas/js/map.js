@@ -112,7 +112,7 @@
     _setupZoom() {
       this.lastK = 1;
       this.zoomBehavior = d3.zoom()
-        .scaleExtent([0.85, 320])
+        .scaleExtent([0.85, 4000])
         .on('zoom', (event) => {
           this.zoomGroup.attr('transform', event.transform);
           if (State.labelsVisible) {
@@ -683,7 +683,33 @@
     },
 
     /**
-     * Evalúa si una entidad dispone de suficiente superficie en pantalla para proyectar su etiqueta (SPEC-16).
+     * Formatea el nombre de una entidad para su renderizado limpio en la capa de etiquetas fijas (SPEC-17).
+     * Extrae el identificador principal conciso y previene desbordamientos provocados por enumeraciones extensas.
+     * @param {string} rawName
+     * @returns {string}
+     */
+    _sanitizeLabelText(rawName) {
+      if (!rawName) return '';
+      const trimmed = String(rawName).trim();
+      // 1. Extraer nombre principal si contiene lista de barrios o aclaraciones entre paréntesis
+      // Ej: "Comuna 10 (Floresta - Monte Castro...)" -> "Comuna 10"
+      const matchParen = trimmed.match(/^([^(]+)\s*\(/);
+      if (matchParen && matchParen[1].trim().length >= 3) {
+        return matchParen[1].trim();
+      }
+      // 2. Si contiene delimitadores largos como " - " con más de 25 caracteres, tomar el primer segmento
+      if (trimmed.length > 25 && trimmed.includes(' - ')) {
+        return trimmed.split(' - ')[0].trim();
+      }
+      // 3. Truncado defensivo si aún supera los 24 caracteres en mapa fijo
+      if (trimmed.length > 24) {
+        return trimmed.slice(0, 22) + '…';
+      }
+      return trimmed;
+    },
+
+    /**
+     * Evalúa si una entidad dispone de suficiente superficie en pantalla para proyectar su etiqueta (SPEC-16 & SPEC-17).
      * @param {Object} feature Geometría GeoJSON
      * @param {number} currentK Factor de escala activo de D3 zoom
      * @param {number} level Nivel territorial (0: Mundo, 1: Subnacional, 2: Distrital)
@@ -699,14 +725,14 @@
         // Umbrales calibrados ergonómicamente por nivel:
         if (level === 0) return screenArea >= 60;   // L0 Mundo: países con área representativa
         if (level === 1) return screenArea >= 5.0;  // L1 Subnacional: oculta microdepartamentos congestionados (ej. Île-de-France)
-        return screenArea >= 35;                    // L2 Distrital: distritos legibles evitando solapamiento en microdistritos
+        return screenArea >= 25;                    // L2 Distrital: distritos y comunas legibles con zoom adecuado
       } catch {
         return false;
       }
     },
 
     /**
-     * Renderiza o actualiza la capa de etiquetas para el nivel territorial activo (SPEC-15 & SPEC-16).
+     * Renderiza o actualiza la capa de etiquetas para el nivel territorial activo (SPEC-15, SPEC-16 & SPEC-17).
      */
     renderLabelsForCurrentLevel() {
       if (!this.layers?.labels) return;
@@ -726,7 +752,7 @@
           candidates = districtPaths
             .filter(d => this._shouldDisplayLabel(d, currentK, 2))
             .map(d => ({
-              name: d.properties?.name || d.properties?.distrito || d.properties?.NAME || '',
+              name: this._sanitizeLabelText(d.properties?.name || d.properties?.distrito || d.properties?.NAME || ''),
               feature: d
             }));
         }
@@ -737,7 +763,7 @@
           candidates = subdivPaths
             .filter(d => this._shouldDisplayLabel(d, currentK, 1))
             .map(d => ({
-              name: d.properties?.name || d.properties?.NAME || '',
+              name: this._sanitizeLabelText(d.properties?.name || d.properties?.NAME || ''),
               feature: d
             }));
         }
@@ -747,7 +773,7 @@
         candidates = countryFeatures
           .filter(d => this._shouldDisplayLabel(d, currentK, 0))
           .map(d => ({
-            name: d.properties?.name || d.properties?.NAME || '',
+            name: this._sanitizeLabelText(d.properties?.name || d.properties?.NAME || ''),
             feature: d
           }));
       }
@@ -868,13 +894,16 @@
       const width = this.container.clientWidth || window.innerWidth;
       const height = this.container.clientHeight || window.innerHeight;
 
-      // SPEC-07, SPEC-10 & SPEC-12: Escala y traslación óptimas con padding del 20%
-      // Límites de escala: hasta 220 para distritos/comunas/ciudades locales (L2), hasta 12 para países/provincias
+      // SPEC-07, SPEC-10, SPEC-12 & SPEC-17: Escala y traslación óptimas con zoom adaptativo
+      // En L2, permitir hasta 3500 para micro-capitales y ciudades compactas (ej. CABA 203 km²)
       const isL2 = geoFeature.type === 'FeatureCollection' || 
+        (typeof State !== 'undefined' && State.getLevel && State.getLevel() === 2) ||
         ['distrito', 'comuna', 'localidad', 'barrio', 'regi', 'parroquia'].some(t => (geoFeature.properties?.type || '').toLowerCase().includes(t));
-      const maxScaleCeiling = isL2 ? 220 : 12;
+      const maxScaleCeiling = isL2 ? 3500 : 12;
+      const minScaleFloor = isL2 ? 8 : 1;
+      const paddingRatio = isL2 ? 0.70 : 0.80;
       const maxDimRatio = Math.max(dx / width, dy / height);
-      const scale = maxDimRatio > 0 ? Math.max(1, Math.min(maxScaleCeiling, 0.8 / maxDimRatio)) : 1;
+      const scale = maxDimRatio > 0 ? Math.max(minScaleFloor, Math.min(maxScaleCeiling, paddingRatio / maxDimRatio)) : 1;
       const translate = [width / 2 - scale * x, height / 2 - scale * y];
 
       const transform = d3.zoomIdentity
