@@ -214,6 +214,8 @@
           score = 40;
         } else if (item.normCapital.includes(q)) {
           score = 25;
+        } else if (q.includes(item.normCapital) && item.normCapital.length >= 3) {
+          score = 35;
         }
 
         if (score > 0) {

@@ -110,12 +110,24 @@
      * @private
      */
     _setupZoom() {
+      this.lastK = 1;
       this.zoomBehavior = d3.zoom()
         .scaleExtent([0.85, 320])
         .on('zoom', (event) => {
           this.zoomGroup.attr('transform', event.transform);
           if (State.labelsVisible) {
             this._updateLabelsScale(event.transform.k);
+            // Re-evaluar culling dinámico si la escala varió significativamente (> 35%)
+            if (Math.abs(event.transform.k - this.lastK) / this.lastK > 0.35) {
+              this.lastK = event.transform.k;
+              this.renderLabelsForCurrentLevel();
+            }
+          }
+        })
+        .on('end', (event) => {
+          if (State.labelsVisible && Math.abs(event.transform.k - this.lastK) > 0.05) {
+            this.lastK = event.transform.k;
+            this.renderLabelsForCurrentLevel();
           }
         });
 
@@ -671,7 +683,30 @@
     },
 
     /**
-     * Renderiza o actualiza la capa de etiquetas para el nivel territorial activo (SPEC-15).
+     * Evalúa si una entidad dispone de suficiente superficie en pantalla para proyectar su etiqueta (SPEC-16).
+     * @param {Object} feature Geometría GeoJSON
+     * @param {number} currentK Factor de escala activo de D3 zoom
+     * @param {number} level Nivel territorial (0: Mundo, 1: Subnacional, 2: Distrital)
+     * @returns {boolean}
+     */
+    _shouldDisplayLabel(feature, currentK, level) {
+      if (!feature) return false;
+      try {
+        const baseArea = this.pathGenerator.area(feature);
+        if (!baseArea || isNaN(baseArea) || baseArea <= 0) return false;
+        const screenArea = baseArea * (currentK * currentK);
+
+        // Umbrales calibrados ergonómicamente por nivel:
+        if (level === 0) return screenArea >= 60;   // L0 Mundo: países con área representativa
+        if (level === 1) return screenArea >= 5.0;  // L1 Subnacional: oculta microdepartamentos congestionados (ej. Île-de-France)
+        return screenArea >= 35;                    // L2 Distrital: distritos legibles evitando solapamiento en microdistritos
+      } catch {
+        return false;
+      }
+    },
+
+    /**
+     * Renderiza o actualiza la capa de etiquetas para el nivel territorial activo (SPEC-15 & SPEC-16).
      */
     renderLabelsForCurrentLevel() {
       if (!this.layers?.labels) return;
@@ -680,6 +715,7 @@
         return;
       }
 
+      const currentK = this.svg ? d3.zoomTransform(this.svg.node()).k : 1;
       const level = State.getLevel();
       let candidates = [];
 
@@ -687,31 +723,29 @@
         // Nivel 2: Distritos locales activos
         const districtPaths = this.layers.districts.selectAll('path.district-path').data();
         if (districtPaths && districtPaths.length > 0) {
-          candidates = districtPaths.map(d => ({
-            name: d.properties?.name || d.properties?.distrito || d.properties?.NAME || '',
-            feature: d
-          }));
+          candidates = districtPaths
+            .filter(d => this._shouldDisplayLabel(d, currentK, 2))
+            .map(d => ({
+              name: d.properties?.name || d.properties?.distrito || d.properties?.NAME || '',
+              feature: d
+            }));
         }
       } else if (level === 1) {
         // Nivel 1: Divisiones subnacionales (departamentos/provincias) activas
         const subdivPaths = this.layers.subdivisions.selectAll('path.division-path, path.subdivision-path').data();
         if (subdivPaths && subdivPaths.length > 0) {
-          candidates = subdivPaths.map(d => ({
-            name: d.properties?.name || d.properties?.NAME || '',
-            feature: d
-          }));
+          candidates = subdivPaths
+            .filter(d => this._shouldDisplayLabel(d, currentK, 1))
+            .map(d => ({
+              name: d.properties?.name || d.properties?.NAME || '',
+              feature: d
+            }));
         }
       } else {
         // Nivel 0: Países soberanos
         const countryFeatures = this.data.worldGeoJson?.features || [];
         candidates = countryFeatures
-          .filter(d => {
-            try {
-              return this.pathGenerator.area(d) > 65;
-            } catch {
-              return false;
-            }
-          })
+          .filter(d => this._shouldDisplayLabel(d, currentK, 0))
           .map(d => ({
             name: d.properties?.name || d.properties?.NAME || '',
             feature: d
@@ -756,7 +790,7 @@
         .text(d => d.name)
         .classed('visible', true);
 
-      this._updateLabelsScale();
+      this._updateLabelsScale(currentK);
     },
 
     /**
@@ -769,7 +803,7 @@
     },
 
     /**
-     * Ajusta el escalado tipográfico inverso de las etiquetas según el zoom activo (SPEC-15).
+     * Ajusta el escalado tipográfico inverso de las etiquetas según el zoom activo (SPEC-16).
      * @param {number} [k] Factor de escala activo de D3 zoom
      * @private
      */
@@ -778,8 +812,10 @@
       const currentK = k || (this.svg ? d3.zoomTransform(this.svg.node()).k : 1);
       const isMobile = window.innerWidth <= 768;
       const baseSize = isMobile ? 8.5 : 10.5;
-      const scaledSize = Math.max(0.7, baseSize / currentK);
-      const strokeWidth = Math.max(0.2, 2.5 / currentK);
+      
+      // SPEC-16: Escalado inverso estricto (1/k) sin clamping destructivo
+      const scaledSize = baseSize / currentK;
+      const strokeWidth = 2.0 / currentK;
 
       this.layers.labels.selectAll('text.map-label')
         .style('font-size', `${scaledSize}px`)
