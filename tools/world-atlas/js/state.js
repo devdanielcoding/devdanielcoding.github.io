@@ -21,6 +21,7 @@
     selectedDivision: null, // Objeto de división subnacional seleccionada o null
     selectedDistrict: null, // Objeto de distrito local seleccionado o null (SPEC-10)
     hoveredFeature: null, // Feature territorial actualmente bajo el puntero o null
+    labelsVisible: false, // SPEC-15: Capa de etiquetas territoriales (false: modo mapa mudo por defecto)
     listeners: [], // Lista de callbacks suscriptores
 
     /**
@@ -117,6 +118,27 @@
     },
 
     /**
+     * Alterna la visibilidad de la capa de etiquetas territoriales (SPEC-15).
+     * @returns {boolean}
+     */
+     toggleLabels() {
+      this.labelsVisible = !this.labelsVisible;
+      this._notify({ type: 'labelsChange', visible: this.labelsVisible });
+      return this.labelsVisible;
+    },
+
+    /**
+     * Define explícitamente la visibilidad de las etiquetas (SPEC-15).
+     * @param {boolean} visible 
+     */
+    setLabelsVisible(visible) {
+      const next = Boolean(visible);
+      if (this.labelsVisible === next) return;
+      this.labelsVisible = next;
+      this._notify({ type: 'labelsChange', visible: this.labelsVisible });
+    },
+
+    /**
      * Retorna una instantánea limpia del estado actual.
      * @returns {Object}
      */
@@ -126,7 +148,8 @@
         selectedCountry: this.selectedCountry,
         selectedDivision: this.selectedDivision,
         selectedDistrict: this.selectedDistrict,
-        hoveredFeature: this.hoveredFeature
+        hoveredFeature: this.hoveredFeature,
+        labelsVisible: this.labelsVisible
       };
     },
 

@@ -482,6 +482,42 @@ html, body {
   filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.6));
 }
 
+/* ==========================================================================
+   Capa de Etiquetas Territoriales Dinámicas (SPEC-15)
+   ========================================================================== */
+.labels-layer {
+  pointer-events: none;
+  user-select: none;
+}
+
+.map-label {
+  font-family: 'Space Grotesk', var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: #f8fafc;
+  stroke: rgba(11, 17, 32, 0.9);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  pointer-events: none;
+  user-select: none;
+  text-anchor: middle;
+  dominant-baseline: central;
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-label.visible {
+  opacity: 0.92;
+}
+
+@media (max-width: 768px) {
+  .map-label {
+    font-size: 8.5px;
+    stroke-width: 2px;
+  }
+}
+
 /* Atenuación de fondo en L1 y L2 (SPEC-08, SPEC-10) */
 #layer-countries.dimmed-layer,
 #layer-subdivisions.dimmed-layer {
@@ -892,6 +928,21 @@ html, body {
 
 .zoom-btn:active {
   background: rgba(255, 255, 255, 0.14);
+}
+
+.zoom-btn.active,
+#btn-toggle-labels.active {
+  background: var(--accent-cyan);
+  color: #0b1120;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.zoom-btn .btn-label-icon {
+  font-family: 'Space Grotesk', var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
 .zoom-divider {

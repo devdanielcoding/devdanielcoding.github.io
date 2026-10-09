@@ -30,7 +30,8 @@
       countries: null,
       subdivisions: null,
       districts: null,
-      highlights: null
+      highlights: null,
+      labels: null
     },
 
     // Cache de datos geográficos y metadatos
@@ -60,6 +61,7 @@
       this._setupZoom();
       this._setupResizeListener();
       this._setupControls();
+      this._setupLabelsSubscription();
 
       // Carga asíncrona de geometrías y metadatos
       await this.loadData();
@@ -96,6 +98,7 @@
       this.layers.subdivisions = this.zoomGroup.append('g').attr('id', 'layer-subdivisions');
       this.layers.districts = this.zoomGroup.append('g').attr('id', 'layer-districts');
       this.layers.highlights = this.zoomGroup.append('g').attr('id', 'layer-highlights');
+      this.layers.labels = this.zoomGroup.append('g').attr('id', 'layer-labels').attr('class', 'labels-layer');
 
       // Proyección base (Natural Earth 1: balanceada, estética y sin deformaciones polares extremas)
       this.projection = d3.geoNaturalEarth1();
@@ -111,6 +114,9 @@
         .scaleExtent([0.85, 320])
         .on('zoom', (event) => {
           this.zoomGroup.attr('transform', event.transform);
+          if (State.labelsVisible) {
+            this._updateLabelsScale(event.transform.k);
+          }
         });
 
       this.svg.call(this.zoomBehavior);
@@ -143,6 +149,14 @@
       if (btnZoomReset) {
         btnZoomReset.addEventListener('click', () => {
           this.resetZoom(400);
+        });
+      }
+
+      // SPEC-15: Botón de alternancia de etiquetas territoriales
+      const btnToggleLabels = document.getElementById('btn-toggle-labels');
+      if (btnToggleLabels) {
+        btnToggleLabels.addEventListener('click', () => {
+          State.toggleLabels();
         });
       }
     },
@@ -384,6 +398,9 @@
       }
 
       console.log(`[WorldMap] L1 renderizado con éxito: ${subdivisions.length} divisiones de "${countryName}".`);
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
+      }
       return { success: true, count: subdivisions.length, features: subdivisions };
     },
 
@@ -397,6 +414,9 @@
       }
       if (this.layers?.countries) {
         this.layers.countries.classed('dimmed-layer', false);
+      }
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
       }
     },
 
@@ -557,6 +577,9 @@
       }
 
       console.log(`[WorldMap] L2 renderizado con éxito: ${geojson.features.length} distritos en "${divName}".`);
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
+      }
       return { success: true, count: geojson.features.length, features: geojson.features };
     },
 
@@ -569,6 +592,9 @@
       }
       if (this.layers?.subdivisions) {
         this.layers.subdivisions.classed('dimmed-layer', false);
+      }
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
       }
     },
 
@@ -615,6 +641,149 @@
         .attr('d', this.pathGenerator);
 
       console.log(`[WorldMap] L0 renderizado exitosamente: ${countryFeatures.length} países cargados.`);
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
+      }
+    },
+
+    /**
+     * Suscripción reactiva para sincronizar la visibilidad de etiquetas y cambios de nivel (SPEC-15).
+     * @private
+     */
+    _setupLabelsSubscription() {
+      State.subscribe((state, event) => {
+        if (event.type === 'labelsChange') {
+          const btn = document.getElementById('btn-toggle-labels');
+          if (btn) btn.classList.toggle('active', event.visible);
+          if (event.visible) {
+            this.renderLabelsForCurrentLevel();
+          } else {
+            this.clearLabels();
+          }
+        } else if (event.type === 'levelChange' || event.type === 'reset') {
+          if (State.labelsVisible) {
+            setTimeout(() => this.renderLabelsForCurrentLevel(), 120);
+          } else {
+            this.clearLabels();
+          }
+        }
+      });
+    },
+
+    /**
+     * Renderiza o actualiza la capa de etiquetas para el nivel territorial activo (SPEC-15).
+     */
+    renderLabelsForCurrentLevel() {
+      if (!this.layers?.labels) return;
+      if (!State.labelsVisible) {
+        this.clearLabels();
+        return;
+      }
+
+      const level = State.getLevel();
+      let candidates = [];
+
+      if (level === 2) {
+        // Nivel 2: Distritos locales activos
+        const districtPaths = this.layers.districts.selectAll('path.district-path').data();
+        if (districtPaths && districtPaths.length > 0) {
+          candidates = districtPaths.map(d => ({
+            name: d.properties?.name || d.properties?.distrito || d.properties?.NAME || '',
+            feature: d
+          }));
+        }
+      } else if (level === 1) {
+        // Nivel 1: Divisiones subnacionales (departamentos/provincias) activas
+        const subdivPaths = this.layers.subdivisions.selectAll('path.division-path, path.subdivision-path').data();
+        if (subdivPaths && subdivPaths.length > 0) {
+          candidates = subdivPaths.map(d => ({
+            name: d.properties?.name || d.properties?.NAME || '',
+            feature: d
+          }));
+        }
+      } else {
+        // Nivel 0: Países soberanos
+        const countryFeatures = this.data.worldGeoJson?.features || [];
+        candidates = countryFeatures
+          .filter(d => {
+            try {
+              return this.pathGenerator.area(d) > 65;
+            } catch {
+              return false;
+            }
+          })
+          .map(d => ({
+            name: d.properties?.name || d.properties?.NAME || '',
+            feature: d
+          }));
+      }
+
+      // Calcular centroides proyectados
+      const labelItems = [];
+      for (const item of candidates) {
+        if (!item.feature || !item.name) continue;
+        try {
+          const centroid = this.pathGenerator.centroid(item.feature);
+          if (!centroid || isNaN(centroid[0]) || isNaN(centroid[1])) continue;
+          labelItems.push({
+            name: item.name,
+            x: centroid[0],
+            y: centroid[1]
+          });
+        } catch {
+          // Saltear geometrías con errores de cálculo
+        }
+      }
+
+      const selection = this.layers.labels
+        .selectAll('text.map-label')
+        .data(labelItems, d => d.name);
+
+      selection.exit().remove();
+
+      const enter = selection.enter()
+        .append('text')
+        .attr('class', 'map-label')
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'central')
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)
+        .text(d => d.name);
+
+      selection.merge(enter)
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)
+        .text(d => d.name)
+        .classed('visible', true);
+
+      this._updateLabelsScale();
+    },
+
+    /**
+     * Limpia la capa de etiquetas (SPEC-15).
+     */
+    clearLabels() {
+      if (this.layers?.labels) {
+        this.layers.labels.selectAll('*').remove();
+      }
+    },
+
+    /**
+     * Ajusta el escalado tipográfico inverso de las etiquetas según el zoom activo (SPEC-15).
+     * @param {number} [k] Factor de escala activo de D3 zoom
+     * @private
+     */
+    _updateLabelsScale(k) {
+      if (!this.layers?.labels) return;
+      const currentK = k || (this.svg ? d3.zoomTransform(this.svg.node()).k : 1);
+      const isMobile = window.innerWidth <= 768;
+      const baseSize = isMobile ? 8.5 : 10.5;
+      const scaledSize = Math.max(0.7, baseSize / currentK);
+      const strokeWidth = Math.max(0.2, 2.5 / currentK);
+
+      this.layers.labels.selectAll('text.map-label')
+        .style('font-size', `${scaledSize}px`)
+        .style('stroke-width', `${strokeWidth}px`);
     },
 
     /**
@@ -628,6 +797,9 @@
       this.layers.subdivisions.selectAll('path.subdivision-path, path.division-path').attr('d', this.pathGenerator);
       if (this.layers.districts) {
         this.layers.districts.selectAll('path.district-path').attr('d', this.pathGenerator);
+      }
+      if (State.labelsVisible) {
+        this.renderLabelsForCurrentLevel();
       }
     },
 
