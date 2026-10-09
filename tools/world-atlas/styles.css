@@ -552,6 +552,11 @@ html, body {
   pointer-events: auto;
 }
 
+/* Drag Handle Mobile oculto en Desktop (SPEC-14) */
+.panel-drag-handle {
+  display: none;
+}
+
 /* Header del Panel */
 .panel-header {
   position: relative;
@@ -958,6 +963,32 @@ html, body {
     display: none;
   }
 
+  /* SPEC-14: Drag Handle Mobile */
+  .panel-drag-handle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0 6px 0;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .panel-drag-handle .drag-pill {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .panel-drag-handle:active .drag-pill,
+  .panel-drag-handle:hover .drag-pill {
+    background: var(--color-cyan);
+    transform: scaleX(1.15);
+  }
+
   #info-panel {
     top: auto;
     bottom: 8px;
@@ -966,14 +997,46 @@ html, body {
     width: auto;
     max-width: none;
     max-height: 55vh;
+    transition: transform var(--transition-slow), max-height var(--transition-slow), opacity var(--transition-slow);
   }
 
   #info-panel.panel-hidden {
     transform: translateY(calc(100% + 16px));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   #info-panel.panel-visible {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* SPEC-14: Estado Peek en Mobile (~74px, solo cabecera) */
+  #info-panel.panel-visible.panel-peek {
+    max-height: 76px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  #info-panel.panel-visible.panel-peek .panel-header {
+    padding: 2px 14px 10px 14px;
+  }
+
+  #info-panel.panel-visible.panel-peek .panel-body,
+  #info-panel.panel-visible.panel-peek .panel-actions {
+    display: none !important;
+  }
+
+  /* SPEC-14: Estado Expandido en Mobile (hasta 70vh con scroll suave) */
+  #info-panel.panel-visible.panel-expanded {
+    max-height: 70vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
   }
 
   #zoom-controls {

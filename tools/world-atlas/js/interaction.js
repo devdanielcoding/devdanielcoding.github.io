@@ -452,11 +452,13 @@
     emptyNoticeL2El: null,
     levelText: null,
     brandTag: null,
+    dragHandle: null,
 
     init() {
       this.panelEl = document.getElementById('info-panel');
       if (!this.panelEl) return;
 
+      this.dragHandle = document.getElementById('panel-drag-handle');
       this.flagEl = document.getElementById('panel-flag');
       this.titleEl = document.getElementById('panel-title');
       this.subtitleEl = document.getElementById('panel-subtitle');
@@ -504,6 +506,52 @@
             State.selectDivision(null);
           } else {
             State.selectCountry(null);
+          }
+        });
+      }
+
+      // SPEC-14: Control táctil y drag handle para mobile
+      if (this.dragHandle) {
+        this.dragHandle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleMobilePanel();
+        });
+
+        this.dragHandle.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleMobilePanel();
+          }
+        });
+
+        let touchStartY = 0;
+        this.dragHandle.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length > 0) {
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        this.dragHandle.addEventListener('touchend', (e) => {
+          if (e.changedTouches && e.changedTouches.length > 0) {
+            const deltaY = e.changedTouches[0].clientY - touchStartY;
+            if (deltaY < -35) {
+              this.setMobilePanelState('expanded');
+            } else if (deltaY > 35) {
+              this.setMobilePanelState('peek');
+            }
+          }
+        }, { passive: true });
+      }
+
+      // Si el usuario toca la cabecera en estado peek (mobile), expandir
+      const panelHeaderEl = this.panelEl ? this.panelEl.querySelector('.panel-header') : null;
+      if (panelHeaderEl) {
+        panelHeaderEl.addEventListener('click', (e) => {
+          if (e.target.closest('#btn-close-panel')) return;
+          if (window.innerWidth <= 768 && this.panelEl && this.panelEl.classList.contains('panel-peek')) {
+            e.stopPropagation();
+            this.setMobilePanelState('expanded');
           }
         });
       }
@@ -677,6 +725,33 @@
       });
     },
 
+    /**
+     * Alterna entre estado peek y expandido en mobile (SPEC-14).
+     */
+    toggleMobilePanel() {
+      if (!this.panelEl) return;
+      if (this.panelEl.classList.contains('panel-expanded')) {
+        this.setMobilePanelState('peek');
+      } else {
+        this.setMobilePanelState('expanded');
+      }
+    },
+
+    /**
+     * Establece explícitamente el estado del panel en mobile (SPEC-14).
+     * @param {'peek'|'expanded'} state
+     */
+    setMobilePanelState(state) {
+      if (!this.panelEl) return;
+      if (state === 'peek') {
+        this.panelEl.classList.remove('panel-expanded');
+        this.panelEl.classList.add('panel-peek');
+      } else {
+        this.panelEl.classList.remove('panel-peek');
+        this.panelEl.classList.add('panel-expanded');
+      }
+    },
+
     show(country) {
       if (!this.panelEl || !country) return;
 
@@ -798,6 +873,11 @@
       // Apertura fluida
       this.panelEl.classList.remove('panel-hidden');
       this.panelEl.classList.add('panel-visible');
+      if (window.innerWidth <= 768) {
+        this.setMobilePanelState('peek');
+      } else {
+        this.panelEl.classList.remove('panel-peek', 'panel-expanded');
+      }
     },
 
     /**
@@ -891,6 +971,11 @@
       // Despliegue de panel
       this.panelEl.classList.remove('panel-hidden');
       this.panelEl.classList.add('panel-visible');
+      if (window.innerWidth <= 768) {
+        this.setMobilePanelState('peek');
+      } else {
+        this.panelEl.classList.remove('panel-peek', 'panel-expanded');
+      }
     },
 
     /**
@@ -979,6 +1064,11 @@
       // Despliegue de panel
       this.panelEl.classList.remove('panel-hidden');
       this.panelEl.classList.add('panel-visible');
+      if (window.innerWidth <= 768) {
+        this.setMobilePanelState('peek');
+      } else {
+        this.panelEl.classList.remove('panel-peek', 'panel-expanded');
+      }
     },
 
     /**
@@ -992,7 +1082,7 @@
 
     hide() {
       if (!this.panelEl) return;
-      this.panelEl.classList.remove('panel-visible');
+      this.panelEl.classList.remove('panel-visible', 'panel-peek', 'panel-expanded');
       this.panelEl.classList.add('panel-hidden');
 
       if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
