@@ -1716,7 +1716,7 @@
     "population": 5900000.0,
     "flag": "🇸🇬",
     "hasLevel1": false,
-    "divisionsCount": 1,
+    "divisionsCount": 55,
     "fact": "Ciudad-estado insular hiperconectada con una de las mayores coberturas de jardines verticales y conservación botánica urbana."
   },
   "Norway": {
@@ -1778,5 +1778,15 @@
     "hasLevel1": true,
     "divisionsCount": 19,
     "fact": "Ubicado en el Río de la Plata; más del 95% de su electricidad proviene de fuentes renovables (eólica, solar e hidroeléctrica)."
+  },
+  "Monaco": {
+    "name_es": "Mónaco",
+    "capital": "Mónaco",
+    "continent": "Europa",
+    "population": 39000,
+    "flag": "🇲🇨",
+    "hasLevel1": false,
+    "divisionsCount": 9,
+    "fact": "El segundo estado soberano más pequeño y con la mayor densidad de población del mundo, sede del circuito urbano de Montecarlo."
   }
 }

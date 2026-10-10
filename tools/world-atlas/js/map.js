@@ -596,7 +596,27 @@
       'la valeta': 'data/districts/la-valeta.geojson',
       'valletta': 'data/districts/la-valeta.geojson',
       'nicosia': 'data/districts/nicosia.geojson',
-      'lefkosia': 'data/districts/nicosia.geojson'
+      'lefkosia': 'data/districts/nicosia.geojson',
+
+      // Fase 4: Asia (6) + Mónaco (Microestado)
+      'singapur': 'data/districts/singapur.geojson',
+      'singapore': 'data/districts/singapur.geojson',
+      'monaco': 'data/districts/monaco.geojson',
+      'mónaco': 'data/districts/monaco.geojson',
+      'tokio': 'data/districts/tokio.geojson',
+      'tokyo': 'data/districts/tokio.geojson',
+      'tokubetsu-ku': 'data/districts/tokio.geojson',
+      'seul': 'data/districts/seul.geojson',
+      'seoul': 'data/districts/seul.geojson',
+      'pekin': 'data/districts/pekin.geojson',
+      'pekín': 'data/districts/pekin.geojson',
+      'beijing': 'data/districts/pekin.geojson',
+      'bangkok': 'data/districts/bangkok.geojson',
+      'bangkok metropolis': 'data/districts/bangkok.geojson',
+      'nueva-delhi': 'data/districts/nueva-delhi.geojson',
+      'nueva delhi': 'data/districts/nueva-delhi.geojson',
+      'new delhi': 'data/districts/nueva-delhi.geojson',
+      'delhi': 'data/districts/nueva-delhi.geojson'
     },
 
     /**

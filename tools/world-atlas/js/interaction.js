@@ -503,7 +503,22 @@
     'islandia': { capital: 'Reikiavik', divisionQuery: 'höfuðborgarsvæði', slug: 'reikiavik', type: 'Hverfi' },
     'malta': { capital: 'La Valeta', divisionQuery: 'valletta', slug: 'la-valeta', type: 'Local Councils' },
     'cyprus': { capital: 'Nicosia', divisionQuery: 'nicosia', slug: 'nicosia', type: 'Enories' },
-    'chipre': { capital: 'Nicosia', divisionQuery: 'nicosia', slug: 'nicosia', type: 'Enories' }
+    'chipre': { capital: 'Nicosia', divisionQuery: 'nicosia', slug: 'nicosia', type: 'Enories' },
+
+    // --- Fase 4: Asia & Mónaco (7) ---
+    'singapore': { capital: 'Singapur', divisionQuery: 'singapur', slug: 'singapur', type: 'Planning Areas' },
+    'singapur': { capital: 'Singapur', divisionQuery: 'singapur', slug: 'singapur', type: 'Planning Areas' },
+    'monaco': { capital: 'Mónaco', divisionQuery: 'monaco', slug: 'monaco', type: 'Quartiers' },
+    'mónaco': { capital: 'Mónaco', divisionQuery: 'monaco', slug: 'monaco', type: 'Quartiers' },
+    'japan': { capital: 'Tokio', divisionQuery: 'tokyo', slug: 'tokio', type: 'Barrios Especiales' },
+    'japón': { capital: 'Tokio', divisionQuery: 'tokyo', slug: 'tokio', type: 'Barrios Especiales' },
+    'japon': { capital: 'Tokio', divisionQuery: 'tokyo', slug: 'tokio', type: 'Barrios Especiales' },
+    'south korea': { capital: 'Seúl', divisionQuery: 'seoul', slug: 'seul', type: 'Distritos (Gu)' },
+    'corea del sur': { capital: 'Seúl', divisionQuery: 'seoul', slug: 'seul', type: 'Distritos (Gu)' },
+    'china': { capital: 'Pekín', divisionQuery: 'beijing', slug: 'pekin', type: 'Distritos Municipales' },
+    'thailand': { capital: 'Bangkok', divisionQuery: 'bangkok', slug: 'bangkok', type: 'Khets (Distritos)' },
+    'tailandia': { capital: 'Bangkok', divisionQuery: 'bangkok', slug: 'bangkok', type: 'Khets (Distritos)' },
+    'india': { capital: 'Nueva Delhi', divisionQuery: 'delhi', slug: 'nueva-delhi', type: 'Distritos' }
   };
 
   /**
