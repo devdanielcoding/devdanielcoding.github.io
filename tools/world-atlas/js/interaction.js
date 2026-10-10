@@ -398,6 +398,7 @@
    * Mapea país a los identificadores de división territorial en Natural Earth.
    */
   const COUNTRY_CAPITAL_SHORTCUTS = {
+    // --- Fase 1: América del Sur (7) ---
     'chile': { capital: 'Santiago', divisionQuery: 'región metropolitana de santiago', slug: 'santiago', type: 'Comunas' },
     'argentina': { capital: 'Buenos Aires (CABA)', divisionQuery: 'ciudad de buenos aires', slug: 'buenos-aires', type: 'Comunas' },
     'colombia': { capital: 'Bogotá D.C.', divisionQuery: 'bogota', slug: 'bogota', type: 'Localidades' },
@@ -406,7 +407,103 @@
     'uruguay': { capital: 'Montevideo', divisionQuery: 'montevideo', slug: 'montevideo', type: 'Barrios' },
     'brazil': { capital: 'Brasília', divisionQuery: 'distrito federal', slug: 'brasilia', type: 'Regiões Administrativas' },
     'brasil': { capital: 'Brasília', divisionQuery: 'distrito federal', slug: 'brasilia', type: 'Regiões Administrativas' },
-    'ecuador': { capital: 'Quito', divisionQuery: 'pichincha', slug: 'quito', type: 'Parroquias' }
+    'ecuador': { capital: 'Quito', divisionQuery: 'pichincha', slug: 'quito', type: 'Parroquias' },
+
+    // --- Fase 2: América del Norte, Central y Caribe (15 Graduadas SPEC-18/19) ---
+    'paraguay': { capital: 'Asunción', divisionQuery: 'asunción', slug: 'asuncion', type: 'Barrios' },
+    'venezuela': { capital: 'Caracas', divisionQuery: 'distrito capital', slug: 'caracas', type: 'Parroquias' },
+    'bolivia': { capital: 'La Paz', divisionQuery: 'la paz', slug: 'la-paz', type: 'Macrodistritos' },
+    'mexico': { capital: 'Ciudad de México', divisionQuery: 'distrito federal', slug: 'cdmx', type: 'Alcaldías' },
+    'méxico': { capital: 'Ciudad de México', divisionQuery: 'distrito federal', slug: 'cdmx', type: 'Alcaldías' },
+    'costa rica': { capital: 'San José', divisionQuery: 'san josé', slug: 'san-jose', type: 'Distritos' },
+    'panama': { capital: 'Ciudad de Panamá', divisionQuery: 'panama', slug: 'ciudad-de-panama', type: 'Corregimientos' },
+    'panamá': { capital: 'Ciudad de Panamá', divisionQuery: 'panama', slug: 'ciudad-de-panama', type: 'Corregimientos' },
+    'cuba': { capital: 'La Habana', divisionQuery: 'ciudad de la habana', slug: 'la-habana', type: 'Municipios' },
+    'dominican republic': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
+    'república dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
+    'republica dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
+    'guatemala': { capital: 'Ciudad de Guatemala', divisionQuery: 'guatemala', slug: 'ciudad-de-guatemala', type: 'Zonas' },
+    'el salvador': { capital: 'San Salvador', divisionQuery: 'san salvador', slug: 'san-salvador', type: 'Distritos' },
+    'honduras': { capital: 'Tegucigalpa', divisionQuery: 'francisco morazán', slug: 'tegucigalpa', type: 'Barrios y Colonias' },
+    'nicaragua': { capital: 'Managua', divisionQuery: 'managua', slug: 'managua', type: 'Distritos' },
+    'haiti': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Secciones Comunales' },
+    'haití': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Secciones Comunales' },
+    'united states': { capital: 'Washington D.C.', divisionQuery: 'district of columbia', slug: 'washington-dc', type: 'Wards' },
+    'estados unidos': { capital: 'Washington D.C.', divisionQuery: 'district of columbia', slug: 'washington-dc', type: 'Wards' },
+    'canada': { capital: 'Ottawa', divisionQuery: 'ontario', slug: 'ottawa', type: 'Wards' },
+    'canadá': { capital: 'Ottawa', divisionQuery: 'ontario', slug: 'ottawa', type: 'Wards' },
+
+    // --- Fase 3: Europa (35 Graduadas SPEC-18/19) ---
+    'spain': { capital: 'Madrid', divisionQuery: 'madrid', slug: 'madrid', type: 'Distritos' },
+    'españa': { capital: 'Madrid', divisionQuery: 'madrid', slug: 'madrid', type: 'Distritos' },
+    'france': { capital: 'París', divisionQuery: 'paris', slug: 'paris', type: 'Arrondissements' },
+    'francia': { capital: 'París', divisionQuery: 'paris', slug: 'paris', type: 'Arrondissements' },
+    'united kingdom': { capital: 'Londres', divisionQuery: 'westminster', slug: 'londres', type: 'Boroughs' },
+    'reino unido': { capital: 'Londres', divisionQuery: 'westminster', slug: 'londres', type: 'Boroughs' },
+    'germany': { capital: 'Berlín', divisionQuery: 'berlin', slug: 'berlin', type: 'Bezirke' },
+    'alemania': { capital: 'Berlín', divisionQuery: 'berlin', slug: 'berlin', type: 'Bezirke' },
+    'italy': { capital: 'Roma', divisionQuery: 'roma', slug: 'roma', type: 'Municipi' },
+    'italia': { capital: 'Roma', divisionQuery: 'roma', slug: 'roma', type: 'Municipi' },
+    'portugal': { capital: 'Lisboa', divisionQuery: 'lisboa', slug: 'lisboa', type: 'Freguesias' },
+    'netherlands': { capital: 'Ámsterdam', divisionQuery: 'noord-holland', slug: 'amsterdam', type: 'Stadsdelen' },
+    'países bajos': { capital: 'Ámsterdam', divisionQuery: 'noord-holland', slug: 'amsterdam', type: 'Stadsdelen' },
+    'paises bajos': { capital: 'Ámsterdam', divisionQuery: 'noord-holland', slug: 'amsterdam', type: 'Stadsdelen' },
+    'belgium': { capital: 'Bruselas', divisionQuery: 'brussels', slug: 'bruselas', type: 'Communes' },
+    'bélgica': { capital: 'Bruselas', divisionQuery: 'brussels', slug: 'bruselas', type: 'Communes' },
+    'belgica': { capital: 'Bruselas', divisionQuery: 'brussels', slug: 'bruselas', type: 'Communes' },
+    'austria': { capital: 'Viena', divisionQuery: 'wien', slug: 'viena', type: 'Bezirke' },
+    'ireland': { capital: 'Dublín', divisionQuery: 'dublin', slug: 'dublin', type: 'Distritos Postales' },
+    'irlanda': { capital: 'Dublín', divisionQuery: 'dublin', slug: 'dublin', type: 'Distritos Postales' },
+    'switzerland': { capital: 'Berna', divisionQuery: 'bern', slug: 'berna', type: 'Stadtteile' },
+    'suiza': { capital: 'Berna', divisionQuery: 'bern', slug: 'berna', type: 'Stadtteile' },
+    'denmark': { capital: 'Copenhague', divisionQuery: 'hovedstaden', slug: 'copenhague', type: 'Bydeler' },
+    'dinamarca': { capital: 'Copenhague', divisionQuery: 'hovedstaden', slug: 'copenhague', type: 'Bydeler' },
+    'norway': { capital: 'Oslo', divisionQuery: 'oslo', slug: 'oslo', type: 'Bydeler' },
+    'noruega': { capital: 'Oslo', divisionQuery: 'oslo', slug: 'oslo', type: 'Bydeler' },
+    'finland': { capital: 'Helsinki', divisionQuery: 'uusimaa', slug: 'helsinki', type: 'Kaupunginosat' },
+    'finlandia': { capital: 'Helsinki', divisionQuery: 'uusimaa', slug: 'helsinki', type: 'Kaupunginosat' },
+    'sweden': { capital: 'Estocolmo', divisionQuery: 'stockholm', slug: 'estocolmo', type: 'Stadsdelsområden' },
+    'suecia': { capital: 'Estocolmo', divisionQuery: 'stockholm', slug: 'estocolmo', type: 'Stadsdelsområden' },
+    'czech republic': { capital: 'Praga', divisionQuery: 'prague', slug: 'praga', type: 'Městské Části' },
+    'república checa': { capital: 'Praga', divisionQuery: 'prague', slug: 'praga', type: 'Městské Části' },
+    'republica checa': { capital: 'Praga', divisionQuery: 'prague', slug: 'praga', type: 'Městské Části' },
+    'poland': { capital: 'Varsovia', divisionQuery: 'masovian', slug: 'varsovia', type: 'Dzielnice' },
+    'polonia': { capital: 'Varsovia', divisionQuery: 'masovian', slug: 'varsovia', type: 'Dzielnice' },
+    'hungary': { capital: 'Budapest', divisionQuery: 'budapest', slug: 'budapest', type: 'Kerületek' },
+    'hungría': { capital: 'Budapest', divisionQuery: 'budapest', slug: 'budapest', type: 'Kerületek' },
+    'hungria': { capital: 'Budapest', divisionQuery: 'budapest', slug: 'budapest', type: 'Kerületek' },
+    'greece': { capital: 'Atenas', divisionQuery: 'attiki', slug: 'atenas', type: 'Diamerismata' },
+    'grecia': { capital: 'Atenas', divisionQuery: 'attiki', slug: 'atenas', type: 'Diamerismata' },
+    'romania': { capital: 'Bucarest', divisionQuery: 'bucharest', slug: 'bucarest', type: 'Sectoare' },
+    'rumania': { capital: 'Bucarest', divisionQuery: 'bucharest', slug: 'bucarest', type: 'Sectoare' },
+    'rumanía': { capital: 'Bucarest', divisionQuery: 'bucharest', slug: 'bucarest', type: 'Sectoare' },
+    'latvia': { capital: 'Riga', divisionQuery: 'riga', slug: 'riga', type: 'Apkaimes' },
+    'letonia': { capital: 'Riga', divisionQuery: 'riga', slug: 'riga', type: 'Apkaimes' },
+    'estonia': { capital: 'Tallin', divisionQuery: 'harju', slug: 'tallin', type: 'Linnaosad' },
+    'ukraine': { capital: 'Kiev', divisionQuery: 'kiev', slug: 'kiev', type: 'Raions' },
+    'ucrania': { capital: 'Kiev', divisionQuery: 'kiev', slug: 'kiev', type: 'Raions' },
+    'croatia': { capital: 'Zagreb', divisionQuery: 'grad zagreb', slug: 'zagreb', type: 'Gradske Četvrti' },
+    'croacia': { capital: 'Zagreb', divisionQuery: 'grad zagreb', slug: 'zagreb', type: 'Gradske Četvrti' },
+    'slovakia': { capital: 'Bratislava', divisionQuery: 'bratislavský', slug: 'bratislava', type: 'Mestské Části' },
+    'eslovaquia': { capital: 'Bratislava', divisionQuery: 'bratislavský', slug: 'bratislava', type: 'Mestské Části' },
+    'republic of serbia': { capital: 'Belgrado', divisionQuery: 'grad beograd', slug: 'belgrado', type: 'Opštine' },
+    'serbia': { capital: 'Belgrado', divisionQuery: 'grad beograd', slug: 'belgrado', type: 'Opštine' },
+    'bulgaria': { capital: 'Sofía', divisionQuery: 'sofia', slug: 'sofia', type: 'Rajoni' },
+    'bosnia and herzegovina': { capital: 'Sarajevo', divisionQuery: 'sarajevo', slug: 'sarajevo', type: 'Općine' },
+    'bosnia y herzegovina': { capital: 'Sarajevo', divisionQuery: 'sarajevo', slug: 'sarajevo', type: 'Općine' },
+    'macedonia': { capital: 'Skopie', divisionQuery: 'skopje', slug: 'skopie', type: 'Opštini' },
+    'macedonia del norte': { capital: 'Skopie', divisionQuery: 'skopje', slug: 'skopie', type: 'Opštini' },
+    'russia': { capital: 'Moscú', divisionQuery: 'moskva', slug: 'moscu', type: 'Rayons' },
+    'rusia': { capital: 'Moscú', divisionQuery: 'moskva', slug: 'moscu', type: 'Rayons' },
+    'lithuania': { capital: 'Vilna', divisionQuery: 'vilniaus', slug: 'vilna', type: 'Seniūnijos' },
+    'lituania': { capital: 'Vilna', divisionQuery: 'vilniaus', slug: 'vilna', type: 'Seniūnijos' },
+    'luxembourg': { capital: 'Luxemburgo', divisionQuery: 'luxembourg', slug: 'luxemburgo', type: 'Quartiers' },
+    'luxemburgo': { capital: 'Luxemburgo', divisionQuery: 'luxembourg', slug: 'luxemburgo', type: 'Quartiers' },
+    'iceland': { capital: 'Reikiavik', divisionQuery: 'höfuðborgarsvæði', slug: 'reikiavik', type: 'Hverfi' },
+    'islandia': { capital: 'Reikiavik', divisionQuery: 'höfuðborgarsvæði', slug: 'reikiavik', type: 'Hverfi' },
+    'malta': { capital: 'La Valeta', divisionQuery: 'valletta', slug: 'la-valeta', type: 'Local Councils' },
+    'cyprus': { capital: 'Nicosia', divisionQuery: 'nicosia', slug: 'nicosia', type: 'Enories' },
+    'chipre': { capital: 'Nicosia', divisionQuery: 'nicosia', slug: 'nicosia', type: 'Enories' }
   };
 
   /**
@@ -699,12 +796,17 @@
             type_es: typeEs,
             population: population,
             parentCountry: country,
-            isCapital: true
+            isCapital: true,
+            capitalSlug: shortcut.slug
           };
 
           // 4. Sincronizar estado (seleccionar división y activar L2)
           State.selectDivision(divisionData);
-          State.setLevel(2);
+          if (State.getLevel() === 2) {
+            WorldMap.renderL2(divisionData);
+          } else {
+            State.setLevel(2);
+          }
         });
       }
 
@@ -1263,6 +1365,7 @@
         if (event.type === 'countrySelect') {
           highlightSelectedDivision(null);
           highlightSelectedDistrict(null);
+          WorldMap.clearL2();
           if (event.country) {
             InfoPanel.show(event.country);
             highlightSelectedCountry(event.country.feature);
@@ -1276,6 +1379,7 @@
           } else {
             InfoPanel.hide();
             highlightSelectedCountry(null);
+            WorldMap.clearL2();
             if (state.currentLevel === 1) {
               WorldMap.clearL1();
             }

@@ -433,10 +433,10 @@
     },
 
     /**
-     * Catálogo indexado de datasets cartográficos de Nivel 2 ($O(1)$) (SPEC-12).
+     * Catálogo indexado de datasets cartográficos de Nivel 2 ($O(1)$) (SPEC-12 & SPEC-19).
      */
     capitalDatasets: {
-      // Fase 1: América del Sur
+      // Fase 1: América del Sur (7)
       'lima': 'data/districts/lima.geojson',
       'lima province': 'data/districts/lima.geojson',
       'lima department': 'data/districts/lima.geojson',
@@ -448,38 +448,185 @@
       'ciudad de buenos aires': 'data/districts/buenos-aires.geojson',
       'buenos aires': 'data/districts/buenos-aires.geojson',
       'caba': 'data/districts/buenos-aires.geojson',
+      'buenos-aires': 'data/districts/buenos-aires.geojson',
       'bogota': 'data/districts/bogota.geojson',
       'bogotá': 'data/districts/bogota.geojson',
       'bogota d.c.': 'data/districts/bogota.geojson',
-      'distrito capital': 'data/districts/bogota.geojson',
+      'distrito capital (colombia)': 'data/districts/bogota.geojson',
       'montevideo': 'data/districts/montevideo.geojson',
       'departamento de montevideo': 'data/districts/montevideo.geojson',
-      'distrito federal': 'data/districts/brasilia.geojson',
+      'distrito federal (brasil)': 'data/districts/brasilia.geojson',
+      'distrito federal (brazil)': 'data/districts/brasilia.geojson',
       'brasilia': 'data/districts/brasilia.geojson',
       'brasília': 'data/districts/brasilia.geojson',
       'quito': 'data/districts/quito.geojson',
-      'pichincha': 'data/districts/quito.geojson'
+      'pichincha': 'data/districts/quito.geojson',
+
+      // Fase 2: América del Norte, Central y Caribe (15 Graduadas SPEC-18/19)
+      'asuncion': 'data/districts/asuncion.geojson',
+      'asunción': 'data/districts/asuncion.geojson',
+      'caracas': 'data/districts/caracas.geojson',
+      'distrito capital (venezuela)': 'data/districts/caracas.geojson',
+      'distrito capital': 'data/districts/caracas.geojson',
+      'la-paz': 'data/districts/la-paz.geojson',
+      'la paz': 'data/districts/la-paz.geojson',
+      'cdmx': 'data/districts/cdmx.geojson',
+      'ciudad de méxico': 'data/districts/cdmx.geojson',
+      'ciudad de mexico': 'data/districts/cdmx.geojson',
+      'distrito federal (méxico)': 'data/districts/cdmx.geojson',
+      'distrito federal (mexico)': 'data/districts/cdmx.geojson',
+      'distrito federal': 'data/districts/cdmx.geojson',
+      'san-jose': 'data/districts/san-jose.geojson',
+      'san josé': 'data/districts/san-jose.geojson',
+      'san jose': 'data/districts/san-jose.geojson',
+      'ciudad-de-panama': 'data/districts/ciudad-de-panama.geojson',
+      'ciudad de panamá': 'data/districts/ciudad-de-panama.geojson',
+      'ciudad de panama': 'data/districts/ciudad-de-panama.geojson',
+      'panamá': 'data/districts/ciudad-de-panama.geojson',
+      'panama': 'data/districts/ciudad-de-panama.geojson',
+      'la-habana': 'data/districts/la-habana.geojson',
+      'la habana': 'data/districts/la-habana.geojson',
+      'ciudad de la habana': 'data/districts/la-habana.geojson',
+      'santo-domingo': 'data/districts/santo-domingo.geojson',
+      'santo domingo': 'data/districts/santo-domingo.geojson',
+      'distrito nacional': 'data/districts/santo-domingo.geojson',
+      'ciudad-de-guatemala': 'data/districts/ciudad-de-guatemala.geojson',
+      'ciudad de guatemala': 'data/districts/ciudad-de-guatemala.geojson',
+      'guatemala': 'data/districts/ciudad-de-guatemala.geojson',
+      'san-salvador': 'data/districts/san-salvador.geojson',
+      'san salvador': 'data/districts/san-salvador.geojson',
+      'tegucigalpa': 'data/districts/tegucigalpa.geojson',
+      'francisco morazán': 'data/districts/tegucigalpa.geojson',
+      'francisco morazan': 'data/districts/tegucigalpa.geojson',
+      'distrito central (honduras)': 'data/districts/tegucigalpa.geojson',
+      'managua': 'data/districts/managua.geojson',
+      'puerto-principe': 'data/districts/puerto-principe.geojson',
+      'puerto príncipe': 'data/districts/puerto-principe.geojson',
+      'port-au-prince': 'data/districts/puerto-principe.geojson',
+      'ouest': 'data/districts/puerto-principe.geojson',
+      'washington-dc': 'data/districts/washington-dc.geojson',
+      'washington d.c.': 'data/districts/washington-dc.geojson',
+      'district of columbia': 'data/districts/washington-dc.geojson',
+      'ottawa': 'data/districts/ottawa.geojson',
+      'ontario': 'data/districts/ottawa.geojson',
+
+      // Fase 3: Europa (35 Graduadas SPEC-18/19)
+      'madrid': 'data/districts/madrid.geojson',
+      'paris': 'data/districts/paris.geojson',
+      'parís': 'data/districts/paris.geojson',
+      'londres': 'data/districts/londres.geojson',
+      'london': 'data/districts/londres.geojson',
+      'greater london': 'data/districts/londres.geojson',
+      'westminster': 'data/districts/londres.geojson',
+      'berlin': 'data/districts/berlin.geojson',
+      'berlín': 'data/districts/berlin.geojson',
+      'roma': 'data/districts/roma.geojson',
+      'rome': 'data/districts/roma.geojson',
+      'lisboa': 'data/districts/lisboa.geojson',
+      'lisbon': 'data/districts/lisboa.geojson',
+      'amsterdam': 'data/districts/amsterdam.geojson',
+      'ámsterdam': 'data/districts/amsterdam.geojson',
+      'noord-holland': 'data/districts/amsterdam.geojson',
+      'bruselas': 'data/districts/bruselas.geojson',
+      'brussels': 'data/districts/bruselas.geojson',
+      'bruxelles': 'data/districts/bruselas.geojson',
+      'viena': 'data/districts/viena.geojson',
+      'vienna': 'data/districts/viena.geojson',
+      'wien': 'data/districts/viena.geojson',
+      'dublin': 'data/districts/dublin.geojson',
+      'dublín': 'data/districts/dublin.geojson',
+      'berna': 'data/districts/berna.geojson',
+      'bern': 'data/districts/berna.geojson',
+      'copenhague': 'data/districts/copenhague.geojson',
+      'copenhagen': 'data/districts/copenhague.geojson',
+      'hovedstaden': 'data/districts/copenhague.geojson',
+      'oslo': 'data/districts/oslo.geojson',
+      'helsinki': 'data/districts/helsinki.geojson',
+      'uusimaa': 'data/districts/helsinki.geojson',
+      'estocolmo': 'data/districts/estocolmo.geojson',
+      'stockholm': 'data/districts/estocolmo.geojson',
+      'praga': 'data/districts/praga.geojson',
+      'prague': 'data/districts/praga.geojson',
+      'praha': 'data/districts/praga.geojson',
+      'varsovia': 'data/districts/varsovia.geojson',
+      'warsaw': 'data/districts/varsovia.geojson',
+      'warszawa': 'data/districts/varsovia.geojson',
+      'masovian': 'data/districts/varsovia.geojson',
+      'mazowieckie': 'data/districts/varsovia.geojson',
+      'budapest': 'data/districts/budapest.geojson',
+      'atenas': 'data/districts/atenas.geojson',
+      'athens': 'data/districts/atenas.geojson',
+      'attiki': 'data/districts/atenas.geojson',
+      'bucarest': 'data/districts/bucarest.geojson',
+      'bucharest': 'data/districts/bucarest.geojson',
+      'bucurești': 'data/districts/bucarest.geojson',
+      'bucuresti': 'data/districts/bucarest.geojson',
+      'riga': 'data/districts/riga.geojson',
+      'tallin': 'data/districts/tallin.geojson',
+      'tallinn': 'data/districts/tallin.geojson',
+      'harju': 'data/districts/tallin.geojson',
+      'kiev': 'data/districts/kiev.geojson',
+      'kyiv': 'data/districts/kiev.geojson',
+      'kiev city': 'data/districts/kiev.geojson',
+      'zagreb': 'data/districts/zagreb.geojson',
+      'grad zagreb': 'data/districts/zagreb.geojson',
+      'bratislava': 'data/districts/bratislava.geojson',
+      'bratislavský': 'data/districts/bratislava.geojson',
+      'belgrado': 'data/districts/belgrado.geojson',
+      'beograd': 'data/districts/belgrado.geojson',
+      'grad beograd': 'data/districts/belgrado.geojson',
+      'sofia': 'data/districts/sofia.geojson',
+      'sofía': 'data/districts/sofia.geojson',
+      'sarajevo': 'data/districts/sarajevo.geojson',
+      'skopie': 'data/districts/skopie.geojson',
+      'skopje': 'data/districts/skopie.geojson',
+      'moscu': 'data/districts/moscu.geojson',
+      'moscú': 'data/districts/moscu.geojson',
+      'moscow': 'data/districts/moscu.geojson',
+      'moskva': 'data/districts/moscu.geojson',
+      'vilna': 'data/districts/vilna.geojson',
+      'vilnius': 'data/districts/vilna.geojson',
+      'vilniaus': 'data/districts/vilna.geojson',
+      'luxemburgo': 'data/districts/luxemburgo.geojson',
+      'luxembourg': 'data/districts/luxemburgo.geojson',
+      'reikiavik': 'data/districts/reikiavik.geojson',
+      'reykjavik': 'data/districts/reikiavik.geojson',
+      'höfuðborgarsvæði': 'data/districts/reikiavik.geojson',
+      'la-valeta': 'data/districts/la-valeta.geojson',
+      'la valeta': 'data/districts/la-valeta.geojson',
+      'valletta': 'data/districts/la-valeta.geojson',
+      'nicosia': 'data/districts/nicosia.geojson',
+      'lefkosia': 'data/districts/nicosia.geojson'
     },
 
     /**
      * Carga bajo demanda ($O(1)$) e indexa geometrías de Nivel 2 (SPEC-10 & SPEC-12).
      * @param {string} regionName Nombre de la división/departamento
+     * @param {string} [countryName=null] Nombre opcional del país para desambiguación compuesta
      * @returns {Promise<Object|null>} GeoJSON de distritos/comunas/localidades o null
      */
-    async loadDistricts(regionName) {
+    async loadDistricts(regionName, countryName = null) {
       if (!regionName) return null;
       const normalized = regionName.toLowerCase().trim();
+      const normCountry = (countryName || '').toLowerCase().trim();
+      const cacheKey = normCountry ? `${normalized}::${normCountry}` : normalized;
 
       if (!this.data.districtsCache) {
         this.data.districtsCache = {};
       }
 
-      if (this.data.districtsCache[normalized]) {
-        return this.data.districtsCache[normalized];
+      if (this.data.districtsCache[cacheKey]) {
+        return this.data.districtsCache[cacheKey];
       }
 
-      // 1. Identificar dataset por coincidencia exacta o por subcadena en el catálogo
-      let targetPath = this.capitalDatasets[normalized] || null;
+      // 1. Identificar dataset por coincidencia compuesta con país o coincidencia directa
+      let targetPath = null;
+      if (normCountry) {
+        targetPath = this.capitalDatasets[`${normalized} (${normCountry})`] || null;
+      }
+      if (!targetPath) {
+        targetPath = this.capitalDatasets[normalized] || null;
+      }
 
       if (!targetPath) {
         for (const [key, path] of Object.entries(this.capitalDatasets)) {
@@ -521,6 +668,7 @@
           });
         }
 
+        this.data.districtsCache[cacheKey] = geojson;
         this.data.districtsCache[normalized] = geojson;
         if (targetPath.includes('/')) {
           const slug = targetPath.split('/').pop().replace('.geojson', '');
@@ -546,7 +694,15 @@
       }
 
       const divName = division.name || division.feature?.properties?.name || '';
-      const geojson = await this.loadDistricts(divName);
+      const countryName = division.parentCountry?.name || division.parentCountry?.name_es || division.feature?.properties?.country || '';
+
+      let geojson = null;
+      if (division.capitalSlug && this.capitalDatasets[division.capitalSlug]) {
+        geojson = await this.loadDistricts(division.capitalSlug, countryName);
+      }
+      if (!geojson) {
+        geojson = await this.loadDistricts(divName, countryName);
+      }
 
       if (!geojson || !geojson.features || geojson.features.length === 0) {
         console.warn(`[WorldMap] No se encontraron geometrías L2 para "${divName}".`);

@@ -57,6 +57,7 @@
       this.selectedCountry = countryData;
       this.selectedDivision = null;
       this.selectedDistrict = null;
+      this.currentLevel = 0;
       this._notify({ type: 'countrySelect', country: this.selectedCountry });
     },
 
